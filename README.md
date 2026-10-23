@@ -1,6 +1,6 @@
 # Tanda / Fadu Print
 
-Prototipo navegable de impresión por tandas para la FADU. Es una demo mobile-first con estética **Papel & mandarina**, sin backend: los datos viven en el navegador y simulan los flujos de estudiante e imprenta.
+Prototipo navegable de impresión por tandas para la FADU.
 
 ## Stack
 
