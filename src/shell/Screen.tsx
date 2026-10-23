@@ -39,7 +39,12 @@ export function Screen({
   }, [location.pathname]);
 
   const handleBack = () => {
-    if (backTo) navigate(backTo);
+    const historyIndex = (window.history.state?.idx as number | undefined) ?? 0;
+    if (historyIndex > 0) {
+      navigate(-1);
+      return;
+    }
+    if (backTo) navigate(backTo, { replace: true });
     else navigate(-1);
   };
 
