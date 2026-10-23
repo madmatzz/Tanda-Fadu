@@ -322,7 +322,7 @@ export const orderSeed: Order[] = [
     id: "order-36",
     ticket: 36,
     localId: "local-el-poli",
-    owner: "Lucía Pérez",
+    owner: "Sofía",
     file: file("Entrega.pdf", 8),
     specs: basicSpecs(8),
     total: 800,
@@ -485,7 +485,7 @@ export const tandaSeed: Tanda[] = [
 ];
 
 export const initialState: DemoState = {
-  version: 1,
+  version: 2,
   role: "student",
   demoClock: DEMO_CLOCK,
   draft: {
