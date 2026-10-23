@@ -6,7 +6,6 @@ import {
   Layers,
   MapPin,
   Printer,
-  UserRound,
 } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
@@ -14,6 +13,7 @@ import { activeAlerts, activeUserOrder, localById, unreadAlerts, userOrders } fr
 import { ActionCard } from "../../components/ActionCard";
 import { AlertCard } from "../../components/AlertCard";
 import { Button } from "../../components/Button";
+import { Chip } from "../../components/Chip";
 import { EmptyState } from "../../components/EmptyState";
 import { FloatingOrderPill } from "../../components/FloatingOrderPill";
 import { IconButton } from "../../components/IconButton";
@@ -47,43 +47,30 @@ export function HomeScreen() {
     <>
       <Screen
         title="Fadu Print"
-        trailing="Inicio"
         actions={
-          <span className="relative">
-            <IconButton
-              label="Ver alertas"
-              icon={<Bell aria-hidden className="size-icon-lg" />}
-              onClick={() => navigate("/alertas")}
-            />
-            {pendingAlerts > 0 && (
-              <span className="absolute right-0 top-0 size-2 rounded-pill bg-accent ring-2 ring-bg" />
-            )}
-          </span>
+          <>
+            <span className="relative">
+              <IconButton
+                label="Ver alertas"
+                icon={<Bell aria-hidden className="size-icon-lg" />}
+                onClick={() => navigate("/alertas")}
+              />
+              {pendingAlerts > 0 && (
+                <span className="absolute right-0 top-0 size-2 rounded-pill bg-accent ring-2 ring-bg" />
+              )}
+            </span>
+            <Chip tone="neutral">Inicio</Chip>
+            <button
+              type="button"
+              aria-label="Mi perfil"
+              onClick={() => navigate("/perfil")}
+              className="rounded-pill transition hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              <Chip tone="accent">Mi perfil</Chip>
+            </button>
+          </>
         }
         backTo="/"
-        footer={
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between gap-2 text-caption text-text-muted">
-              <span>Locales en FADU · Ciudad Universitaria</span>
-              <button
-                type="button"
-                onClick={() => setDemoOpen(true)}
-                className="rounded-xs font-semibold text-text-secondary underline decoration-accent-border underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
-              >
-                Menú demo
-              </button>
-            </div>
-            <Button
-              variant="outline"
-              size="md"
-              fullWidth
-              icon={<UserRound aria-hidden className="size-icon" />}
-              onClick={() => navigate("/perfil")}
-            >
-              Mi perfil
-            </Button>
-          </div>
-        }
       >
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-3">
@@ -205,9 +192,18 @@ export function HomeScreen() {
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-2 border-t border-border-soft pt-3 text-caption text-text-muted">
+          <div className="flex flex-col gap-1 border-t border-border-soft pt-3 text-caption text-text-muted">
+            <div className="flex items-center justify-between gap-2">
+              <span>Locales en FADU · Ciudad Universitaria</span>
+              <button
+                type="button"
+                onClick={() => setDemoOpen(true)}
+                className="rounded-xs font-semibold text-text-secondary underline decoration-accent-border underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
+              >
+                Menú demo
+              </button>
+            </div>
             <span>Demo · miércoles 11:20</span>
-            <span>Datos ficticios</span>
           </div>
         </div>
       </Screen>
