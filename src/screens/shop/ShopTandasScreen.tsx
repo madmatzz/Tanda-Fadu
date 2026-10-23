@@ -7,6 +7,7 @@ import { Button } from "../../components/Button";
 import { Chip } from "../../components/Chip";
 import { PageTitle } from "../../components/PageTitle";
 import { TandaCard } from "../../components/TandaCard";
+import { elPoliLogoUrl } from "../../lib/assets";
 
 const PANEL_LOCAL_ID = "local-el-poli";
 
@@ -19,7 +20,7 @@ export function ShopTandasScreen() {
     <Screen
       title="Tandas"
       leading="logo"
-      logoSrc="/logo-elpoli.png"
+      logoSrc={elPoliLogoUrl}
       backTo="/imprenta"
       trailing="Imprenta"
       footer={

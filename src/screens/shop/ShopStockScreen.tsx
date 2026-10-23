@@ -8,6 +8,7 @@ import { CatalogChips } from "../../components/CatalogChips";
 import { PageTitle } from "../../components/PageTitle";
 import { SectionLabel } from "../../components/SectionLabel";
 import { StockRow } from "../../components/StockRow";
+import { elPoliLogoUrl } from "../../lib/assets";
 
 const PANEL_LOCAL_ID = "local-el-poli";
 
@@ -20,7 +21,7 @@ export function ShopStockScreen() {
     <Screen
       title="Stock"
       leading="logo"
-      logoSrc="/logo-elpoli.png"
+      logoSrc={elPoliLogoUrl}
       backTo="/imprenta"
       trailing="Imprenta"
       footer={

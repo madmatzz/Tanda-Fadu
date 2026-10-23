@@ -8,7 +8,7 @@ Prototipo navegable de impresión por tandas para la FADU.
 - Tailwind CSS 4
 - React Router 8
 - Datos demo persistidos en `localStorage`
-- Deploy estático en Vercel
+- Deploy estático en Vercel y GitHub Pages
 
 ## Correr el proyecto
 
@@ -82,11 +82,23 @@ npm run build
 
 La regla ESLint `tokens/no-raw-design-values` bloquea colores, píxeles, fuentes y valores arbitrarios de Tailwind fuera del sistema. La documentación completa está en `DESIGN.md` y la referencia navegable en `/design-system`.
 
+## Deploy en GitHub Pages
+
+El workflow `.github/workflows/deploy-pages.yml` compila con `GITHUB_PAGES=true`, genera `dist/404.html` y publica el resultado en la rama `gh-pages`. El `404.html` es necesario para que los deep links del SPA funcionen al recargar.
+
+1. Hacer push a `main`.
+2. Esperar a que termine **Deploy GitHub Pages** en la pestaña Actions.
+3. En GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch**.
+4. Elegir branch **gh-pages** y carpeta **/ (root)**. Guardar.
+5. La demo queda publicada en `https://madmatzz.github.io/Tanda-Fadu/`.
+
+Cada push a `main` actualiza la rama `gh-pages` automáticamente. El build local normal sigue usando `/`; el workflow es el que aplica el base `/Tanda-Fadu/` para Pages.
+
 ## Deploy en Vercel
 
 El repo ya incluye `vercel.json` con el rewrite SPA para que funcionen los deep links como `/locales/el-poli` o `/imprenta/tandas/tanda-1`.
 
-1. Subir el proyecto a GitHub (repo `tanda-fadu-print`).
+1. Subir el proyecto a GitHub (repo `Tanda-Fadu`).
 2. En Vercel: **Add New Project** → importar el repositorio.
 3. Framework: **Vite**; build: `npm run build`; output: `dist`.
 4. Deploy. Cada push a `main` publica y cada branch genera una preview.

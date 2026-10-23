@@ -11,6 +11,7 @@ import { LinkText } from "../components/LinkText";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { ProgressBar } from "../components/ProgressBar";
 import { SectionLabel } from "../components/SectionLabel";
+import { elPoliLogoUrl } from "../lib/assets";
 import { DocSection } from "./DocSection";
 import { DocNote } from "./DocNote";
 
@@ -155,7 +156,7 @@ function PrinterComposition() {
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <span className="flex size-logo items-center justify-center rounded-md border border-glass-border bg-surface p-1 shadow-soft">
-            <img src="/logo-elpoli.png" alt="" className="size-full object-contain" />
+            <img src={elPoliLogoUrl} alt="" className="size-full object-contain" />
           </span>
           <div className="flex flex-col">
             <span className="text-small font-semibold text-ink">El Poli</span>

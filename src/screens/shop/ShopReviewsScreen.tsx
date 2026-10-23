@@ -16,6 +16,7 @@ import { ProgressBar } from "../../components/ProgressBar";
 import { RatingStars } from "../../components/RatingStars";
 import { ReviewCard } from "../../components/ReviewCard";
 import { Textarea } from "../../components/Textarea";
+import { elPoliLogoUrl } from "../../lib/assets";
 
 const PANEL_LOCAL_ID = "local-el-poli";
 
@@ -54,7 +55,7 @@ export function ShopReviewsScreen() {
       <Screen
         title="Reseñas"
         leading="logo"
-        logoSrc="/logo-elpoli.png"
+        logoSrc={elPoliLogoUrl}
         backTo="/imprenta"
         trailing="Imprenta"
         footer={

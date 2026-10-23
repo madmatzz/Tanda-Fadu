@@ -31,6 +31,7 @@ import { Stepper } from "../components/Stepper";
 import { SegmentedControl } from "../components/SegmentedControl";
 import { RadioCard } from "../components/RadioCard";
 import { ErrorNote } from "../components/ErrorNote";
+import { elPoliLogoUrl } from "../lib/assets";
 import { DocSection } from "./DocSection";
 import { DocGroup } from "./DocGroup";
 import { DocNote } from "./DocNote";
@@ -71,7 +72,7 @@ export function NucleoSection() {
             <AppHeader title="Imprimir FADU" leading="back" trailing="Locales" />
           </div>
           <div className="overflow-hidden rounded-md border border-border-soft">
-            <AppHeader title="El Poli" leading="logo" logoSrc="/logo-elpoli.png" trailing="Tanda 1" />
+            <AppHeader title="El Poli" leading="logo" logoSrc={elPoliLogoUrl} trailing="Tanda 1" />
           </div>
         </div>
       </DocGroup>

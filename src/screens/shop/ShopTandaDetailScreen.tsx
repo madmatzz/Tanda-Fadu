@@ -14,6 +14,7 @@ import { PageTitle } from "../../components/PageTitle";
 import { PrinterTrayIllustration } from "../../components/PrinterTrayIllustration";
 import { ProgressBar } from "../../components/ProgressBar";
 import { SectionLabel } from "../../components/SectionLabel";
+import { elPoliLogoUrl } from "../../lib/assets";
 
 export function ShopTandaDetailScreen() {
   const { id = "" } = useParams();
@@ -26,7 +27,7 @@ export function ShopTandaDetailScreen() {
 
   if (!tanda) {
     return (
-      <Screen title="Tanda" leading="logo" logoSrc="/logo-elpoli.png" backTo="/imprenta/tandas" trailing="Imprenta">
+      <Screen title="Tanda" leading="logo" logoSrc={elPoliLogoUrl} backTo="/imprenta/tandas" trailing="Imprenta">
         <EmptyState
           icon={<Layers aria-hidden className="size-icon" />}
           title="No encontramos esa tanda"
@@ -55,7 +56,7 @@ export function ShopTandaDetailScreen() {
     <Screen
       title={tanda.label}
       leading="logo"
-      logoSrc="/logo-elpoli.png"
+      logoSrc={elPoliLogoUrl}
       backTo="/imprenta/tandas"
       trailing="Cola"
       footer={

@@ -35,6 +35,7 @@ import { ReviewComposer } from "../../components/ReviewComposer";
 import { SectionLabel } from "../../components/SectionLabel";
 import { AlertCard } from "../../components/AlertCard";
 import { BarChart } from "../../components/BarChart";
+import { elPoliLogoUrl } from "../../lib/assets";
 
 const hourLabels = ["08", "10", "12", "14", "16", "18", "20", "22"];
 
@@ -134,7 +135,7 @@ export function LocalProfileScreen() {
                 }`}
               >
                 {logoOnHero ? (
-                  <img src="/logo-elpoli.png" alt="" className="size-full object-contain" />
+                  <img src={elPoliLogoUrl} alt="" className="size-full object-contain" />
                 ) : (
                   <span className="text-h2 font-semibold">{local.initials}</span>
                 )}

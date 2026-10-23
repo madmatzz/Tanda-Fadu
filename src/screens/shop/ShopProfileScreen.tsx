@@ -12,6 +12,7 @@ import { PageTitle } from "../../components/PageTitle";
 import { RatingStars } from "../../components/RatingStars";
 import { TextInput } from "../../components/TextInput";
 import { Chip } from "../../components/Chip";
+import { elPoliLogoUrl } from "../../lib/assets";
 
 const PANEL_LOCAL_ID = "local-el-poli";
 
@@ -33,7 +34,7 @@ export function ShopProfileScreen() {
       <Screen
         title="Mi perfil"
         leading="logo"
-        logoSrc="/logo-elpoli.png"
+        logoSrc={elPoliLogoUrl}
         backTo="/imprenta"
         trailing="Imprenta"
         footer={
@@ -48,7 +49,7 @@ export function ShopProfileScreen() {
           <Card tone="sunrise">
             <div className="flex items-center gap-4">
               <span className="flex size-thumb shrink-0 items-center justify-center overflow-hidden rounded-lg border border-glass-border bg-surface p-1 shadow-soft">
-                <img src="/logo-elpoli.png" alt="" className="size-full object-contain" />
+                <img src={elPoliLogoUrl} alt="" className="size-full object-contain" />
               </span>
               <div className="flex min-w-0 flex-1 flex-col gap-1">
                 <p className="truncate text-h2 text-ink">{local.name}</p>

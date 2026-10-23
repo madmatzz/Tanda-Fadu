@@ -1,4 +1,5 @@
 import type { Local } from "../demo/types";
+import { elPoliLogoUrl } from "../lib/assets";
 import { cn } from "../lib/cn";
 
 interface LocalLogoProps {
@@ -28,7 +29,7 @@ export function LocalLogo({ local, size = "md" }: LocalLogoProps) {
       )}
     >
       {local.hasLogo ? (
-        <img src="/logo-elpoli.png" alt="" className="size-full object-contain" />
+        <img src={elPoliLogoUrl} alt="" className="size-full object-contain" />
       ) : (
         local.initials
       )}

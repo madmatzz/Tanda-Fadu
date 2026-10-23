@@ -28,6 +28,7 @@ import { ProgressBar } from "../../components/ProgressBar";
 import { ReviewCard } from "../../components/ReviewCard";
 import { SectionLabel } from "../../components/SectionLabel";
 import { IconButton } from "../../components/IconButton";
+import { elPoliLogoUrl } from "../../lib/assets";
 
 const PANEL_LOCAL_ID = "local-el-poli";
 
@@ -48,7 +49,7 @@ export function ShopHomeScreen() {
       <Screen
         title="El Poli"
         leading="logo"
-        logoSrc="/logo-elpoli.png"
+        logoSrc={elPoliLogoUrl}
         backTo="/imprenta"
         trailing="Imprenta"
         actions={
