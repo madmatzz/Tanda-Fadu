@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from "react-router";
 import { FileText, Layers } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import { demoFiles, fileFromUpload } from "../../demo/files";
 import { tandaById } from "../../demo/selectors";
 import { Button } from "../../components/Button";
@@ -20,7 +19,6 @@ export function UploadScreen() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const [guideOpen, setGuideOpen] = useState(false);
   const flow = searchParams.get("flujo") === "tanda" ? "tanda" : "print";
   const tandaId = searchParams.get("tanda");
@@ -37,7 +35,6 @@ export function UploadScreen() {
 
   const chooseFile = (nextFile: typeof demoFiles[number]) => {
     dispatch({ type: "SET_FILE", file: structuredClone(nextFile) });
-    showToast(`${nextFile.name} cargado. Podés verificar el archivo.`);
   };
 
   return (

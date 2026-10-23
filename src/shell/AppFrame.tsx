@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { RoleSwitch } from "./RoleSwitch";
 import { StatusBar } from "./StatusBar";
-import { ToastViewport } from "./ToastProvider";
 
 export function AppFrame({ children }: { children: ReactNode }) {
   return (
@@ -21,8 +20,6 @@ export function AppFrame({ children }: { children: ReactNode }) {
           </div>
 
           <div id="sheet-root" className="pointer-events-none absolute inset-0 z-50" />
-
-          <ToastViewport />
 
           <div
             aria-hidden

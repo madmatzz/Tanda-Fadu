@@ -10,7 +10,6 @@ import {
 import { Screen } from "../../shell/Screen";
 import { Sheet } from "../../shell/Sheet";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import {
   localAlerts,
   localByIdOrSlug,
@@ -43,7 +42,6 @@ export function LocalProfileScreen() {
   const { slug = "" } = useParams();
   const navigate = useNavigate();
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const local = localByIdOrSlug(state, slug);
   const [reportOpen, setReportOpen] = useState(false);
   const [reviewsOpen, setReviewsOpen] = useState(false);
@@ -101,7 +99,6 @@ export function LocalProfileScreen() {
     });
     setReviewsOpen(false);
     setWritingReview(false);
-    showToast("¡Gracias! Tu reseña ya está publicada en esta demo.");
   };
 
   return (
@@ -154,7 +151,6 @@ export function LocalProfileScreen() {
                     size="sm"
                     onClick={() => {
                       dispatch({ type: "TOGGLE_SAVED_LOCAL", localId: local.id });
-                      showToast(saved ? `${local.name} salió de guardados.` : `${local.name} está en guardados.`);
                     }}
                     icon={<Heart aria-hidden className={saved ? "size-icon fill-accent text-accent" : "size-icon"} />}
                   />

@@ -4,7 +4,6 @@ import { Star } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { Sheet } from "../../shell/Sheet";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import { localById, localReviews, ratingBreakdown } from "../../demo/selectors";
 import type { Review } from "../../demo/types";
 import { Button } from "../../components/Button";
@@ -23,7 +22,6 @@ const PANEL_LOCAL_ID = "local-el-poli";
 export function ShopReviewsScreen() {
   const navigate = useNavigate();
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const [filter, setFilter] = useState<"all" | "unanswered">("all");
   const [replying, setReplying] = useState<Review | null>(null);
   const [replyText, setReplyText] = useState("");
@@ -49,7 +47,6 @@ export function ShopReviewsScreen() {
     setReplying(null);
     setReplyText("");
     setError("");
-    showToast("Respuesta publicada. El estudiante la va a ver en el perfil del local.");
   };
 
   return (

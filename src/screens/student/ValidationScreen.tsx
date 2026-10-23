@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from "react-router";
 import { Upload } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import type { ValidationState } from "../../demo/types";
 import { Button } from "../../components/Button";
 import { EmptyState } from "../../components/EmptyState";
@@ -19,7 +18,6 @@ export function ValidationScreen() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const flow = searchParams.get("flujo") === "tanda" ? "tanda" : "print";
   const suffix = flow === "tanda" ? "?flujo=tanda" : "";
   const file = state.draft.file;
@@ -66,10 +64,6 @@ export function ValidationScreen() {
       state: nextState,
       progress: nextState === "conversion" ? 65 : undefined,
     });
-  };
-
-  const guide = () => {
-    showToast("Guía demo: PDF de 300 ppp, A4/A3 y fuentes incrustadas.");
   };
 
   const convertedName = file.name.replace(/\.docx?$/i, ".pdf");
@@ -150,9 +144,6 @@ export function ValidationScreen() {
             <LinkText size="small" onClick={() => dispatch({ type: "SET_FILE", file: null })}>
               Cancelar conversión
             </LinkText>
-            <LinkText size="small" onClick={guide}>
-              Guía para enviar archivos óptimos
-            </LinkText>
           </>
         ) : file.state === "rechazado" ? (
           <>
@@ -168,9 +159,6 @@ export function ValidationScreen() {
             </p>
             <LinkText size="small" onClick={() => navigate(`/imprimir/archivo${suffix}`)}>
               Subir un archivo corregido
-            </LinkText>
-            <LinkText size="small" onClick={guide}>
-              Guía para enviar archivos óptimos
             </LinkText>
           </>
         ) : (
@@ -195,9 +183,6 @@ export function ValidationScreen() {
                 ? "Se volvió a validar el archivo después de reemplazar las imágenes de baja resolución."
                 : "Texto e imágenes listos para imprimir. Ahora podés elegir el papel y la terminación."}
             </p>
-            <LinkText size="small" onClick={guide}>
-              Guía para enviar archivos óptimos
-            </LinkText>
           </>
         )}
       </div>

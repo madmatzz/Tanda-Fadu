@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from "react-router";
 import { Layers, Users } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import { localById, tandaCompatible } from "../../demo/selectors";
 import type { Tanda } from "../../demo/types";
 import { Button } from "../../components/Button";
@@ -18,7 +17,6 @@ export function TandasScreen() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const requested = searchParams.get("tanda");
   const initial =
     state.tandas.find((tanda) => tanda.id === requested) ??
@@ -27,7 +25,6 @@ export function TandasScreen() {
   const [selectedId, setSelectedId] = useState(initial?.id ?? "");
   const selected = state.tandas.find((tanda) => tanda.id === selectedId) ?? state.tandas[0];
   const openTandas = state.tandas.filter((tanda) => tanda.participants < tanda.capacity);
-  const compatible = selected ? tandaCompatible(selected, state.draft.specs) : false;
   const full = selected ? selected.participants >= selected.capacity : false;
 
   const join = (tanda: Tanda) => {
@@ -49,11 +46,7 @@ export function TandasScreen() {
           icon={<Layers aria-hidden className="size-icon" />}
           disabled={!selected || full}
           onClick={() => {
-            if (!selected) return;
-            if (state.draft.file && !compatible) {
-              showToast("Tu archivo no coincide con esta tanda. Podés ajustar las especificaciones.");
-            }
-            join(selected);
+            if (selected) join(selected);
           }}
         >
           {full ? "Tanda completa" : `Sumarme a ${selected?.label ?? "una tanda"}`}

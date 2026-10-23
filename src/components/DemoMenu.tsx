@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { Sheet } from "../shell/Sheet";
 import { useDemo } from "../demo/DemoProvider";
-import { useToast } from "../shell/ToastProvider";
 import { demoFiles } from "../demo/files";
 import { SectionLabel } from "../components/SectionLabel";
 import { Divider } from "../components/Divider";
@@ -57,7 +56,6 @@ function MenuRow({
 export function DemoMenu({ open, onClose }: DemoMenuProps) {
   const navigate = useNavigate();
   const { state, dispatch, resetDemo } = useDemo();
-  const { showToast } = useToast();
 
   const go = (path: string) => {
     onClose();
@@ -200,7 +198,6 @@ export function DemoMenu({ open, onClose }: DemoMenuProps) {
               resetDemo();
               onClose();
               navigate("/");
-              showToast("Demo reiniciada. Volvimos al estado inicial.");
             }}
           />
         </div>

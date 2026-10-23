@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router";
 import { DemoProvider, useDemo } from "./demo/DemoProvider";
-import { ToastProvider } from "./shell/ToastProvider";
 import { AppFrame } from "./shell/AppFrame";
 import { DesignSystemPage } from "./pages/DesignSystemPage";
 import { HomeScreen } from "./screens/student/HomeScreen";
@@ -77,12 +76,10 @@ export function App() {
   return (
     <BrowserRouter>
       <DemoProvider>
-        <ToastProvider>
-          <Routes>
-            <Route path="/design-system" element={<DesignSystemPage />} />
-            <Route path="*" element={<AppRoutes />} />
-          </Routes>
-        </ToastProvider>
+        <Routes>
+          <Route path="/design-system" element={<DesignSystemPage />} />
+          <Route path="*" element={<AppRoutes />} />
+        </Routes>
       </DemoProvider>
     </BrowserRouter>
   );

@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import { localById, userOrders } from "../../demo/selectors";
 import { DemoMenu } from "../../components/DemoMenu";
 import { Button } from "../../components/Button";
@@ -25,7 +24,6 @@ import { Divider } from "../../components/Divider";
 export function StudentProfileScreen() {
   const navigate = useNavigate();
   const { state, dispatch, resetDemo } = useDemo();
-  const { showToast } = useToast();
   const [demoOpen, setDemoOpen] = useState(false);
   const savedLocals = state.savedLocalIds
     .map((id) => localById(state, id))
@@ -161,7 +159,6 @@ export function StudentProfileScreen() {
                 icon={<RotateCcw aria-hidden className="size-icon" />}
                 onClick={() => {
                   resetDemo();
-                  showToast("Demo reiniciada. Volvimos al estado inicial.");
                 }}
               >
                 Reiniciar demo

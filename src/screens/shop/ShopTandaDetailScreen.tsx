@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router";
 import { Check, Clock, Files, Layers, Users } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import { tandaById, tandaOrders, localById } from "../../demo/selectors";
 import { clockLabel } from "../../demo/time";
 import { Button } from "../../components/Button";
@@ -20,7 +19,6 @@ export function ShopTandaDetailScreen() {
   const { id = "" } = useParams();
   const navigate = useNavigate();
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const [showAll, setShowAll] = useState(false);
   const tanda = tandaById(state, id);
   const local = tanda ? localById(state, tanda.localId) : undefined;
@@ -51,7 +49,6 @@ export function ShopTandaDetailScreen() {
 
   const confirmTanda = () => {
     dispatch({ type: "SHOP_CONFIRM_TANDA", tandaId: tanda.id });
-    showToast(`${tanda.label} confirmada. Los pedidos pasaron a impresos.`);
   };
 
   return (

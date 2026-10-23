@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { Local, QueueCrowd } from "../demo/types";
 import { useDemo } from "../demo/DemoProvider";
-import { useToast } from "../shell/ToastProvider";
 import { Sheet } from "../shell/Sheet";
 import { Button } from "../components/Button";
 import { RadioCard } from "../components/RadioCard";
@@ -16,7 +15,6 @@ interface ReportQueueSheetProps {
 
 export function ReportQueueSheet({ open, onClose, local }: ReportQueueSheetProps) {
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const [inQueue, setInQueue] = useState(true);
   const [crowd, setCrowd] = useState<QueueCrowd>("medium");
   const lastReport = state.lastQueueReport[local.id];
@@ -25,7 +23,6 @@ export function ReportQueueSheet({ open, onClose, local }: ReportQueueSheetProps
   const submit = () => {
     dispatch({ type: "REPORT_QUEUE", localId: local.id, crowd, inQueue });
     onClose();
-    showToast(`Gracias. Actualizamos la cola de ${local.name}.`);
   };
 
   return (

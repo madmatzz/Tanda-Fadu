@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import { localById } from "../../demo/selectors";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
@@ -15,7 +14,6 @@ const PANEL_LOCAL_ID = "local-el-poli";
 export function ShopStockScreen() {
   const navigate = useNavigate();
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const local = localById(state, PANEL_LOCAL_ID) ?? state.locals[0];
 
   return (
@@ -50,7 +48,6 @@ export function ShopStockScreen() {
                 level={local.stock[paperId]}
                 onChange={(level) => {
                   dispatch({ type: "SHOP_SET_STOCK", localId: local.id, paperId, level });
-                  showToast(`${paperId} actualizado. Ya se ve en la búsqueda de estudiantes.`);
                 }}
               />
             ))}

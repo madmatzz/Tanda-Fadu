@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { Layers, Upload } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import { localById, tandaCompatible } from "../../demo/selectors";
 import { estimateTotal } from "../../demo/pricing";
 import { Button } from "../../components/Button";
@@ -16,7 +15,6 @@ import { TandaCard } from "../../components/TandaCard";
 export function TandaMatchScreen() {
   const navigate = useNavigate();
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const file = state.draft.file;
   const compatible = state.tandas.filter((tanda) => tandaCompatible(tanda, state.draft.specs));
   const initial =
@@ -61,7 +59,6 @@ export function TandaMatchScreen() {
     const tanda = state.tandas.find((item) => item.id === tandaId);
     if (!tanda) return;
     if (!tandaCompatible(tanda, state.draft.specs)) {
-      showToast("Esa tanda no coincide con la configuración actual de tu archivo.");
       return;
     }
     setSelectedId(tanda.id);

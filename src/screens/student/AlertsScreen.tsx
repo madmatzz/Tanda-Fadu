@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { Bell, CheckCheck, Inbox } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import { activeAlerts, localById, unreadAlerts } from "../../demo/selectors";
 import type { AlertKind } from "../../demo/types";
 import { AlertCard } from "../../components/AlertCard";
@@ -25,7 +24,6 @@ const filters: Array<{ value: AlertKind | "all"; label: string }> = [
 export function AlertsScreen() {
   const navigate = useNavigate();
   const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
   const [filter, setFilter] = useState<AlertKind | "all">("all");
   const alerts = activeAlerts(state);
   const unread = unreadAlerts(state);
@@ -33,7 +31,6 @@ export function AlertsScreen() {
 
   const markAllRead = () => {
     dispatch({ type: "MARK_ALERTS_READ" });
-    showToast("Todos los avisos quedaron marcados como leídos.");
   };
 
   return (

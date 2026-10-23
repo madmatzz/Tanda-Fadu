@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { Clock, MapPin, RefreshCw } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import { localById, orderById } from "../../demo/selectors";
 import { estimateTotal, modeLabel, paperDisplay, specsSummary, statusLabels } from "../../demo/pricing";
 import { clockLabel, minutesAgoLabel } from "../../demo/time";
@@ -23,7 +22,6 @@ export function QueueScreen() {
   const { id = "" } = useParams();
   const navigate = useNavigate();
   const { state } = useDemo();
-  const { showToast } = useToast();
   const [reportOpen, setReportOpen] = useState(false);
   const order = orderById(state, id);
   const local = order ? localById(state, order.localId) : undefined;
@@ -103,17 +101,9 @@ export function QueueScreen() {
             </div>
           </Card>
 
-          <div className="flex items-center justify-between gap-2 text-caption text-text-muted">
-            <span>Actualizado {minutesAgoLabel(local.queue.updatedAt, state.demoClock)}</span>
-            <button
-              type="button"
-              onClick={() => showToast("La cola se actualizó con los últimos datos de la demo.")}
-              className="flex items-center gap-1 font-semibold text-accent-ink underline decoration-accent-border underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
-            >
-              <RefreshCw aria-hidden className="size-3" />
-              Actualizar
-            </button>
-          </div>
+          <p className="text-caption text-text-muted">
+            Actualizado {minutesAgoLabel(local.queue.updatedAt, state.demoClock)}
+          </p>
 
           <Card>
             <div className="flex flex-col gap-3">
