@@ -68,15 +68,11 @@ export function PrintIntroScreen() {
           Validá el archivo, compará las colas y retiralo en el local que elijas.
         </InfoCard>
 
-        <Button
-          variant="outline"
-          size="md"
-          fullWidth
-          icon={<MapPin aria-hidden className="size-icon" />}
-          onClick={() => navigate("/locales")}
-        >
-          Buscar local
-        </Button>
+        <div className="flex justify-center">
+          <LinkText size="small" onClick={() => navigate("/locales")}>
+            Buscar local
+          </LinkText>
+        </div>
 
         <Divider />
 
