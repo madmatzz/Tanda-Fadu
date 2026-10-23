@@ -38,7 +38,7 @@ export function SegmentedControl({ label, options, value, onChange, disabled = f
           <label
             key={option.value}
             className={cn(
-              "flex h-full flex-1 items-center justify-center rounded-pill text-small transition focus-within:outline-2 focus-within:outline-accent",
+              "flex h-full flex-1 items-center justify-center rounded-pill px-2 text-small whitespace-nowrap transition focus-within:outline-2 focus-within:outline-accent",
               disabled ? "cursor-not-allowed" : "cursor-pointer",
               checked && !disabled && "font-semibold",
               segmentClass(checked, disabled),

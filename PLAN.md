@@ -249,7 +249,7 @@ U1 Home
 
 ### Ajustes mínimos dentro de la estructura existente
 
-- **U1**: única modificación del header: campana con punto de no leídos → `/alertas`. “Ver todos” en “Últimos pedidos” → `/pedidos`; franja de aviso activo arriba de “Últimos pedidos”; footer con “Mi perfil” → `/perfil` y botón “Soy imprenta” → `/imprenta`. Si hay pedido en curso, aparece el pill flotante de U13.
+- **U1**: única modificación del header: campana con punto de no leídos → `/alertas`. “Ver todos” en “Últimos pedidos” → `/pedidos`; franja de aviso activo arriba de “Últimos pedidos”; footer con “Mi perfil” → `/perfil`. El cambio de rol vive fuera del dispositivo, en el control de demo. Si hay pedido en curso, aparece el pill flotante de U13.
 - **U15**: fila compacta de búsqueda/filtros arriba del mapa y acción “Comparar” → `/comparar`. La estructura del mapa y el sheet no cambia.
 - **U17**: link “Reportar cola” dentro de la card de concurrencia; “Escribir reseña” y “Ver todas las reseñas” en la sección de reviews; AlertBox con link a `/alertas`.
 - **U7**: ruta propia `/comparar`; chip de stock (“Papel OK” / “Stock bajo”) dentro de cada RadioCard. No cambia la estructura.
@@ -273,9 +273,8 @@ U1 Home
 
 ### Switch de vista
 
-- En el **footer de U1**: botón “Soy imprenta →” que navega a `/imprenta`.
-- En el **footer de I1**: botón “Ver como estudiante →” que navega a `/`.
-- En el **menú Demo** (M6): opción “Cambiar de vista”.
+- Fuera del dispositivo: switch de demo **Vista estudiante / Vista imprenta**, visible en desktop.
+- En mobile: el mismo cambio de vista se ofrece dentro del **Menú demo**.
 - El switch no altera la estructura del header ni agrega un tab bar.
 
 ### Navegación

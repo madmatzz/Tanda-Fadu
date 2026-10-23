@@ -6,7 +6,6 @@ import {
   Layers,
   MapPin,
   Printer,
-  Store,
   UserRound,
 } from "lucide-react";
 import { Screen } from "../../shell/Screen";
@@ -74,26 +73,15 @@ export function HomeScreen() {
                 Menú demo
               </button>
             </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="md"
-                fullWidth
-                icon={<UserRound aria-hidden className="size-icon" />}
-                onClick={() => navigate("/perfil")}
-              >
-                Mi perfil
-              </Button>
-              <Button
-                variant="primary"
-                size="md"
-                fullWidth
-                icon={<Store aria-hidden className="size-icon" />}
-                onClick={() => navigate("/imprenta")}
-              >
-                Soy imprenta
-              </Button>
-            </div>
+            <Button
+              variant="outline"
+              size="md"
+              fullWidth
+              icon={<UserRound aria-hidden className="size-icon" />}
+              onClick={() => navigate("/perfil")}
+            >
+              Mi perfil
+            </Button>
           </div>
         }
       >

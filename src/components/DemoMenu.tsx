@@ -97,11 +97,11 @@ export function DemoMenu({ open, onClose }: DemoMenuProps) {
           </p>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 sm:hidden">
           <SectionLabel>Cambiar de vista</SectionLabel>
           <MenuRow
             icon={<ArrowLeftRight aria-hidden className="size-icon" />}
-            label={state.role === "student" ? "Soy imprenta" : "Ver como estudiante"}
+            label={state.role === "student" ? "Vista imprenta" : "Vista estudiante"}
             meta={state.role === "student" ? "Panel de El Poli" : "Home de Fadu Print"}
             onClick={switchRole}
           />

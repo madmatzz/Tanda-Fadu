@@ -4,7 +4,6 @@ import {
   Bell,
   ClipboardList,
   FlaskConical,
-  GraduationCap,
   Layers,
   MapPin,
   Megaphone,
@@ -69,23 +68,9 @@ export function ShopHomeScreen() {
           />
         }
         footer={
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="md"
-              fullWidth
-              icon={<GraduationCap aria-hidden className="size-icon" />}
-              onClick={() => {
-                dispatch({ type: "SET_ROLE", role: "student" });
-                navigate("/");
-              }}
-            >
-              Ver estudiante
-            </Button>
-            <Button variant="primary" size="md" fullWidth onClick={() => navigate("/imprenta/perfil")}>
-              Mi perfil
-            </Button>
-          </div>
+          <Button variant="primary" size="lg" fullWidth onClick={() => navigate("/imprenta/perfil")}>
+            Mi perfil
+          </Button>
         }
       >
         <div className="flex flex-col gap-5">

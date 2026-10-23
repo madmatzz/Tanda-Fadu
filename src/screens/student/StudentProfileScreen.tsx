@@ -5,7 +5,6 @@ import {
   ChevronRight,
   Heart,
   RotateCcw,
-  Store,
   UserRound,
 } from "lucide-react";
 import { Screen } from "../../shell/Screen";
@@ -41,17 +40,6 @@ export function StudentProfileScreen() {
         leading="back"
         backTo="/"
         trailing="Perfil"
-        footer={
-          <Button
-            variant="primary"
-            size="lg"
-            fullWidth
-            icon={<Store aria-hidden className="size-icon" />}
-            onClick={() => navigate("/imprenta")}
-          >
-            Soy imprenta
-          </Button>
-        }
       >
         <div className="flex flex-col gap-6">
           <PageTitle title="Mi perfil" subtitle="Tus datos demo, locales guardados y preferencias." />
