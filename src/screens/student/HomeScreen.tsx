@@ -9,9 +9,8 @@ import {
 } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { activeAlerts, activeUserOrder, localById, unreadAlerts, userOrders } from "../../demo/selectors";
+import { activeUserOrder, localById, unreadAlerts, userOrders } from "../../demo/selectors";
 import { ActionCard } from "../../components/ActionCard";
-import { AlertCard } from "../../components/AlertCard";
 import { Button } from "../../components/Button";
 import { Chip } from "../../components/Chip";
 import { EmptyState } from "../../components/EmptyState";
@@ -40,7 +39,6 @@ export function HomeScreen() {
   const orders = userOrders(state);
   const active = activeUserOrder(state);
   const pendingAlerts = unreadAlerts(state);
-  const banner = activeAlerts(state)[0];
   const hotTandas = state.tandas.slice(0, 3);
 
   return (
@@ -96,22 +94,6 @@ export function HomeScreen() {
               />
             </div>
           </div>
-
-          {banner && (
-            <AlertCard
-              alert={banner}
-              local={banner.localId ? localById(state, banner.localId) : undefined}
-              compact
-              onOpen={
-                banner.localId
-                  ? () => {
-                      const local = localById(state, banner.localId!);
-                      if (local) navigate(`/locales/${local.slug}`);
-                    }
-                  : undefined
-              }
-            />
-          )}
 
           <section className="flex flex-col gap-3">
             <div className="flex items-end justify-between gap-2">
