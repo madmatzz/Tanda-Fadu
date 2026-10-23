@@ -4,7 +4,6 @@ import { DemoProvider, useDemo } from "./demo/DemoProvider";
 import { AppFrame } from "./shell/AppFrame";
 import { DesignSystemPage } from "./pages/DesignSystemPage";
 import { HomeScreen } from "./screens/student/HomeScreen";
-import { PrintIntroScreen } from "./screens/student/PrintIntroScreen";
 import { UploadScreen } from "./screens/student/UploadScreen";
 import { ValidationScreen } from "./screens/student/ValidationScreen";
 import { SpecsScreen } from "./screens/student/SpecsScreen";
@@ -28,6 +27,12 @@ import { ShopStockScreen } from "./screens/shop/ShopStockScreen";
 import { ShopReviewsScreen } from "./screens/shop/ShopReviewsScreen";
 import { ShopProfileScreen } from "./screens/shop/ShopProfileScreen";
 
+// La subida de archivo ahora vive en /imprimir; mantiene los links viejos funcionando.
+function LegacyUploadRedirect() {
+  const location = useLocation();
+  return <Navigate to={`/imprimir${location.search}`} replace />;
+}
+
 function AppRoutes() {
   const location = useLocation();
   const { dispatch } = useDemo();
@@ -43,8 +48,8 @@ function AppRoutes() {
     <AppFrame>
       <Routes>
         <Route path="/" element={<HomeScreen />} />
-        <Route path="/imprimir" element={<PrintIntroScreen />} />
-        <Route path="/imprimir/archivo" element={<UploadScreen />} />
+        <Route path="/imprimir" element={<UploadScreen />} />
+        <Route path="/imprimir/archivo" element={<LegacyUploadRedirect />} />
         <Route path="/imprimir/validacion" element={<ValidationScreen />} />
         <Route path="/imprimir/especificaciones" element={<SpecsScreen />} />
         <Route path="/imprimir/carrito" element={<CartScreen />} />

@@ -40,7 +40,7 @@ export function TandaMatchScreen() {
             size="lg"
             fullWidth
             icon={<Upload aria-hidden className="size-icon" />}
-            onClick={() => navigate("/imprimir/archivo?flujo=tanda")}
+            onClick={() => navigate("/imprimir?flujo=tanda")}
           >
             Subir archivo
           </Button>
@@ -69,7 +69,7 @@ export function TandaMatchScreen() {
     <Screen
       title="Tandas"
       leading="back"
-      backTo="/imprimir/carrito?flujo=tanda"
+      backTo="/imprimir/validacion?flujo=tanda"
       trailing="Coincidencia"
       footer={
         <div className="flex flex-col gap-2">

@@ -1,8 +1,17 @@
 import { BatteryFull, SignalHigh, Wifi } from "lucide-react";
+import { useLocation } from "react-router";
+import { cn } from "../lib/cn";
 
 export function StatusBar() {
+  // En el seguimiento del pedido la pantalla es un ticket: afuera del ticket va surface.
+  const onTicket = useLocation().pathname.endsWith("/cola");
   return (
-    <div className="sticky top-0 z-40 hidden h-14 shrink-0 items-center justify-between bg-bg px-gutter sm:flex">
+    <div
+      className={cn(
+        "sticky top-0 z-40 hidden h-14 shrink-0 items-center justify-between px-gutter sm:flex",
+        onTicket ? "bg-surface" : "bg-bg",
+      )}
+    >
       <span className="text-body-strong text-ink">9:41</span>
       <span
         aria-hidden

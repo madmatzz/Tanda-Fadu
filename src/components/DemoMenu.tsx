@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { Sheet } from "../shell/Sheet";
 import { useDemo } from "../demo/DemoProvider";
-import { demoFiles } from "../demo/files";
+import { demoFiles, validationOutcome } from "../demo/files";
 import { SectionLabel } from "../components/SectionLabel";
 import { Divider } from "../components/Divider";
 
@@ -64,11 +64,15 @@ export function DemoMenu({ open, onClose }: DemoMenuProps) {
 
   const loadValidation = (fileName: string) => {
     const file = structuredClone(demoFiles.find((item) => item.name === fileName) ?? demoFiles[0]);
+    const outcome = validationOutcome(file, { ...state.draft.specs, size: "A4", mode: "bn" });
     dispatch({ type: "SET_FILE", file });
+    dispatch({ type: "SET_SPECS", patch: { size: "A4", mode: "bn" } });
+    // El menú muestra la conversión ya en curso, sin pasar por "Ajustar".
+    const validation = outcome === "ajustable" ? "conversion" : outcome;
     dispatch({
       type: "SET_VALIDATION",
-      state: file.state,
-      progress: file.progress,
+      state: validation,
+      progress: validation === "conversion" ? 65 : undefined,
       convertedFrom: file.kind === "docx" ? file.name : undefined,
     });
     go("/imprimir/validacion");
@@ -118,13 +122,13 @@ export function DemoMenu({ open, onClose }: DemoMenuProps) {
           <MenuRow
             icon={<ListChecks aria-hidden className="size-icon" />}
             label="Archivo óptimo"
-            meta="Validación aprobada, lista para especificar"
+            meta="Validación aprobada para A4 · B&N"
             onClick={() => loadValidation("entrega_final.pdf")}
           />
           <MenuRow
             icon={<AlertTriangle aria-hidden className="size-icon" />}
             label="Archivo rechazado"
-            meta="Checklist con errores y conversión"
+            meta="Resolución insuficiente"
             onClick={() => loadValidation("foto-baja-res.jpg")}
           />
           <MenuRow

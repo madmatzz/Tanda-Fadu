@@ -3,7 +3,7 @@ import { Loader2 } from "lucide-react";
 import { cn } from "../lib/cn";
 
 export type ButtonVariant = "primary" | "accent" | "outline" | "warning" | "glass" | "soft";
-export type ButtonSize = "md" | "lg";
+export type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type" | "className"> {
   variant?: ButtonVariant;
@@ -19,6 +19,7 @@ const base =
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill border transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px";
 
 const sizeClass: Record<ButtonSize, string> = {
+  sm: "h-control-sm px-4 text-small font-semibold",
   md: "h-field px-card text-small font-semibold",
   lg: "h-cta px-6 text-body-strong",
 };

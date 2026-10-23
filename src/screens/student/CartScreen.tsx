@@ -28,7 +28,7 @@ export function CartScreen() {
       <Screen
         title="Imprimir FADU"
         leading="back"
-        backTo={`/imprimir/especificaciones${suffix}`}
+        backTo={`/imprimir${suffix}`}
         trailing="Pedido"
       >
         <EmptyState
@@ -36,7 +36,7 @@ export function CartScreen() {
           title="Tu carrito está vacío"
           description="Agregá un archivo para empezar el pedido."
           action={
-            <Button variant="accent" size="md" onClick={() => navigate(`/imprimir/archivo${suffix}`)}>
+            <Button variant="accent" size="md" onClick={() => navigate(`/imprimir${suffix}`)}>
               Subir archivo
             </Button>
           }
@@ -49,7 +49,7 @@ export function CartScreen() {
     <Screen
       title={flow === "tanda" ? "Tandas" : "Imprimir FADU"}
       leading="back"
-      backTo={`/imprimir/especificaciones${suffix}`}
+      backTo={`/imprimir/validacion${suffix}`}
       trailing="Pedido"
       footer={
         <Button
@@ -88,7 +88,7 @@ export function CartScreen() {
           size="md"
           fullWidth
           icon={<Plus aria-hidden className="size-icon" />}
-          onClick={() => navigate(`/imprimir/archivo${suffix}`)}
+          onClick={() => navigate(`/imprimir${suffix}`)}
         >
           Agregar otro archivo
         </Button>

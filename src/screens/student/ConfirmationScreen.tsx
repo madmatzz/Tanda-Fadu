@@ -2,8 +2,9 @@ import { useNavigate, useParams } from "react-router";
 import { CheckCircle2, Clock, ReceiptText } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { localById, orderById } from "../../demo/selectors";
-import { modeLabel, paperDisplay, paymentLabels, specsSummary } from "../../demo/pricing";
+import { localById, orderById, tandaById } from "../../demo/selectors";
+import { modeLabel, paperDisplay, paperLabels, paymentLabels, specsSummary } from "../../demo/pricing";
+import { Barcode } from "../../components/Barcode";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { Chip } from "../../components/Chip";
@@ -12,34 +13,6 @@ import { IconBox } from "../../components/IconBox";
 import { KeyValueRow } from "../../components/KeyValueRow";
 import { PageTitle } from "../../components/PageTitle";
 import { ReceiptTicket } from "../../components/ReceiptTicket";
-import { OrderStatusStepper } from "../../components/QueueVisualization";
-
-const barcodeHeights = [
-  "h-2",
-  "h-4",
-  "h-3",
-  "h-5",
-  "h-3",
-  "h-4",
-  "h-2",
-  "h-4",
-  "h-3",
-  "h-5",
-  "h-2",
-  "h-4",
-  "h-2",
-  "h-4",
-  "h-3",
-  "h-5",
-  "h-3",
-  "h-4",
-  "h-2",
-  "h-4",
-  "h-3",
-  "h-5",
-  "h-2",
-  "h-4",
-];
 
 export function ConfirmationScreen() {
   const { id = "" } = useParams();
@@ -47,6 +20,7 @@ export function ConfirmationScreen() {
   const { state } = useDemo();
   const order = orderById(state, id);
   const local = order ? localById(state, order.localId) : undefined;
+  const tanda = order?.tandaId ? tandaById(state, order.tandaId) : undefined;
 
   if (!order) {
     return (
@@ -97,17 +71,26 @@ export function ConfirmationScreen() {
           </Chip>
         </div>
 
-        <OrderStatusStepper completed={1} />
+        {tanda && (
+          <div className="flex flex-col items-center gap-1 rounded-lg border border-tanda bg-tanda p-card text-center text-surface shadow-soft">
+            <span className="text-label-caps uppercase opacity-90">
+              {tanda.size} · {modeLabel(tanda.mode)} · {paperLabels[tanda.paper]}
+            </span>
+            <span className="text-h2">¡Ingresaste en una tanda!</span>
+            <span className="text-small opacity-90">Tu pedido saldrá más rápido.</span>
+            <span className="text-caption opacity-80">
+              {tanda.label} · {tanda.participants} pedidos · cierra a las {tanda.closesAt} h
+            </span>
+          </div>
+        )}
+
 
         <ReceiptTicket>
           <div className="flex flex-col gap-3">
+            <span className="text-label-caps uppercase text-text-muted">Ticket digital</span>
             <div className="flex items-center justify-between gap-2">
-              <span className="text-label-caps uppercase text-text-muted">Ticket digital</span>
-              <Chip tone="accent">{paymentLabels[order.payment]}</Chip>
-            </div>
-            <div className="flex items-end justify-between gap-2">
               <span className="text-big-number text-ink">#{order.ticket}</span>
-              <span className="text-small text-text-secondary">{order.code}</span>
+              <Chip tone="accent">{paymentLabels[order.payment]}</Chip>
             </div>
             <div className="flex flex-col gap-2 border-t border-dashed border-border pt-3">
               <KeyValueRow label="Local" value={local?.name ?? "Local"} />
@@ -117,13 +100,11 @@ export function ConfirmationScreen() {
               <KeyValueRow label="Color" value={modeLabel(order.specs.mode)} />
               <KeyValueRow label="Total" value={`$${order.total}`} emphasis="strong" />
             </div>
-            <div
-              aria-hidden
-              className="flex h-8 items-end justify-center gap-0.5 border-t border-border-soft pt-2"
-            >
-              {barcodeHeights.map((heightClass, index) => (
-                <span key={index} className={`w-1 bg-ink ${heightClass}`} />
-              ))}
+            <div className="flex items-start gap-3 border-t border-border-soft pt-3">
+              <div className="min-w-0 flex-1">
+                <Barcode value={order.code} />
+              </div>
+              <span className="shrink-0 text-small text-text-secondary">{order.code}</span>
             </div>
           </div>
         </ReceiptTicket>

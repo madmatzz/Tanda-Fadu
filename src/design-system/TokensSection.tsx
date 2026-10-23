@@ -25,6 +25,7 @@ import {
 } from "./tokenClasses";
 
 const textSamples = {
+  ticket: "#36",
   display: "Tanda",
   hero: "Papel cálido",
   "big-number": "23",

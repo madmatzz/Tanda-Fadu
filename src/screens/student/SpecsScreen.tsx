@@ -1,24 +1,31 @@
 import { useNavigate, useSearchParams } from "react-router";
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import { AlertTriangle, ShieldCheck, Sparkles, Upload } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
 import { localById, specsStock } from "../../demo/selectors";
+import { countPages, fileMeta, fullRange, validationOutcome } from "../../demo/files";
 import {
+  averagePricePerPage,
+  averageTotal,
   estimateTotal,
   grammageOptions,
-  modeLabel,
+  mountOptions,
   paperDisplay,
   paperOptions,
   pricePerPage,
+  specialOptions,
 } from "../../demo/pricing";
-import type { Grammage, PaperKind } from "../../demo/types";
+import type { Grammage, PaperKind, SpecialId } from "../../demo/types";
 import { Button } from "../../components/Button";
-import { Chip } from "../../components/Chip";
+import { CheckCard } from "../../components/CheckCard";
 import { EmptyState } from "../../components/EmptyState";
+import { FileCard } from "../../components/FileCard";
 import { PageTitle } from "../../components/PageTitle";
+import { PriceSummary } from "../../components/PriceSummary";
 import { RadioCard } from "../../components/RadioCard";
 import { Select } from "../../components/Select";
 import { SegmentedControl } from "../../components/SegmentedControl";
+import { Stepper } from "../../components/Stepper";
 import { TextInput } from "../../components/TextInput";
 import { Textarea } from "../../components/Textarea";
 
@@ -30,9 +37,11 @@ export function SpecsScreen() {
   const suffix = flow === "tanda" ? "?flujo=tanda" : "";
   const file = state.draft.file;
   const specs = state.draft.specs;
-  const selectedLocal = localById(state, state.draft.localId ?? "local-el-poli") ?? state.locals[0];
-  const stock = specsStock(selectedLocal, specs);
-  const total = estimateTotal(specs, selectedLocal);
+  // El aviso de stock solo tiene sentido si el local ya está elegido (tanda o perfil de local).
+  const chosenLocal = state.draft.localId ? localById(state, state.draft.localId) : undefined;
+  // Precio: en tanda el local ya está fijo; si no, promedio entre locales.
+  const tandaLocal = flow === "tanda" ? chosenLocal : undefined;
+  const stock = chosenLocal ? specsStock(chosenLocal, specs) : "ok";
 
   if (!file) {
     return (
@@ -44,9 +53,9 @@ export function SpecsScreen() {
       >
         <EmptyState
           title="Falta tu archivo"
-          description="Subí un archivo y validalo antes de configurar la impresión."
+          description="Subí un archivo para configurar la impresión."
           action={
-            <Button variant="outline" size="md" onClick={() => navigate("/imprimir/archivo")}>
+            <Button variant="outline" size="md" onClick={() => navigate(`/imprimir${suffix}`)}>
               Subir archivo
             </Button>
           }
@@ -55,6 +64,24 @@ export function SpecsScreen() {
     );
   }
 
+  const range = specs.range ?? fullRange(file.pages);
+  const rangeValid = countPages(range, file.pages) !== null;
+  const total = tandaLocal ? estimateTotal(specs, tandaLocal) : averageTotal(specs, state.locals);
+  const specials = specs.specials ?? [];
+  const missingLabel = specials.includes("rotulado") && !specs.labelFile;
+
+  const toggleSpecial = (id: SpecialId, checked: boolean) => {
+    const next = checked ? [...specials, id] : specials.filter((item) => item !== id);
+    dispatch({
+      type: "SET_SPECS",
+      patch: {
+        specials: next,
+        ...(id === "montaje" && checked && !specs.mountMaterial ? { mountMaterial: "carton" as const } : {}),
+        ...(id === "rotulado" && !checked ? { labelFile: null } : {}),
+      },
+    });
+  };
+
   const choosePaper = (paper: PaperKind) => {
     dispatch({
       type: "SET_SPECS",
@@ -62,36 +89,77 @@ export function SpecsScreen() {
     });
   };
 
+  const changeRange = (value: string) => {
+    const pages = countPages(value, file.pages);
+    dispatch({ type: "SET_SPECS", patch: pages === null ? { range: value } : { range: value, pages } });
+  };
+
+  const validate = () => {
+    const outcome = validationOutcome(file, specs);
+    dispatch({ type: "SET_VALIDATION", state: outcome });
+    navigate(`/imprimir/validacion${suffix}`);
+  };
+
+  const removeFile = () => {
+    dispatch({ type: "SET_FILE", file: null });
+    navigate(`/imprimir${suffix}`, { replace: true });
+  };
+
   return (
     <Screen
       title={flow === "tanda" ? "Tandas" : "Imprimir FADU"}
       leading="back"
-      backTo={`/imprimir/validacion${suffix}`}
+      backTo={`/imprimir${suffix}`}
       trailing="Configuración"
       footer={
-        <Button
-          variant="primary"
-          size="lg"
-          fullWidth
-          icon={<ArrowRight aria-hidden className="size-icon" />}
-          onClick={() => navigate(`/imprimir/carrito${suffix}`)}
-        >
-          Agregar al carrito
-        </Button>
+        <div className="flex flex-col gap-2">
+          <PriceSummary
+            total={total}
+            source={tandaLocal ? `En ${tandaLocal.name}` : "Promedio entre locales"}
+            perPage={tandaLocal ? pricePerPage(specs, tandaLocal) : averagePricePerPage(specs, state.locals)}
+            specs={specs}
+          />
+          <Button
+            variant="primary"
+            size="lg"
+            fullWidth
+            disabled={!rangeValid || missingLabel}
+            icon={<ShieldCheck aria-hidden className="size-icon" />}
+            onClick={validate}
+          >
+            Validar archivo
+          </Button>
+        </div>
       }
     >
       <div className="flex flex-col gap-5">
+        <FileCard name={file.name} meta={fileMeta(file)} showIcon onRemove={removeFile} />
+
         <PageTitle
           title="Especificaciones"
-          subtitle={`${file.name} · ${file.pages} páginas · ${specs.copies} ${specs.copies === 1 ? "copia" : "copias"}`}
+          subtitle="Elegí cómo imprimirlo. Después validamos que el archivo sirva para eso."
         />
 
-        <TextInput
-          label="Páginas a imprimir"
-          value={`Todas (1–${file.pages})`}
-          readOnly
-          hint="En esta demo se imprimen todas las páginas del archivo."
-        />
+        <div className="grid grid-cols-2 gap-3">
+          <TextInput
+            label="Páginas"
+            value={range}
+            onChange={(event) => changeRange(event.target.value)}
+            inputMode="numeric"
+            error={rangeValid ? undefined : `Usá un rango entre 1 y ${file.pages}`}
+            hint={rangeValid ? `De ${file.pages} en total` : undefined}
+          />
+          <div className="flex flex-col gap-2">
+            <span className="text-small font-semibold text-ink">Copias</span>
+            <Stepper
+              label="Cantidad de copias"
+              value={specs.copies}
+              min={1}
+              max={20}
+              onChange={(copies) => dispatch({ type: "SET_SPECS", patch: { copies } })}
+            />
+          </div>
+        </div>
 
         <div className="grid grid-cols-2 gap-3">
           <Select
@@ -142,7 +210,7 @@ export function SpecsScreen() {
 
         <div className="flex flex-col gap-2">
           <span className="text-small font-semibold text-ink">Tipo de papel</span>
-          <div className="flex flex-col gap-2">
+          <div className="grid grid-cols-3 gap-2">
             {paperOptions.map((paper) => (
               <RadioCard
                 key={paper.value}
@@ -152,18 +220,95 @@ export function SpecsScreen() {
                 onChange={() => choosePaper(paper.value)}
                 title={paper.label}
                 description={paper.description}
+                size="sm"
               />
             ))}
           </div>
         </div>
 
-        {stock !== "ok" && (
+        <section className="flex flex-col gap-3 rounded-lg border border-accent-border bg-accent-soft p-3">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <Sparkles aria-hidden className="size-icon text-accent-ink" />
+            <span className="text-small font-semibold text-accent-ink">Pedidos especiales</span>
+            <span className="text-caption text-text-muted">Opcional · podés elegir varios</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {specialOptions.map((option) => (
+              <CheckCard
+                key={option.value}
+                value={option.value}
+                checked={specials.includes(option.value)}
+                onChange={(checked) => toggleSpecial(option.value, checked)}
+                title={option.label}
+                description={option.description}
+                note={option.price ? `+$${option.price}` : "Según material"}
+              />
+            ))}
+          </div>
+
+          {specials.includes("montaje") && (
+            <div className="flex flex-col gap-2 border-t border-accent-border pt-3">
+              <span className="text-small font-semibold text-ink">Material de montado</span>
+              <div className="grid grid-cols-3 gap-2">
+                {mountOptions.map((option) => (
+                  <RadioCard
+                    key={option.value}
+                    name="mount"
+                    value={option.value}
+                    checked={specs.mountMaterial === option.value}
+                    onChange={() => dispatch({ type: "SET_SPECS", patch: { mountMaterial: option.value } })}
+                    title={option.label}
+                    description={`+$${option.price}`}
+                    tone="accent"
+                    size="sm"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {specials.includes("rotulado") && (
+            <div className="flex flex-col gap-2 border-t border-accent-border pt-3">
+              <span className="text-small font-semibold text-ink">Archivo de rótulo</span>
+              {specs.labelFile ? (
+                <FileCard
+                  name={specs.labelFile}
+                  meta="Rótulo cargado"
+                  showIcon
+                  onRemove={() => dispatch({ type: "SET_SPECS", patch: { labelFile: null } })}
+                />
+              ) : (
+                <>
+                  <label className="inline-flex h-field w-full cursor-pointer items-center justify-center gap-2 rounded-pill border border-border bg-surface px-card text-small font-semibold text-ink shadow-soft transition hover:bg-surface-soft focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">
+                    <input
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      className="sr-only"
+                      onChange={(event) => {
+                        const selected = event.target.files?.[0];
+                        if (selected) dispatch({ type: "SET_SPECS", patch: { labelFile: selected.name } });
+                        event.target.value = "";
+                      }}
+                    />
+                    <Upload aria-hidden className="size-icon" />
+                    Subir rótulo
+                  </label>
+                  <span className="text-caption text-text-secondary">
+                    PDF o JPG con tus datos. Lo necesitamos para validar el pedido.
+                  </span>
+                </>
+              )}
+            </div>
+          )}
+        </section>
+
+        {chosenLocal && stock !== "ok" && (
           <div className="flex items-start gap-2 rounded-md border border-warning-border bg-warning-bg p-3 text-small text-warning">
             <AlertTriangle aria-hidden className="mt-0.5 size-icon shrink-0" />
             <span>
               {stock === "out"
-                ? `Sin stock de ${paperDisplay(specs)} en ${selectedLocal.name}. Podés elegir otro papel o local.`
-                : `Stock bajo de ${paperDisplay(specs)} en ${selectedLocal.name}. Confirmá antes de retirar.`}
+                ? `Sin stock de ${paperDisplay(specs)} en ${chosenLocal.name}. Podés elegir otro papel o local.`
+                : `Stock bajo de ${paperDisplay(specs)} en ${chosenLocal.name}. Confirmá antes de retirar.`}
             </span>
           </div>
         )}
@@ -175,13 +320,6 @@ export function SpecsScreen() {
           placeholder="Sin abrochar. Retiro por mostrador."
           maxLength={180}
         />
-
-        <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-border-soft bg-surface-soft p-3 text-small text-text-secondary">
-          <span>
-            Precio estimado: ${pricePerPage(specs, selectedLocal)} por página · {modeLabel(specs.mode)}
-          </span>
-          <Chip tone="accent">Total ${total}</Chip>
-        </div>
       </div>
     </Screen>
   );

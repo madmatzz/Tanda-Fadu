@@ -1,6 +1,8 @@
 import type {
   Grammage,
   Local,
+  MountMaterial,
+  SpecialId,
   PaperId,
   PaperKind,
   PaperSize,
@@ -17,6 +19,40 @@ export const paperOptions: Array<{ value: PaperKind; label: string; description:
   { value: "ilustracion", label: "Ilustración", description: "Acabado liso" },
   { value: "reciclado", label: "Reciclado", description: "Tono natural" },
 ];
+
+// Precios de referencia de la demo, por pedido (no por página).
+export const specialOptions: Array<{ value: SpecialId; label: string; description: string; price?: number }> = [
+  { value: "recorte", label: "Recorte de bordes", description: "Corte al ras", price: 400 },
+  { value: "montaje", label: "Montar entrega", description: "Sobre placa rígida" },
+  { value: "rotulado", label: "Rotulado", description: "Con tus datos", price: 300 },
+];
+
+export const mountOptions: Array<{ value: MountMaterial; label: string; description: string; price: number }> = [
+  { value: "carton", label: "Cartón montado", description: "Liviano", price: 1500 },
+  { value: "foamboard", label: "Foamboard 2 mm", description: "Rígido y prolijo", price: 2500 },
+  { value: "telgopor", label: "Telgopor", description: "Más grueso", price: 2000 },
+];
+
+export function specialsCost(specs: Pick<PrintSpecs, "specials" | "mountMaterial">): number {
+  return (specs.specials ?? []).reduce((acc, id) => {
+    if (id === "montaje") {
+      return acc + (mountOptions.find((option) => option.value === specs.mountMaterial)?.price ?? 0);
+    }
+    return acc + (specialOptions.find((option) => option.value === id)?.price ?? 0);
+  }, 0);
+}
+
+export function specialsLabel(specs: Pick<PrintSpecs, "specials" | "mountMaterial">): string {
+  return (specs.specials ?? [])
+    .map((id) => {
+      if (id === "montaje") {
+        const material = mountOptions.find((option) => option.value === specs.mountMaterial);
+        return material ? `Montaje: ${material.label}` : "Montaje";
+      }
+      return specialOptions.find((option) => option.value === id)?.label ?? id;
+    })
+    .join(" · ");
+}
 
 export const grammageOptions: Record<PaperKind, Grammage[]> = {
   obra: ["80", "120"],
@@ -116,8 +152,23 @@ export function pricePerPage(specs: PrintSpecs, local: Local): number {
 }
 
 export function estimateTotal(specs: PrintSpecs, local: Local): number {
-  const total = pricePerPage(specs, local) * specs.pages * specs.copies;
+  const total =
+    pricePerPage(specs, local) * specs.pages * specs.copies +
+    specialsCost(specs) * local.priceMultiplier;
   return Math.max(100, Math.round(total / 10) * 10);
+}
+
+/** Precio de referencia antes de elegir local: promedio entre todos los locales. */
+export function averageTotal(specs: PrintSpecs, locals: Local[]): number {
+  if (locals.length === 0) return 0;
+  const sum = locals.reduce((acc, local) => acc + estimateTotal(specs, local), 0);
+  return Math.round(sum / locals.length / 10) * 10;
+}
+
+export function averagePricePerPage(specs: PrintSpecs, locals: Local[]): number {
+  if (locals.length === 0) return 0;
+  const sum = locals.reduce((acc, local) => acc + pricePerPage(specs, local), 0);
+  return Math.round(sum / locals.length);
 }
 
 export function estimateFromValue(specs: PrintSpecs, multiplier: number): number {

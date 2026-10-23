@@ -2,15 +2,19 @@ import { Check } from "lucide-react";
 import { ErrorNote } from "./ErrorNote";
 
 export interface ValidationItemProps {
-  status: "ok" | "error" | "running" | "pending";
+  status: "ok" | "error" | "warning" | "running" | "pending";
   label: string;
   value?: string;
   detail?: string;
 }
 
 export function ValidationItem({ status, label, value, detail }: ValidationItemProps) {
-  if (status === "error") {
-    return <ErrorNote title={label}>{detail}</ErrorNote>;
+  if (status === "error" || status === "warning") {
+    return (
+      <ErrorNote title={label} tone={status === "warning" ? "warning" : "danger"}>
+        {detail}
+      </ErrorNote>
+    );
   }
 
   if (status === "ok") {

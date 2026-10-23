@@ -36,6 +36,9 @@ export const colorClass = {
   "sun-1": "bg-sun-1",
   "sun-2": "bg-sun-2",
   "sun-3": "bg-sun-3",
+  tanda: "bg-tanda",
+  "tanda-soft": "bg-tanda-soft",
+  "tanda-border": "bg-tanda-border",
   success: "bg-success",
   "success-soft": "bg-success-soft",
   "success-border": "bg-success-border",
@@ -52,6 +55,7 @@ export const colorClass = {
 } as const satisfies Record<ColorToken, string>;
 
 export const textClass = {
+  ticket: "text-ticket",
   display: "text-display",
   hero: "text-hero",
   "big-number": "text-big-number",
@@ -105,6 +109,8 @@ export const spacingClass = {
   "control-sm": "w-control-sm",
   thumb: "w-thumb",
   dock: "w-dock",
+  "figure-torso": "h-figure-torso",
+  "figure-legs": "h-figure-legs",
   orb: "w-orb",
   "island-w": "w-island-w",
   "island-h": "h-island-h",

@@ -29,7 +29,7 @@ export function TandasScreen() {
 
   const join = (tanda: Tanda) => {
     dispatch({ type: "SELECT_TANDA", tandaId: tanda.id });
-    navigate(`/imprimir/archivo?flujo=tanda&tanda=${tanda.id}`);
+    navigate(`/imprimir?flujo=tanda&tanda=${tanda.id}`);
   };
 
   return (

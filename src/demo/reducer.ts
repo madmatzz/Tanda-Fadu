@@ -1,5 +1,6 @@
 import { addMinutes } from "./time";
 import { estimateTotal } from "./pricing";
+import { fullRange } from "./files";
 import { initialState, defaultSpecs } from "./seed";
 import type {
   DemoFile,
@@ -12,6 +13,7 @@ import type {
   QueueCrowd,
   Review,
   Role,
+  SavedCard,
   StockLevel,
   ValidationState,
 } from "./types";
@@ -27,6 +29,7 @@ export type DemoAction =
   | { type: "SELECT_LOCAL"; localId: string | null }
   | { type: "SELECT_TANDA"; tandaId: string | null }
   | { type: "SET_PAYMENT"; payment: PaymentMethod | null }
+  | { type: "SAVE_CARD"; card: SavedCard }
   | { type: "CONFIRM_ORDER"; id: string }
   | { type: "REPORT_QUEUE"; localId: string; crowd: QueueCrowd; inQueue: boolean }
   | { type: "SHOP_ADVANCE_ORDER"; orderId: string }
@@ -75,7 +78,7 @@ export function demoReducer(state: DemoState, action: DemoAction): DemoState {
           ...state.draft,
           file: action.file,
           specs: action.file
-            ? { ...state.draft.specs, pages: action.file.pages }
+            ? { ...state.draft.specs, pages: action.file.pages, range: fullRange(action.file.pages) }
             : state.draft.specs,
         },
       };
@@ -121,6 +124,9 @@ export function demoReducer(state: DemoState, action: DemoAction): DemoState {
 
     case "SET_PAYMENT":
       return { ...state, draft: { ...state.draft, payment: action.payment } };
+
+    case "SAVE_CARD":
+      return { ...state, savedCard: action.card };
 
     case "CONFIRM_ORDER": {
       if (!state.draft.file) return state;

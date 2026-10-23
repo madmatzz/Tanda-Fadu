@@ -1,4 +1,5 @@
-import { Check, Printer, UserRound } from "lucide-react";
+import type { ReactNode } from "react";
+import { Check, Printer } from "lucide-react";
 import { cn } from "../lib/cn";
 
 export function SegmentedProgress({
@@ -15,12 +16,13 @@ export function SegmentedProgress({
   ];
   return (
     <div className="flex flex-col gap-2" role="img" aria-label={`Estado: ${labels[stage]}`}>
-      <div className="flex gap-2">
+      <div className="grid grid-cols-3 gap-2">
         {fill.map((className, index) => (
-          <span key={labels[index]} className={cn("h-2 flex-1 rounded-pill", className)} />
+          <span key={labels[index]} className={cn("h-2 rounded-pill", className)} />
         ))}
       </div>
-      <div className="flex justify-between gap-2">
+      {/* Misma grilla que las barras: cada etiqueta arranca donde arranca su barra. */}
+      <div className="grid grid-cols-3 gap-2">
         {labels.map((label, index) => (
           <span
             key={label}
@@ -82,76 +84,120 @@ export function OrderStatusStepper({ completed = 1 }: { completed?: 0 | 1 | 2 | 
   );
 }
 
-function PersonFigure({
-  color,
-  highlight = false,
-}: {
-  color: "muted" | "ink" | "accent";
-  highlight?: boolean;
-}) {
-  const colorClass = color === "muted" ? "bg-fill-deep" : color === "accent" ? "bg-accent" : "bg-ink";
+type FigureColor = "muted" | "ink" | "accent";
+
+const figureColor: Record<FigureColor, string> = {
+  muted: "bg-fill-deep",
+  ink: "bg-ink",
+  accent: "bg-accent",
+};
+
+// Persona simple de la cola virtual: cabeza redonda y torso con hombros redondeados.
+function PersonFigure({ color, large = false }: { color: FigureColor; large?: boolean }) {
   return (
-    <span className={cn("flex flex-col items-center gap-1", highlight && "scale-110")}>
-      <span className={cn("size-3 rounded-pill", colorClass)} />
-      <span className={cn("h-6 w-8 rounded-t-pill rounded-b-sm", colorClass)} />
+    <span aria-hidden className="flex h-16 flex-col items-center justify-end gap-1">
+      <span className={cn("rounded-pill", large ? "size-7" : "size-5", figureColor[color])} />
+      <span
+        className={cn(
+          "rounded-b-md rounded-t-pill",
+          large ? "h-9 w-12" : "h-6 w-9",
+          figureColor[color],
+        )}
+      />
     </span>
+  );
+}
+
+// Persona de cuerpo entero para la cola presencial.
+function StandingFigure({ color }: { color: FigureColor }) {
+  return (
+    <span aria-hidden className="flex flex-1 flex-col items-center gap-1">
+      <span className={cn("size-8 rounded-pill", figureColor[color])} />
+      <span className="flex flex-col items-center">
+        <span className={cn("h-figure-torso w-8 rounded-pill", figureColor[color])} />
+        <span className={cn("-mt-6 h-figure-legs w-6 rounded-b-pill", figureColor[color])} />
+      </span>
+    </span>
+  );
+}
+
+function QueueSlot({ figure, number, label, tone = "default" }: {
+  figure: ReactNode;
+  number: string;
+  label: string;
+  tone?: "default" | "muted" | "self";
+}) {
+  return (
+    <div className="relative z-10 flex flex-1 flex-col items-center gap-1">
+      {figure}
+      <span
+        className={cn(
+          "text-body-strong",
+          tone === "self" ? "text-accent" : tone === "muted" ? "text-text-muted" : "text-ink",
+        )}
+      >
+        {number}
+      </span>
+      <span
+        className={cn(
+          "whitespace-nowrap text-caption",
+          tone === "self" ? "font-semibold text-ink" : tone === "muted" ? "text-text-muted" : "text-text-secondary",
+        )}
+      >
+        {label}
+      </span>
+    </div>
   );
 }
 
 export function QueueVisualization({
   variant,
-  highlight = true,
   ticket = 36,
 }: {
   variant: "virtual" | "in-person";
-  highlight?: boolean;
   ticket?: number;
 }) {
   if (variant === "in-person") {
     return (
-      <div className="flex items-end justify-between gap-1" role="img" aria-label="Cola presencial: tres personas antes, vos y tres personas después">
-        <PersonFigure color="muted" />
-        <PersonFigure color="muted" />
-        <PersonFigure color="muted" />
-        <PersonFigure color={highlight ? "accent" : "ink"} highlight={highlight} />
-        <PersonFigure color="ink" />
-        <PersonFigure color="ink" />
-        <PersonFigure color="ink" />
+      <div
+        className="flex items-end justify-between gap-2"
+        role="img"
+        aria-label="Cola presencial: tres personas adelante de vos y tres detrás"
+      >
+        <StandingFigure color="muted" />
+        <StandingFigure color="muted" />
+        <StandingFigure color="muted" />
+        <StandingFigure color="accent" />
+        <StandingFigure color="ink" />
+        <StandingFigure color="ink" />
+        <StandingFigure color="ink" />
       </div>
     );
   }
 
   return (
-    <div className="flex items-start justify-between gap-1" role="img" aria-label="Cola virtual: siete personas antes de tu pedido y dos pedidos después">
-      <div className="flex flex-col items-center gap-1">
-        <span className="flex size-control items-center justify-center rounded-pill bg-fill text-text-muted">
-          <UserRound aria-hidden className="size-icon" />
-        </span>
-        <span className="text-small font-semibold text-text-muted">+7</span>
-        <span className="text-caption text-text-muted">En cola</span>
-      </div>
-      <div className="flex flex-col items-center gap-1">
-        <PersonFigure color="muted" />
-        <span className="text-small font-semibold text-ink">{ticket + 1}</span>
-        <span className="text-caption text-text-secondary">Martín</span>
-      </div>
-      <div className="flex flex-col items-center gap-1">
-        <PersonFigure color="accent" highlight />
-        <span className="text-small font-semibold text-accent-ink">{ticket}</span>
-        <span className="text-caption font-semibold text-ink">Vos</span>
-      </div>
-      <div className="flex flex-col items-center gap-1">
-        <PersonFigure color="ink" />
-        <span className="text-small font-semibold text-ink">{ticket - 1}</span>
-        <span className="text-caption text-text-secondary">Camila</span>
-      </div>
-      <div className="flex flex-col items-center gap-1">
-        <span className="flex size-control items-center justify-center rounded-pill bg-ink text-surface">
-          <Printer aria-hidden className="size-icon" />
-        </span>
-        <span className="text-small font-semibold text-ink">{ticket - 2}</span>
-        <span className="text-caption text-text-secondary">Imprimiendo</span>
-      </div>
+    <div
+      className="relative flex items-start justify-between gap-1"
+      role="img"
+      aria-label={`Cola virtual: tu pedido es el ${ticket}, hay uno adelante y otro imprimiéndose`}
+    >
+      {/* Línea que une la fila, detrás de las figuras */}
+      <span aria-hidden className="absolute left-6 right-6 top-10 h-px bg-border" />
+      <QueueSlot figure={<PersonFigure color="muted" />} number="+7" label="En cola" tone="muted" />
+      <QueueSlot figure={<PersonFigure color="muted" />} number={String(ticket + 1)} label="Martín" />
+      <QueueSlot figure={<PersonFigure color="accent" large />} number={String(ticket)} label="Vos" tone="self" />
+      <QueueSlot figure={<PersonFigure color="ink" />} number={String(ticket - 1)} label="Camila" />
+      <QueueSlot
+        figure={
+          <span aria-hidden className="flex h-16 items-end">
+            <span className="mb-3 flex size-control items-center justify-center rounded-pill bg-ink text-surface">
+              <Printer aria-hidden className="size-icon" />
+            </span>
+          </span>
+        }
+        number={String(ticket - 2)}
+        label="Imprimiendo"
+      />
     </div>
   );
 }

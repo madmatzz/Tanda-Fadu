@@ -1,67 +1,75 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
-import { CreditCard, Wallet } from "lucide-react";
+import { Layers, MapPin, Plus } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { localById, tandaById } from "../../demo/selectors";
+import { findCompatibleTanda, localById, tandaById } from "../../demo/selectors";
 import {
   estimateTotal,
   modeLabel,
   paperDisplay,
   paymentLabels,
 } from "../../demo/pricing";
-import type { PaymentMethod } from "../../demo/types";
+import type { PaymentMethod, SavedCard } from "../../demo/types";
+import { cardsIconUrl, cashIconUrl, mercadoPagoIconUrl, visaIconUrl } from "../../lib/assets";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { Chip } from "../../components/Chip";
 import { EmptyState } from "../../components/EmptyState";
 import { KeyValueRow } from "../../components/KeyValueRow";
+import { LinkText } from "../../components/LinkText";
 import { LocalLogo } from "../../components/LocalLogo";
 import { PageTitle } from "../../components/PageTitle";
 import { RadioCard } from "../../components/RadioCard";
+import { SegmentedControl } from "../../components/SegmentedControl";
 import { TextInput } from "../../components/TextInput";
 
-const paymentOptions: Array<{ value: PaymentMethod; title: string; description: string }> = [
-  {
-    value: "mercado-pago",
-    title: "MercadoPago",
-    description: "Pagás desde la app. En la demo no se cobra nada.",
-  },
-  {
-    value: "efectivo",
-    title: "Efectivo",
-    description: "Pagás al retirar en el local.",
-  },
-  {
-    value: "tarjeta",
-    title: "Tarjeta",
-    description: "Débito o crédito. Cargá los datos de prueba.",
-  },
-];
+const brandLabels: Record<SavedCard["brand"], string> = {
+  visa: "VISA",
+  mastercard: "Mastercard",
+  otra: "Tarjeta",
+};
+
+function cardBrand(digits: string): SavedCard["brand"] {
+  if (digits.startsWith("4")) return "visa";
+  if (/^(5[1-5]|2[2-7])/.test(digits)) return "mastercard";
+  return "otra";
+}
+
+function PaymentIcon({ src }: { src: string }) {
+  return <img src={src} alt="" className="size-14 shrink-0 object-contain" />;
+}
 
 export function PaymentScreen() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { state, dispatch } = useDemo();
+  const savedCard = state.savedCard ?? null;
+  const [addingCard, setAddingCard] = useState(!savedCard);
   const [cardNumber, setCardNumber] = useState("");
   const [cardExpiry, setCardExpiry] = useState("");
   const [cardCode, setCardCode] = useState("");
   const [cardHolder, setCardHolder] = useState("");
+  const [cardKind, setCardKind] = useState<SavedCard["kind"]>("Débito");
   const flow = searchParams.get("flujo") === "tanda" ? "tanda" : "print";
   const file = state.draft.file;
   const specs = state.draft.specs;
   const local = state.draft.localId ? localById(state, state.draft.localId) : undefined;
   const tanda = state.draft.tandaId ? tandaById(state, state.draft.tandaId) : undefined;
-  const payment: PaymentMethod = state.draft.payment ?? "mercado-pago";
+  // Si ya hay una tarjeta guardada, se ofrece primero.
+  const payment: PaymentMethod = state.draft.payment ?? (savedCard ? "tarjeta" : "mercado-pago");
   const total = local ? estimateTotal(specs, local) : 0;
-  const backTo = flow === "tanda" ? "/imprimir/tanda" : "/comparar?desde=carrito";
+  const backTo = flow === "tanda" ? "/imprimir/tanda?flujo=tanda" : "/comparar?desde=validacion";
+  const digits = cardNumber.replace(/\D/g, "");
+  const usingNewCard = payment === "tarjeta" && (!savedCard || addingCard);
+  const newCardReady = digits.length >= 13 && cardExpiry.trim() !== "" && cardCode.trim() !== "";
 
   if (!file) {
     return (
       <Screen title="Pago" leading="back" backTo="/imprimir" trailing="Pago">
         <EmptyState
           title="Falta el archivo del pedido"
-          description="Volvé al carrito y subí un archivo para pagar."
+          description="Volvé a imprimir y subí un archivo para pagar."
           action={
             <Button variant="outline" size="md" onClick={() => navigate("/imprimir")}>
               Volver a imprimir
@@ -79,7 +87,7 @@ export function PaymentScreen() {
           title="Elegí un local primero"
           description="Necesitamos saber dónde vas a retirar el pedido."
           action={
-            <Button variant="primary" size="md" onClick={() => navigate("/comparar?desde=carrito")}>
+            <Button variant="primary" size="md" onClick={() => navigate("/comparar?desde=validacion")}>
               Comparar locales
             </Button>
           }
@@ -88,11 +96,43 @@ export function PaymentScreen() {
     );
   }
 
+  const paymentOptions: Array<{ value: PaymentMethod; title: string; description: string; icon: string }> = [
+    {
+      value: "mercado-pago",
+      title: "MercadoPago",
+      description: "Pagá con tu cuenta o billetera",
+      icon: mercadoPagoIconUrl,
+    },
+    {
+      value: "efectivo",
+      title: "Efectivo",
+      description: "Pagás al retirar en el local",
+      icon: cashIconUrl,
+    },
+    {
+      value: "tarjeta",
+      title: "Tarjeta",
+      description: savedCard
+        ? `${brandLabels[savedCard.brand]} ${savedCard.kind} que termina en ${savedCard.last4}`
+        : "Débito o crédito",
+      icon: savedCard?.brand === "visa" ? visaIconUrl : cardsIconUrl,
+    },
+  ];
+
   const confirm = () => {
     const orderId = `order-${state.nextTicket}`;
     dispatch({ type: "SET_PAYMENT", payment });
-    if (flow === "tanda" && tanda) {
-      dispatch({ type: "SELECT_TANDA", tandaId: tanda.id });
+    if (usingNewCard) {
+      // Solo se recuerdan marca, tipo y últimos 4 dígitos.
+      dispatch({
+        type: "SAVE_CARD",
+        card: { brand: cardBrand(digits), kind: cardKind, last4: digits.slice(-4) },
+      });
+    }
+    // Si el local elegido tiene una tanda compatible, el pedido entra en ella.
+    const joinedTanda = flow === "tanda" ? tanda : findCompatibleTanda(state, specs, local.id);
+    if (joinedTanda) {
+      dispatch({ type: "SELECT_TANDA", tandaId: joinedTanda.id });
     }
     dispatch({ type: "CONFIRM_ORDER", id: orderId });
     navigate(`/pedido/${orderId}/confirmado`);
@@ -110,11 +150,19 @@ export function PaymentScreen() {
             <span>Total</span>
             <span className="text-body-strong text-ink">${total}</span>
           </div>
-          <Button variant="primary" size="lg" fullWidth onClick={confirm}>
+          <Button
+            variant="primary"
+            size="lg"
+            fullWidth
+            disabled={usingNewCard && !newCardReady}
+            onClick={confirm}
+          >
             {payment === "efectivo" ? "Confirmar pedido" : "Pagar y confirmar"}
           </Button>
           <p className="text-center text-caption text-text-muted">
-            Demo sin cobro real · el pedido se confirma al instante.
+            {usingNewCard && !newCardReady
+              ? "Completá los datos de la tarjeta para pagar."
+              : "Demo sin cobro real · el pedido se confirma al instante."}
           </p>
         </div>
       }
@@ -126,7 +174,7 @@ export function PaymentScreen() {
         />
 
         {tanda && (
-          <Chip tone="accent" icon={<Wallet aria-hidden className="size-icon" />}>
+          <Chip tone="tanda" icon={<Layers aria-hidden className="size-icon" />}>
             {tanda.label} · {tanda.userTitle}
           </Chip>
         )}
@@ -134,13 +182,10 @@ export function PaymentScreen() {
         <Card tone="glass">
           <div className="flex items-center gap-3">
             <LocalLogo local={local} size="md" />
-            <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-              <span className="text-h3 text-ink">{local.name}</span>
-              <span className="text-small text-text-secondary">
-                {local.floorLabel} · espera {local.queue.waitVirtual} min
-              </span>
-            </div>
-            <Chip tone="success">Abierto</Chip>
+            <span className="min-w-0 flex-1 text-h3 text-ink">{local.name}</span>
+            <Chip tone="neutral" variant="outline" icon={<MapPin aria-hidden className="size-3" />}>
+              {local.floorLabel}
+            </Chip>
           </div>
         </Card>
 
@@ -156,16 +201,44 @@ export function PaymentScreen() {
                 onChange={() => dispatch({ type: "SET_PAYMENT", payment: option.value })}
                 title={option.title}
                 description={option.description}
-                aside={<CreditCard aria-hidden className="size-icon text-text-muted" />}
+                aside={<PaymentIcon src={option.icon} />}
               />
             ))}
           </div>
+
+          {payment === "tarjeta" && savedCard && !addingCard && (
+            <Button
+              variant="outline"
+              size="md"
+              fullWidth
+              icon={<Plus aria-hidden className="size-icon" />}
+              onClick={() => setAddingCard(true)}
+            >
+              Añadir nueva tarjeta
+            </Button>
+          )}
         </div>
 
-        {payment === "tarjeta" && (
+        {usingNewCard && (
           <Card>
             <div className="flex flex-col gap-3">
-              <p className="text-h3 text-ink">Datos de la tarjeta</p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-h3 text-ink">{savedCard ? "Nueva tarjeta" : "Datos de la tarjeta"}</p>
+                {savedCard && (
+                  <LinkText size="small" onClick={() => setAddingCard(false)}>
+                    Usar la guardada
+                  </LinkText>
+                )}
+              </div>
+              <SegmentedControl
+                label="Tipo de tarjeta"
+                value={cardKind}
+                onChange={(value) => setCardKind(value as SavedCard["kind"])}
+                options={[
+                  { value: "Débito", label: "Débito" },
+                  { value: "Crédito", label: "Crédito" },
+                ]}
+              />
               <TextInput
                 label="Número de tarjeta"
                 value={cardNumber}
@@ -199,7 +272,7 @@ export function PaymentScreen() {
                 autoComplete="cc-name"
               />
               <p className="text-caption text-text-muted">
-                Datos de demo. No se guardan ni se envían a ningún servicio.
+                Datos de demo. Para tu próximo pedido solo recordamos la marca y los últimos 4 dígitos.
               </p>
             </div>
           </Card>

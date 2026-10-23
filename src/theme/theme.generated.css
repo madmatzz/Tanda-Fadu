@@ -33,6 +33,9 @@
   --color-sun-1: #FFC08E;
   --color-sun-2: #FA8246;
   --color-sun-3: #E8501A;
+  --color-tanda: #7A3FC4;
+  --color-tanda-soft: #F1E8FC;
+  --color-tanda-border: #D7C2F2;
   --color-success: #1F7A52;
   --color-success-soft: #E7F4ED;
   --color-success-border: #BFE0D0;
@@ -47,6 +50,10 @@
   --color-danger-border: #EEBFA9;
   --color-disabled: #B4A89C;
   --font-sans: "Inter Variable", "Inter", -apple-system, "Helvetica Neue", sans-serif;
+  --text-ticket: 104px;
+  --text-ticket--line-height: 0.727;
+  --text-ticket--font-weight: 800;
+  --text-ticket--letter-spacing: -0.05em;
   --text-display: 56px;
   --text-display--line-height: 0.98;
   --text-display--font-weight: 800;
@@ -123,6 +130,8 @@
   --spacing-control-sm: 36px;
   --spacing-thumb: 56px;
   --spacing-dock: 76px;
+  --spacing-figure-torso: 88px;
+  --spacing-figure-legs: 76px;
   --spacing-orb: 320px;
   --spacing-island-w: 126px;
   --spacing-island-h: 37px;

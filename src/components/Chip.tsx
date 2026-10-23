@@ -1,7 +1,16 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-export type ChipTone = "neutral" | "accent" | "success" | "info" | "warning" | "danger" | "ink" | "glass";
+export type ChipTone =
+  | "neutral"
+  | "accent"
+  | "success"
+  | "info"
+  | "warning"
+  | "danger"
+  | "ink"
+  | "glass"
+  | "tanda";
 export type ChipVariant = "soft" | "outline";
 export type ChipSize = "sm" | "md";
 
@@ -22,6 +31,7 @@ const softClass: Record<ChipTone, string> = {
   danger: "border-danger-border bg-danger-soft text-danger",
   ink: "border-transparent bg-ink text-surface",
   glass: "border-border-soft bg-glass-strong text-ink backdrop-blur-glass",
+  tanda: "border-tanda-border bg-tanda-soft text-tanda",
 };
 
 const outlineClass: Record<ChipTone, string> = {
@@ -33,6 +43,7 @@ const outlineClass: Record<ChipTone, string> = {
   danger: "border-danger-border bg-glass text-danger",
   ink: "border-ink bg-transparent text-ink",
   glass: "border-border-soft bg-transparent text-ink backdrop-blur-glass",
+  tanda: "border-tanda-border bg-glass text-tanda",
 };
 
 const sizeClass: Record<ChipSize, string> = {

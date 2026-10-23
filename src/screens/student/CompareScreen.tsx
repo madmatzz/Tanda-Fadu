@@ -1,18 +1,16 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
-import { CheckCircle2, Clock, MapPin } from "lucide-react";
+import { Clock } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { specsStock } from "../../demo/selectors";
+import { specsStock, tandaCompatible } from "../../demo/selectors";
 import {
   estimateTotal,
-  modeShort,
   paperDisplay,
   stockLabels,
   stockTone,
   specsSummary,
 } from "../../demo/pricing";
-import type { StockLevel } from "../../demo/types";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { Chip } from "../../components/Chip";
@@ -39,9 +37,11 @@ export function CompareScreen() {
   });
 
   const backTo =
-    desde === "carrito"
-      ? "/imprimir/carrito"
-      : desde === "local" && localParam
+    desde === "validacion"
+      ? "/imprimir/validacion"
+      : desde === "carrito"
+        ? "/imprimir/carrito"
+        : desde === "local" && localParam
         ? `/locales/${localParam}`
         : "/locales";
 
@@ -52,13 +52,14 @@ export function CompareScreen() {
           local,
           total: estimateTotal(specs, local),
           stock: specsStock(local, specs),
+          hasTanda: state.tandas.some((tanda) => tanda.localId === local.id && tandaCompatible(tanda, specs)),
         }))
         .sort((a, b) =>
           sort === "price"
             ? a.total - b.total || a.local.queue.waitVirtual - b.local.queue.waitVirtual
             : a.local.queue.waitVirtual - b.local.queue.waitVirtual || a.total - b.total,
         ),
-    [state.locals, specs, sort],
+    [state.locals, state.tandas, specs, sort],
   );
 
   const cheapest = Math.min(...rows.map((row) => row.total));
@@ -98,7 +99,7 @@ export function CompareScreen() {
     >
       <div className="flex flex-col gap-5">
         <PageTitle
-          title="Comparación de locales"
+          title="¿Dónde imprimir?"
           subtitle="La misma impresión, distinto precio y espera."
         />
 
@@ -131,67 +132,73 @@ export function CompareScreen() {
         />
 
         <div className="flex flex-col gap-3">
-          {rows.map(({ local, total, stock }) => {
+          {rows.map(({ local, total, stock, hasTanda }) => {
             const isSelected = local.id === selectedId;
+            const unavailable = stock === "out";
+            const select = () => {
+              if (!unavailable) setSelectedId(local.id);
+            };
             return (
-              <button
+              // div con rol radio (y no <button>) porque adentro va el botón "Ver local".
+              <div
                 key={local.id}
-                type="button"
-                aria-pressed={isSelected}
-                disabled={stock === "out"}
-                onClick={() => setSelectedId(local.id)}
-                className={`flex w-full flex-col gap-3 rounded-lg border p-card text-left transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px ${
+                role="radio"
+                aria-checked={isSelected}
+                aria-disabled={unavailable}
+                aria-label={`${local.name}, $${total}, espera ${local.queue.waitVirtual} min`}
+                tabIndex={unavailable ? -1 : 0}
+                onClick={select}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    select();
+                  }
+                }}
+                className={`flex w-full flex-col gap-3 rounded-lg border p-card text-left transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
                   isSelected
                     ? "border-accent bg-sunrise ring-2 ring-accent shadow-soft"
                     : "border-border-soft bg-surface shadow-soft hover:border-accent-border hover:shadow-float"
-                } ${stock === "out" ? "opacity-60" : ""}`}
+                } ${unavailable ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
               >
-                <div className="flex items-start gap-3">
+                {hasTanda && (
+                  <span className="text-caption font-semibold text-tanda">Una tanda coincide con tu pedido</span>
+                )}
+                <div className="flex items-center gap-3">
                   <LocalLogo local={local} size="md" />
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <div className="flex items-start justify-between gap-2">
-                      <span className="truncate text-h3 text-ink">{local.name}</span>
-                      <span className="text-h2 text-ink">${total}</span>
-                    </div>
-                    <span className="text-small text-text-secondary">{local.tagline}</span>
-                    <span className="flex items-center gap-1 text-caption text-text-muted">
-                      <MapPin aria-hidden className="size-3" />
-                      {local.floorLabel}
-                    </span>
+                  <div className="flex min-w-0 flex-1 flex-col gap-1">
+                    <span className="text-h3 text-ink">{local.name}</span>
+                    <RatingStars rating={local.rating} showValue />
                   </div>
+                  <Button
+                    variant="soft"
+                    size="sm"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      navigate(`/locales/${local.slug}`);
+                    }}
+                  >
+                    Ver local
+                  </Button>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {total === cheapest && <Chip tone="accent">Mejor precio</Chip>}
-                  {local.queue.waitVirtual === fastest && <Chip tone="success">Menos espera</Chip>}
-                  <Chip tone={stockTone(stock as StockLevel)}>
-                    {stock === "ok" ? "Papel disponible" : stockLabels[stock as StockLevel]}
-                  </Chip>
-                  {isSelected && (
-                    <Chip tone="ink" icon={<CheckCircle2 aria-hidden className="size-3" />}>
-                      Elegido
-                    </Chip>
-                  )}
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex flex-col gap-1 border-t border-border-soft pt-2">
-                    <span className="text-caption text-text-secondary">Precio estimado</span>
-                    <span className="text-body-strong text-ink">${total}</span>
+                {(hasTanda || total === cheapest || local.queue.waitVirtual === fastest || stock !== "ok") && (
+                  <div className="flex flex-wrap gap-2">
+                    {hasTanda && <Chip tone="tanda">¡Tanda!</Chip>}
+                    {total === cheapest && <Chip tone="accent">Mejor precio</Chip>}
+                    {local.queue.waitVirtual === fastest && <Chip tone="success">Menos espera</Chip>}
+                    {stock !== "ok" && <Chip tone={stockTone(stock)}>{stockLabels[stock]}</Chip>}
                   </div>
-                  <div className="flex flex-col gap-1 border-t border-border-soft pt-2">
+                )}
+                <div className="flex items-end justify-between gap-3 border-t border-border-soft pt-3">
+                  <div className="flex flex-col gap-1">
                     <span className="text-caption text-text-secondary">Espera virtual</span>
                     <span className="flex items-center gap-1 text-body-strong text-ink">
                       <Clock aria-hidden className="size-icon" />
                       {local.queue.waitVirtual} min
                     </span>
                   </div>
+                  <span className="text-h1 text-ink">${total}</span>
                 </div>
-                <div className="flex items-center justify-between gap-2 text-caption text-text-muted">
-                  <RatingStars rating={local.rating} showValue />
-                  <span>
-                    {modeShort(specs.mode)} · {local.papers.length} papeles
-                  </span>
-                </div>
-              </button>
+              </div>
             );
           })}
         </div>

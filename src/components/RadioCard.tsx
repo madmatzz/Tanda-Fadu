@@ -12,6 +12,8 @@ export interface RadioCardProps {
   children?: ReactNode;
   tone?: "ink" | "accent";
   disabled?: boolean;
+  /** sm: versión compacta para usar varias en una fila. */
+  size?: "md" | "sm";
 }
 
 // Clases completas (no interpoladas) para que Tailwind las detecte.
@@ -41,7 +43,9 @@ export function RadioCard({
   children,
   tone = "ink",
   disabled = false,
+  size = "md",
 }: RadioCardProps) {
+  const compact = size === "sm";
   const cardClass = disabled
     ? "border border-border-soft bg-surface-soft cursor-not-allowed"
     : checked
@@ -54,7 +58,8 @@ export function RadioCard({
   return (
     <label
       className={cn(
-        "block rounded-lg p-card transition focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent",
+        "block transition focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent",
+        compact ? "rounded-md p-3" : "rounded-lg p-card",
         cardClass,
       )}
     >
@@ -67,10 +72,11 @@ export function RadioCard({
         onChange={() => onChange(value)}
         className="sr-only"
       />
-      <span className="flex items-start gap-3">
+      <span className={cn("flex items-start", compact ? "flex-col gap-2" : "gap-3")}>
         <span
           className={cn(
-            "mt-1 flex size-icon shrink-0 items-center justify-center rounded-pill border-2",
+            "flex size-icon shrink-0 items-center justify-center rounded-pill border-2",
+            !compact && "mt-1",
             indicatorBorder,
           )}
         >
@@ -78,10 +84,21 @@ export function RadioCard({
         </span>
         <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="flex items-center justify-between gap-3">
-            <span className={cn("text-h3", disabled ? "text-text-muted" : "text-ink")}>{title}</span>
+            <span
+              className={cn(
+                compact ? "text-small font-semibold" : "text-h3",
+                disabled ? "text-text-muted" : "text-ink",
+              )}
+            >
+              {title}
+            </span>
             {aside}
           </span>
-          {description && <span className="text-small text-text-secondary">{description}</span>}
+          {description && (
+            <span className={cn(compact ? "text-caption" : "text-small", "text-text-secondary")}>
+              {description}
+            </span>
+          )}
           {children}
         </span>
       </span>

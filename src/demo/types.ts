@@ -19,8 +19,23 @@ export type ServiceId =
 
 export type PaymentMethod = "mercado-pago" | "efectivo" | "tarjeta";
 
+/** Tarjeta recordada para el próximo pedido. Solo se guardan datos no sensibles. */
+export interface SavedCard {
+  brand: "visa" | "mastercard" | "otra";
+  kind: "Débito" | "Crédito";
+  last4: string;
+}
+
 export type FileKind = "pdf" | "docx" | "jpg";
-export type ValidationState = "optimo" | "conversion" | "convertido" | "rechazado";
+/** ajustable: tiene problemas que la app corrige si el usuario toca "Ajustar". */
+export type ValidationState =
+  | "pendiente"
+  | "optimo"
+  | "ajustable"
+  | "conversion"
+  | "convertido"
+  | "rechazado";
+export type FileColor = "rgb" | "gris";
 
 export interface DemoFile {
   name: string;
@@ -30,10 +45,24 @@ export interface DemoFile {
   state: ValidationState;
   progress?: number;
   convertedFrom?: string;
+  /** Datos que la app "lee" del archivo al subirlo. */
+  pageSize?: PaperSize;
+  ppi?: number;
+  color?: FileColor;
 }
 
+export type SpecialId = "recorte" | "montaje" | "rotulado";
+export type MountMaterial = "carton" | "foamboard" | "telgopor";
+
 export interface PrintSpecs {
+  /** Pedidos especiales (selección múltiple). */
+  specials?: SpecialId[];
+  mountMaterial?: MountMaterial;
+  /** Nombre del archivo de rótulo subido. */
+  labelFile?: string | null;
   pages: number;
+  /** Rango escrito por el usuario, ej. "1-8" o "1-3, 6". `pages` guarda la cantidad resultante. */
+  range?: string;
   copies: number;
   size: PaperSize;
   mode: PrintMode;
@@ -160,6 +189,7 @@ export interface DemoState {
   tandas: Tanda[];
   lastQueueReport: Record<string, string>;
   savedLocalIds: string[];
+  savedCard?: SavedCard | null;
   nextTicket: number;
 }
 

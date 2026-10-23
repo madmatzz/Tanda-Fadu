@@ -37,6 +37,11 @@ export const tokens = {
     "sun-2": "#FA8246",
     "sun-3": "#E8501A",
 
+    // Tanda: violeta para destacar coincidencias con una tanda
+    tanda: "#7A3FC4",
+    "tanda-soft": "#F1E8FC",
+    "tanda-border": "#D7C2F2",
+
     // Estados
     success: "#1F7A52",
     "success-soft": "#E7F4ED",
@@ -58,6 +63,9 @@ export const tokens = {
   },
 
   text: {
+    // Número de pedido en el ticket de seguimiento
+    // lineHeight = altura de mayúsculas de Inter: la caja coincide con el dígito para alinear al lado.
+    ticket: { size: 104, lineHeight: 0.727, weight: 800, letterSpacing: "-0.05em" },
     display: { size: 56, lineHeight: 0.98, weight: 800, letterSpacing: "-0.045em" },
     hero: { size: 42, lineHeight: 1.04, weight: 800, letterSpacing: "-0.04em" },
     "big-number": { size: 40, lineHeight: 1, weight: 800, letterSpacing: "-0.035em" },
@@ -112,6 +120,9 @@ export const tokens = {
     "control-sm": 36,
     thumb: 56,
     dock: 76,
+    // Figuras de la cola presencial
+    "figure-torso": 88,
+    "figure-legs": 76,
     orb: 320,
     "island-w": 126,
     "island-h": 37,
