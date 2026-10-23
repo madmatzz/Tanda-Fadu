@@ -2,7 +2,6 @@ import { addMinutes } from "./time";
 import { estimateTotal } from "./pricing";
 import { initialState, defaultSpecs } from "./seed";
 import type {
-  Alert,
   DemoFile,
   DemoState,
   Local,
@@ -33,8 +32,6 @@ export type DemoAction =
   | { type: "SHOP_ADVANCE_ORDER"; orderId: string }
   | { type: "SHOP_CONFIRM_TANDA"; tandaId: string }
   | { type: "SHOP_SET_STOCK"; localId: string; paperId: string; level: StockLevel }
-  | { type: "SHOP_PUBLISH_ALERT"; alert: Alert }
-  | { type: "SHOP_DEACTIVATE_ALERT"; alertId: string }
   | { type: "MARK_ALERTS_READ" }
   | { type: "ADD_REVIEW"; review: Review }
   | { type: "SHOP_REPLY_REVIEW"; reviewId: string; reply: string }
@@ -218,17 +215,6 @@ export function demoReducer(state: DemoState, action: DemoAction): DemoState {
           local.id === action.localId
             ? { ...local, stock: { ...local.stock, [action.paperId]: action.level } }
             : local,
-        ),
-      };
-
-    case "SHOP_PUBLISH_ALERT":
-      return { ...state, alerts: [action.alert, ...state.alerts] };
-
-    case "SHOP_DEACTIVATE_ALERT":
-      return {
-        ...state,
-        alerts: state.alerts.map((alert) =>
-          alert.id === action.alertId ? { ...alert, active: false } : alert,
         ),
       };
 

@@ -55,7 +55,7 @@ npm run build
 | `/pedido/:id/cola` | Seguimiento de cola |
 | `/imprenta/tandas` | Tandas de la imprenta |
 | `/imprenta/tandas/:id` | Cola de una tanda |
-| `/imprenta/stock` | Stock y avisos |
+| `/imprenta/stock` | Stock de papel |
 | `/imprenta/resenas` | Reseñas y respuestas |
 | `/imprenta/perfil` | Perfil público de la imprenta |
 
@@ -64,7 +64,7 @@ npm run build
 1. **Imprimir suelto:** Home → Imprimir → subir archivo demo → validación → especificaciones → carrito → comparar locales → pago → confirmación → cola.
 2. **Tanda:** Tandas disponibles → sumarse a una tanda → archivo y especificaciones → coincidencia → pago → confirmación → cola.
 3. **Buscar local:** Home → Buscar locales → mapa/lista → perfil del local → reportar cola o imprimir ahí.
-4. **Imprenta:** desde el switch externo **Vista imprenta** → panel de El Poli → tanda, stock y avisos, reseñas y perfil público.
+4. **Imprenta:** desde el switch externo **Vista imprenta** → panel de El Poli → tanda, stock, reseñas y perfil público.
 
 ## Comportamiento demo
 

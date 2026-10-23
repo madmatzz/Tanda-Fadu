@@ -1,20 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import {
-  Bell,
   ClipboardList,
   FlaskConical,
   Layers,
   MapPin,
-  Megaphone,
   Star,
   Users,
 } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
-import { useToast } from "../../shell/ToastProvider";
 import {
-  activeAlerts,
   localById,
   localReviews,
   shopOrders,
@@ -31,18 +27,14 @@ import { PageTitle } from "../../components/PageTitle";
 import { ProgressBar } from "../../components/ProgressBar";
 import { ReviewCard } from "../../components/ReviewCard";
 import { SectionLabel } from "../../components/SectionLabel";
-import { AlertCard } from "../../components/AlertCard";
-import { AlertComposerSheet } from "../../components/AlertComposerSheet";
 import { IconButton } from "../../components/IconButton";
 
 const PANEL_LOCAL_ID = "local-el-poli";
 
 export function ShopHomeScreen() {
   const navigate = useNavigate();
-  const { state, dispatch } = useDemo();
-  const { showToast } = useToast();
+  const { state } = useDemo();
   const [demoOpen, setDemoOpen] = useState(false);
-  const [alertOpen, setAlertOpen] = useState(false);
   const local = localById(state, PANEL_LOCAL_ID) ?? state.locals[0];
   const orders = shopOrders(state, local.id);
   const pending = orders.filter((order) => order.status !== "entregado" && order.status !== "listo");
@@ -50,7 +42,6 @@ export function ShopHomeScreen() {
   const currentTandaOrders = tanda ? tandaOrders(state, tanda.id) : [];
   const pendingTanda = currentTandaOrders.filter((order) => order.status !== "entregado" && order.status !== "listo");
   const reviews = localReviews(state, local.id);
-  const alerts = activeAlerts(state, local.id).slice(0, 2);
 
   return (
     <>
@@ -78,16 +69,6 @@ export function ShopHomeScreen() {
             title="Hola, El Poli"
             subtitle="Miércoles 11:20 · resumen de hoy"
           />
-
-          <Button
-            variant="warning"
-            size="md"
-            fullWidth
-            icon={<Megaphone aria-hidden className="size-icon" />}
-            onClick={() => setAlertOpen(true)}
-          >
-            Cargar aviso
-          </Button>
 
           <div className="grid grid-cols-2 gap-2">
             <MetricCard
@@ -182,35 +163,6 @@ export function ShopHomeScreen() {
 
           <section className="flex flex-col gap-3">
             <div className="flex items-end justify-between gap-2">
-              <h2 className="text-h2 text-ink">Avisos activos</h2>
-              <LinkText size="small" onClick={() => setAlertOpen(true)}>
-                Nuevo aviso
-              </LinkText>
-            </div>
-            {alerts.length > 0 ? (
-              <div className="flex flex-col gap-2">
-                {alerts.map((alert) => (
-                  <AlertCard
-                    key={alert.id}
-                    alert={alert}
-                    local={local}
-                    compact
-                    onDeactivate={() => {
-                      dispatch({ type: "SHOP_DEACTIVATE_ALERT", alertId: alert.id });
-                      showToast("Aviso eliminado del perfil del local.");
-                    }}
-                  />
-                ))}
-              </div>
-            ) : (
-              <p className="rounded-lg border border-dashed border-border bg-surface-soft p-4 text-small text-text-secondary">
-                No hay avisos para El Poli. Cargá uno para avisar por stock o novedades.
-              </p>
-            )}
-          </section>
-
-          <section className="flex flex-col gap-3">
-            <div className="flex items-end justify-between gap-2">
               <h2 className="text-h2 text-ink">Última reseña</h2>
               <LinkText size="small" onClick={() => navigate("/imprenta/resenas")}>
                 Ver reseñas
@@ -226,18 +178,13 @@ export function ShopHomeScreen() {
           </section>
 
           <div className="flex items-center gap-2 rounded-lg border border-border-soft bg-surface-soft p-3 text-caption text-text-muted">
-            <Bell aria-hidden className="size-icon shrink-0" />
-            Los avisos y cambios de stock se publican al instante en la vista de estudiantes.
+            <Layers aria-hidden className="size-icon shrink-0" />
+            Los cambios de stock se publican al instante en la vista de estudiantes.
           </div>
         </div>
       </Screen>
 
       <DemoMenu open={demoOpen} onClose={() => setDemoOpen(false)} />
-      <AlertComposerSheet
-        open={alertOpen}
-        onClose={() => setAlertOpen(false)}
-        localId={local.id}
-      />
     </>
   );
 }

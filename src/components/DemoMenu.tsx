@@ -173,8 +173,8 @@ export function DemoMenu({ open, onClose }: DemoMenuProps) {
           />
           <MenuRow
             icon={<BookOpen aria-hidden className="size-icon" />}
-            label="Stock y avisos"
-            meta="Niveles de papel y publicación"
+            label="Stock"
+            meta="Niveles de papel"
             onClick={() => {
               dispatch({ type: "SET_ROLE", role: "shop" });
               go("/imprenta/stock");

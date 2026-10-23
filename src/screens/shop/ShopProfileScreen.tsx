@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { BookOpen, GraduationCap, Layers, Star } from "lucide-react";
+import { BookOpen, Layers, Star } from "lucide-react";
 import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
 import { useToast } from "../../shell/ToastProvider";
@@ -118,7 +118,7 @@ export function ShopProfileScreen() {
               icon={<Layers aria-hidden className="size-icon" />}
               onClick={() => navigate("/imprenta/stock")}
             >
-              Gestionar stock y avisos
+              Gestionar stock
             </Button>
             <Button
               variant="outline"
@@ -128,18 +128,6 @@ export function ShopProfileScreen() {
               onClick={() => navigate("/imprenta/resenas")}
             >
               Responder reseñas
-            </Button>
-            <Button
-              variant="soft"
-              size="md"
-              fullWidth
-              icon={<GraduationCap aria-hidden className="size-icon" />}
-              onClick={() => {
-                dispatch({ type: "SET_ROLE", role: "student" });
-                navigate("/");
-              }}
-            >
-              Ver como estudiante
             </Button>
             <button
               type="button"
