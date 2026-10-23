@@ -1,11 +1,11 @@
-import homePng from "../../pov usuario/pov usuario que va a imprimir - homepage - 1.png";
-import uploadPng from "../../pov usuario/pov usuario que va a imprimir - nueva impresion - 1.png";
-import specsPng from "../../pov usuario/pov usuario que va a imprimir - nueva impresion - especificaciones.png";
-import queuePng from "../../pov usuario/pov usuario que va a imprimir - nueva impresion - resumen impresion en cola.png";
-import profilePng from "../../pov usuario/pov usuario que va a imprimir - perfil de imprenta.png";
-import tandasPng from "../../pov usuario/pov usuario que va a imprimir - TANDAS DISPONIBLES.png";
-import printerHomePng from "../../pov imprenta/pov imprenta inicio de flujo.png";
-import printerQueuePng from "../../pov imprenta/pov imprenta - cola de tanda - 1.png";
+import homePng from "../assets/referencias/home.png";
+import uploadPng from "../assets/referencias/upload.png";
+import specsPng from "../assets/referencias/specs.png";
+import queuePng from "../assets/referencias/queue.png";
+import profilePng from "../assets/referencias/perfil-imprenta.png";
+import tandasPng from "../assets/referencias/tandas.png";
+import printerHomePng from "../assets/referencias/shop-home.png";
+import printerQueuePng from "../assets/referencias/shop-queue.png";
 import { Chip } from "../components/Chip";
 import { DocSection } from "./DocSection";
 import { DocNote } from "./DocNote";
@@ -100,9 +100,10 @@ export function ReferenciasSection() {
       </div>
 
       <DocNote>
-        Los PNG se abren a tamaño completo en una pestaña nueva. El archivo completo de mockups vive en{" "}
-        <code className="rounded-xs bg-fill px-1 text-caption text-ink">/pov usuario</code> y{" "}
-        <code className="rounded-xs bg-fill px-1 text-caption text-ink">/pov imprenta</code>.
+        Los PNG se abren a tamaño completo en una pestaña nueva. El archivo completo de mockups
+        quedó en las carpetas locales <code className="rounded-xs bg-fill px-1 text-caption text-ink">/pov usuario</code> y{" "}
+        <code className="rounded-xs bg-fill px-1 text-caption text-ink">/pov imprenta</code>; acá se
+        incluyen las ocho referencias que usa el sistema.
       </DocNote>
     </DocSection>
   );
