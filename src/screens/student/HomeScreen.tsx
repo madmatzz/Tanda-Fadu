@@ -11,9 +11,7 @@ import { Screen } from "../../shell/Screen";
 import { useDemo } from "../../demo/DemoProvider";
 import { activeUserOrder, localById, unreadAlerts, userOrders } from "../../demo/selectors";
 import { ActionCard } from "../../components/ActionCard";
-import { Button } from "../../components/Button";
 import { Chip } from "../../components/Chip";
-import { EmptyState } from "../../components/EmptyState";
 import { FloatingOrderPill } from "../../components/FloatingOrderPill";
 import { IconButton } from "../../components/IconButton";
 import { LinkText } from "../../components/LinkText";
@@ -95,14 +93,14 @@ export function HomeScreen() {
             </div>
           </div>
 
-          <section className="flex flex-col gap-3">
-            <div className="flex items-end justify-between gap-2">
-              <h2 className="text-h2 text-ink">Últimos pedidos</h2>
-              <LinkText size="small" onClick={() => navigate("/pedidos")}>
-                Ver todos
-              </LinkText>
-            </div>
-            {orders.length > 0 ? (
+          {orders.length > 0 && (
+            <section className="flex flex-col gap-3">
+              <div className="flex items-end justify-between gap-2">
+                <h2 className="text-h2 text-ink">Últimos pedidos</h2>
+                <LinkText size="small" onClick={() => navigate("/pedidos")}>
+                  Ver todos
+                </LinkText>
+              </div>
               <div className="flex flex-col gap-2">
                 {orders.slice(0, 2).map((order) => (
                   <OrderRow
@@ -116,19 +114,8 @@ export function HomeScreen() {
                   />
                 ))}
               </div>
-            ) : (
-              <EmptyState
-                icon={<Printer aria-hidden className="size-icon" />}
-                title="Todavía no hiciste pedidos"
-                description="Cuando imprimas, vas a poder seguir la cola desde acá."
-                action={
-                  <Button variant="soft" size="md" onClick={() => navigate("/imprimir")}>
-                    Empezar
-                  </Button>
-                }
-              />
-            )}
-          </section>
+            </section>
+          )}
 
           <section className="flex flex-col gap-3">
             <div className="flex items-end justify-between gap-2">

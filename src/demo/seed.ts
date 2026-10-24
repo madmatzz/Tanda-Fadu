@@ -408,20 +408,6 @@ export const orderSeed: Order[] = [
     filesCount: 1,
     tandaId: "tanda-1",
   }),
-  order({
-    id: "order-24",
-    ticket: 24,
-    localId: "local-desalvo",
-    owner: "Lucía Pérez",
-    file: file("apuntes_final.pdf", 12, "6,1 MB"),
-    specs: { ...defaultSpecs, pages: 12, notes: "Doble faz." },
-    total: 880,
-    status: "entregado",
-    createdAt: addMinutes(DEMO_CLOCK, -2880),
-    readyAt: addMinutes(DEMO_CLOCK, -2865),
-    payment: "efectivo",
-    filesCount: 2,
-  }),
 ];
 
 export const tandaSeed: Tanda[] = [
