@@ -18,7 +18,7 @@ import type {
   ValidationState,
 } from "./types";
 
-export const STORAGE_KEY = "tanda-demo-v2";
+export const STORAGE_KEY = "tanda-demo-v3";
 
 export type DemoAction =
   | { type: "SET_ROLE"; role: Role }
