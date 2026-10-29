@@ -1,0 +1,457 @@
+/*
+  Base: reset, marco del teléfono y utilidades chicas de texto y layout.
+*/
+
+/* ---------- Reset ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--color-bg);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  background: none;
+  letter-spacing: inherit;
+}
+
+button,
+label,
+select {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Oculta visualmente pero deja el elemento accesible (inputs de radio, checkbox y archivo). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Marco del teléfono ----------
+   En computadora la app se muestra dentro de un teléfono; en el celular ocupa la pantalla. */
+
+.stage {
+  position: relative;
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  overflow: hidden;
+  background: var(--stage-bg);
+}
+
+/* Selector de vista arriba del teléfono (lo agrega App.mountViewSwitch).
+   Lleva .segmented.view-switch para ganarle a los estilos del segmentado (components.css). */
+.segmented.view-switch {
+  position: relative;
+  z-index: 1;
+  width: 320px;
+  height: var(--size-control);
+  border-color: var(--stage-switch-border);
+  background: var(--stage-switch-bg);
+  box-shadow: none;
+}
+
+.view-switch .segmented-option { color: var(--stage-switch-text); }
+.view-switch .segmented-option:hover { color: var(--stage-switch-active-text); }
+
+.segmented.view-switch .segmented-option.is-checked {
+  background: var(--stage-switch-active-bg);
+  color: var(--stage-switch-active-text);
+}
+
+.view-switch .segmented-option:focus-visible { outline: 2px solid var(--color-accent); }
+
+.stage-orb {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: var(--radius-pill);
+  filter: blur(var(--blur-orb));
+  pointer-events: none;
+}
+
+.stage-orb.is-sun {
+  top: 40px;
+  left: -96px;
+  background: var(--stage-orb-sun);
+  opacity: 0.3;
+}
+
+.stage-orb.is-accent {
+  right: -96px;
+  bottom: 0;
+  background: var(--stage-orb-accent);
+  opacity: 0.2;
+}
+
+.device {
+  position: relative;
+  z-index: 1;
+  width: min(var(--device-width), calc(100vw - var(--space-12)));
+  /* Deja lugar arriba para el selector de vista */
+  height: min(var(--device-height), calc(100dvh - var(--space-12) - var(--size-control) - var(--space-3)));
+  padding: var(--space-1);
+  border: var(--space-1) solid var(--color-device);
+  border-radius: var(--radius-device);
+  background: var(--color-device);
+  box-shadow: var(--shadow-device);
+  overflow: clip;
+}
+
+.device-screen {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: calc(var(--radius-device) - var(--space-1));
+  /* Recorta todo con la forma de la pantalla: sin esto, las barras con efecto vidrio
+     (encabezado y pie, que usan backdrop-filter) asoman por las esquinas redondeadas. */
+  clip-path: inset(0 round calc(var(--radius-device) - var(--space-1)));
+  background: var(--color-bg);
+  overscroll-behavior: contain;
+  /* Sin barra de scroll, como en un celular: se scrollea arrastrando (ver App.enableDragScroll) */
+  scrollbar-width: none;
+}
+
+.device-screen::-webkit-scrollbar,
+.sheet-body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mientras se arrastra con el mouse no se selecciona texto */
+.is-dragging,
+.is-dragging * {
+  user-select: none;
+  cursor: grabbing;
+}
+
+.device-screen.is-locked {
+  overflow-y: hidden;
+}
+
+/* Capa para paneles (sheets) dentro del teléfono */
+/* Los paneles ocupan la pantalla (no el marco) y se recortan con su misma forma */
+.sheet-root {
+  position: absolute;
+  inset: var(--space-1);
+  z-index: 50;
+  clip-path: inset(0 round calc(var(--radius-device) - var(--space-1)));
+  pointer-events: none;
+}
+
+.home-indicator {
+  position: absolute;
+  bottom: var(--space-2);
+  left: 50%;
+  width: 128px;
+  height: 4px;
+  transform: translateX(-50%);
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.status-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  height: var(--size-status-bar);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  background: var(--color-bg);
+}
+
+.status-bar.is-surface {
+  background: var(--color-surface);
+}
+
+.status-bar-island {
+  position: absolute;
+  top: var(--space-2);
+  left: 50%;
+  width: 126px;
+  height: 37px;
+  transform: translateX(-50%);
+  border-radius: var(--radius-pill);
+  background: var(--color-device);
+}
+
+/* Celular: sin marco, sin barra de estado falsa */
+@media (max-width: 39.99rem) {
+  .stage-orb,
+  .home-indicator,
+  .status-bar,
+  .segmented.view-switch {
+    display: none;
+  }
+
+  .device {
+    width: 100%;
+    height: 100dvh;
+    padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+    border: 0;
+    border-radius: 0;
+    background: var(--color-bg);
+    box-shadow: none;
+  }
+
+  .device-screen {
+    border-radius: 0;
+    clip-path: none;
+  }
+
+  .sheet-root {
+    inset: 0;
+    clip-path: none;
+  }
+}
+
+/* ---------- Tipografía ---------- */
+
+.t-ticket {
+  font-size: 104px;
+  line-height: 0.727; /* = altura de mayúsculas de Inter: la caja coincide con los dígitos */
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.t-big {
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.t-h1 {
+  font-size: 30px;
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.t-h2 {
+  font-size: 23px;
+  line-height: 1.22;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+}
+
+.t-h3 {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.t-body {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.t-strong {
+  font-size: 16px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+.t-small {
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 400;
+}
+
+.t-caption {
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.t-label {
+  font-size: 11px;
+  line-height: 1.1;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fw-regular { font-weight: 400; }
+.fw-semibold { font-weight: 600; }
+.leading-none { line-height: 1; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.nowrap { white-space: nowrap; }
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-ink { color: var(--color-ink); }
+.c-secondary { color: var(--color-text-secondary); }
+.c-muted { color: var(--color-text-muted); }
+.c-accent { color: var(--color-accent); }
+.c-accent-ink { color: var(--color-accent-ink); }
+.c-success { color: var(--color-success); }
+.c-warning { color: var(--color-warning); }
+.c-danger { color: var(--color-danger); }
+.c-tanda { color: var(--color-tanda); }
+
+/* ---------- Layout ---------- */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.row.is-top { align-items: flex-start; }
+.row.is-bottom { align-items: flex-end; }
+.row.is-baseline { align-items: baseline; }
+
+.between { justify-content: space-between; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.wrap { flex-wrap: wrap; }
+
+.grow {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.shrink-0 { flex-shrink: 0; }
+
+.grid-2,
+.grid-3 {
+  display: grid;
+}
+
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.gap-05 { gap: 2px; }
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-5 { gap: var(--space-5); }
+.gap-6 { gap: var(--space-6); }
+
+/* Línea divisoria arriba de un bloque */
+.divided {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.divider {
+  border-top: 1px solid var(--color-border-soft);
+}
+
+/* ---------- Íconos ---------- */
+
+.icon {
+  width: var(--size-icon);
+  height: var(--size-icon);
+  flex-shrink: 0;
+}
+
+.icon-lg {
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
+  flex-shrink: 0;
+}
+
+.icon-sm {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  50% { opacity: 0.5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

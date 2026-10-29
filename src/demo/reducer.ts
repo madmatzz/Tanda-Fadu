@@ -281,15 +281,7 @@ export function loadDemoState(): DemoState {
     if (!raw) return structuredClone(initialState);
     const parsed = JSON.parse(raw) as DemoState;
     if (parsed.version !== initialState.version) return structuredClone(initialState);
-    // El pedido y su flujo viven solo durante la sesión: al recargar, la demo
-    // vuelve a arrancar sin pedidos para poder mostrar el recorrido completo.
-    return {
-      ...parsed,
-      draft: structuredClone(initialState.draft),
-      orders: structuredClone(initialState.orders),
-      tandas: structuredClone(initialState.tandas),
-      nextTicket: initialState.nextTicket,
-    };
+    return parsed;
   } catch {
     return structuredClone(initialState);
   }

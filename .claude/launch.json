@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 5173
+    },
+    {
+      "name": "tanda-web",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:\\Users\\tl0pe\\AppData\\Local\\Temp\\claude\\F--Mis-cosas-FADU-7mo-A-o---2026-DGPC-Ocampo-Proyecto-App-Tanda-Fadu-main\\5abd42fc-6fb4-484f-97ed-2c47c0cdbd4b\\scratchpad\\serve.mjs", "web", "5174"],
+      "port": 5174
     }
   ]
 }

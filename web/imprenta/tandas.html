@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es" class="theme-imprenta">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Todas las rutas (estilos, scripts, imágenes y links) se escriben desde la carpeta web/ -->
+  <base href="../">
+  <title>Tandas · Tanda Imprenta</title>
+  <link rel="icon" href="img/favicon.svg">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+  <div class="stage">
+    <div class="stage-orb is-sun" aria-hidden="true"></div>
+    <div class="stage-orb is-accent" aria-hidden="true"></div>
+
+    <div class="device">
+      <!-- Acá se dibuja la pantalla (js/pages/imprenta/tandas.js) -->
+      <div class="device-screen" id="screen"></div>
+      <!-- Paneles que suben desde abajo -->
+      <div class="sheet-root" id="sheet-root"></div>
+      <div class="home-indicator" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/sheets.js"></script>
+  <script src="js/imprenta.js"></script>
+  <script src="js/pages/imprenta/tandas.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+/*
+  Tokens del sistema visual · Papel & mandarina.
+  Única fuente de colores, tipografías, radios, espacios y sombras.
+  El resto del CSS usa solo estas variables: nada de colores o medidas sueltas.
+*/
+
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+:root {
+  /* Papel y superficies */
+  --color-bg: #F4EEE6;
+  --color-surface: #FFFCF7;
+  --color-surface-soft: #FBF6EF;
+  --color-fill: #F1E9DE;
+  --color-fill-deep: #E6DACB;
+
+  /* Tinta */
+  --color-ink: #1B1613;
+  --color-ink-soft: #4D443C;
+  --color-text-secondary: #5F544A;
+  --color-text-muted: #74685C;
+
+  /* Líneas y capas de vidrio */
+  --color-border: #E4D9CC;
+  --color-border-soft: #EFE6DB;
+  --color-glass: rgb(255 252 247 / 0.68);
+  --color-glass-strong: rgb(255 252 247 / 0.86);
+  --color-glass-border: rgb(255 255 255 / 0.72);
+  --color-overlay: rgb(27 22 19 / 0.38);
+
+  /* Acento mandarina (riso) */
+  --color-accent: #F06424;
+  --color-accent-dark: #C0450F;
+  --color-accent-ink: #8F300B;
+  --color-accent-soft: #FDE8DC;
+  --color-accent-border: #F6C4A9;
+  --color-sun-1: #FFC08E;
+
+  /* Tanda: violeta para destacar coincidencias con una tanda */
+  --color-tanda: #7A3FC4;
+  --color-tanda-soft: #F1E8FC;
+  --color-tanda-border: #D7C2F2;
+  --color-tanda-muted: #E5D6F8;
+  --color-tanda-light: #A672E8;
+  --color-tanda-deep: #5E2BA3;
+
+  /* Mapa: un color por local, para unir su punto en el plano con su etiqueta */
+  --color-pin-red: #E0453A;
+  --color-pin-blue: #3F7FD6;
+  --color-pin-green: #4E9A2E;
+  --color-pin-pink: #C95BB6;
+  --color-pin-amber: #C98510;
+  --color-map-bg: #EFE7DC;
+
+  /* Estados */
+  --color-success: #1F7A52;
+  --color-success-soft: #E7F4ED;
+  --color-success-border: #BFE0D0;
+  --color-info: #2F6BA8;
+  --color-info-soft: #E9F1FA;
+  --color-info-border: #C6DAEE;
+  --color-warning: #A45C08;
+  --color-warning-bg: #FDF0D8;
+  --color-warning-border: #EBCB92;
+  --color-danger: #B2401E;
+  --color-danger-soft: #FAE7DE;
+  --color-danger-border: #EEBFA9;
+  --color-disabled: #B4A89C;
+
+  /* Tipografía */
+  --font-sans: "Inter Variable", "Inter", -apple-system, "Helvetica Neue", sans-serif;
+
+  /* Radios */
+  --radius-xs: 10px;
+  --radius-sm: 14px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-device: 54px;
+  --radius-pill: 999px;
+
+  /* Espacios: escala base 4px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --gutter: 20px;
+  --card-padding: 20px;
+
+  /* Medidas fijas de controles */
+  --size-icon: 20px;
+  --size-icon-lg: 24px;
+  --size-control-sm: 36px;
+  --size-control: 44px;
+  --size-field: 52px;
+  --size-cta: 56px;
+  --size-thumb: 56px;
+  --size-header: 64px;
+  --size-status-bar: 56px;
+
+  /* Contenedores */
+  --device-width: 402px;
+  --device-height: 874px;
+
+  /* Sombras */
+  --shadow-soft: 0 1px 2px rgb(40 28 18 / 0.04), 0 12px 32px -16px rgb(40 28 18 / 0.16);
+  --shadow-float: 0 2px 6px rgb(40 28 18 / 0.05), 0 28px 64px -28px rgb(40 28 18 / 0.34);
+  --shadow-glow: 0 18px 42px -18px rgb(240 100 36 / 0.55);
+  --shadow-glow-tanda: 0 18px 42px -18px rgb(122 63 196 / 0.6);
+  --shadow-rim: inset 0 1px 0 rgb(255 255 255 / 0.72);
+  --shadow-device: 0 40px 120px -36px rgb(40 28 18 / 0.48), 0 8px 24px -12px rgb(40 28 18 / 0.22);
+
+  /* Desenfoques */
+  --blur-glass: 16px;
+  --blur-orb: 80px;
+
+  /* Gradientes */
+  --gradient-sunset: linear-gradient(135deg, #FFC08E 0%, #FA8246 40%, #F06424 68%, #D94812 100%);
+  --gradient-sunrise: linear-gradient(155deg, #FFF7EF 0%, #FDE8DC 52%, #F9D4BE 100%);
+  --gradient-ink-fade: linear-gradient(165deg, #2A231D 0%, #1B1613 100%);
+  --gradient-tanda: linear-gradient(135deg, var(--color-tanda-light) 0%, var(--color-tanda) 58%, var(--color-tanda-deep) 100%);
+
+  /* Marco del teléfono (la carcasa y la isla de la cámara) */
+  --color-device: #080606;
+
+  /*
+    Fondo detrás del teléfono (solo en computadora): siempre al revés que la vista,
+    para que el teléfono resalte. Con la vista clara del estudiante, el fondo es oscuro.
+    El selector de vista va sobre este fondo, así que usa estos mismos colores.
+  */
+  /* De arriba hacia abajo, aclara apenas */
+  --stage-bg: linear-gradient(180deg, #1C1917 0%, #27231F 100%);
+  /* Sin destellos de color sobre el fondo oscuro (la imprenta sí los usa, sobre el claro) */
+  --stage-orb-sun: transparent;
+  --stage-orb-accent: transparent;
+  --stage-switch-bg: #121010;
+  --stage-switch-border: #38312B;
+  --stage-switch-text: #B4A99C;
+  --stage-switch-active-bg: #3A332D;
+  --stage-switch-active-text: #F4EEE6;
+
+  /* Transiciones */
+  --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*
+  Vista de imprenta: el mismo sistema, invertido (modo oscuro).
+  Se activa con <html class="theme-imprenta"> y se lee como el "detrás de escena" de la app.
+  Los fondos pasan a ser oscuros y la tinta clara; lo que era negro (botón principal,
+  tarjetas destacadas) queda claro. El naranja y el violeta se mantienen, un poco más luminosos.
+*/
+.theme-imprenta {
+  color-scheme: dark;
+
+  --color-bg: #121010;
+  --color-surface: #1C1917;
+  --color-surface-soft: #221E1B;
+  --color-fill: #2A2521;
+  --color-fill-deep: #3A332D;
+
+  --color-ink: #F4EEE6;
+  --color-ink-soft: #D8CEC2;
+  --color-text-secondary: #B4A99C;
+  --color-text-muted: #8F8478;
+
+  --color-border: #38312B;
+  --color-border-soft: #2B2622;
+  --color-glass: rgb(28 25 23 / 0.7);
+  --color-glass-strong: rgb(28 25 23 / 0.88);
+  --color-glass-border: rgb(255 255 255 / 0.08);
+  --color-overlay: rgb(0 0 0 / 0.6);
+
+  --color-accent: #F06424;
+  --color-accent-dark: #FF8A50;
+  --color-accent-ink: #FFB38A;
+  --color-accent-soft: #3A2118;
+  --color-accent-border: #6A3419;
+  --color-sun-1: #7A3A14;
+
+  --color-tanda: #B48AF0;
+  --color-tanda-soft: #261C35;
+  --color-tanda-border: #46335F;
+  --color-tanda-muted: #35264B;
+
+  --color-success: #4CC38A;
+  --color-success-soft: #14271E;
+  --color-success-border: #24503B;
+  --color-info: #74AAE8;
+  --color-info-soft: #15212E;
+  --color-info-border: #284159;
+  --color-warning: #E9AC52;
+  --color-warning-bg: #2C2110;
+  --color-warning-border: #5A4320;
+  --color-danger: #F2845F;
+  --color-danger-soft: #32190F;
+  --color-danger-border: #5E2D1B;
+  --color-disabled: #5C5249;
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.7);
+  --shadow-float: 0 2px 6px rgb(0 0 0 / 0.3), 0 28px 64px -28px rgb(0 0 0 / 0.8);
+  --shadow-glow: 0 18px 42px -18px rgb(240 100 36 / 0.45);
+  --shadow-rim: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  --shadow-device: 0 40px 120px -36px rgb(0 0 0 / 0.8), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+
+  --gradient-sunrise: linear-gradient(155deg, #2A1C15 0%, #3A2117 52%, #4A2718 100%);
+  /* "Tinta" invertida: las tarjetas que eran negras quedan claras */
+  --gradient-ink-fade: linear-gradient(165deg, #FBF6EF 0%, #ECE3D7 100%);
+
+  --color-device: #080606;
+
+  /* Con la vista oscura de la imprenta, el fondo de alrededor es claro */
+  --stage-bg: #F4EEE6;
+  --stage-orb-sun: #FFC08E;
+  --stage-orb-accent: #F06424;
+  --stage-switch-bg: #F1E9DE;
+  --stage-switch-border: #E4D9CC;
+  --stage-switch-text: #5F544A;
+  --stage-switch-active-bg: #FFFCF7;
+  --stage-switch-active-text: #1B1613;
+}

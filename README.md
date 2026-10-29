@@ -70,8 +70,8 @@ npm run build
 
 - No hay autenticación, pagos, subida real de archivos, procesamiento de PDFs, geolocalización ni mapas reales.
 - El reloj está fijo en **miércoles 11:20**. Los estados, esperas y movimientos de cola son ficticios.
-- La demo arranca sin pedido en curso: el bloque **Últimos pedidos** y el acceso flotante **Mi pedido** aparecen recién cuando confirmás una impresión.
-- Las preferencias, locales guardados y ajustes de la demo se guardan en `localStorage` con la clave `tanda-demo-v2`. El pedido, el flujo de impresión y las tandas se reinician al recargar la página.
+- La demo arranca sin pedido en curso: el acceso flotante **Mi pedido** aparece recién cuando confirmás una impresión.
+- Los cambios se guardan en `localStorage` con la clave `tanda-demo-v2`.
 - **Menú demo** (Home o perfil) permite cargar estados de validación, abrir rutas de apoyo y reiniciar la demo.
 - **Vista estudiante / Vista imprenta** es un control de demo externo al dispositivo en desktop. En mobile se accede desde el **Menú demo**.
 - El pago es simulado y no se envían datos de tarjeta.
