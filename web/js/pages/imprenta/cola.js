@@ -30,7 +30,7 @@ function printingCard(order) {
   return `
     <div class="shop-printing">
       <div class="row between gap-2">
-        <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Imprimiendo ahora</span>
+        <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Próximo pedido</span>
         <span class="t-caption">Pedido de ${esc(order.owner)}</span>
       </div>
       <div class="row is-bottom gap-4">
@@ -56,7 +56,7 @@ function printingTandaCard(tanda, orders) {
   return `
     <div class="shop-printing is-tanda">
       <div class="row between gap-2">
-        <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Imprimiendo ahora</span>
+        <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Próximo pedido</span>
         <span class="t-caption">${tanda.label}</span>
       </div>
       <div class="row is-bottom gap-4">
