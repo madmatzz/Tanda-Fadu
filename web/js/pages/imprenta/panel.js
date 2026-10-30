@@ -1,6 +1,33 @@
 // Imprenta · Panel: el resumen del día del local (colas, tandas, stock, reseñas y avisos).
 
+/** Aviso que aparece al entrar a la vista imprenta desde el selector de vista. */
+function newTandaToast(tanda) {
+  return `
+    <div class="shop-new-tanda" role="status">
+      <span class="shop-new-tanda-icon" aria-hidden="true">${icon("sparkles", "icon-lg")}</span>
+      <span class="shop-new-tanda-text">Se creó una nueva tanda</span>
+      <a class="btn btn-primary btn-md shop-new-tanda-action" href="imprenta/tanda.html?id=${tanda.id}">Imprimir</a>
+    </div>`;
+}
+
 App.start({
+  init() {
+    if (App.params.get("nueva-tanda") !== "1") return;
+
+    window.setTimeout(() => {
+      const root = document.getElementById("shop-toast-root");
+      if (!root) return;
+
+      const tanda = localTandas(Store.state, SHOP_LOCAL_ID)
+        .filter((item) => !item.printed && tandaOrders(Store.state, item.id).some((order) => order.status === "en-cola" || order.status === "imprimiendo"))
+        .sort((a, b) => b.id.localeCompare(a.id, undefined, { numeric: true }))[0];
+      if (!tanda) return;
+
+      root.innerHTML = newTandaToast(tanda);
+      requestAnimationFrame(() => root.querySelector(".shop-new-tanda")?.classList.add("is-visible"));
+    }, 2000);
+  },
+
   render() {
     const state = Store.state;
     const local = shopLocal(state);

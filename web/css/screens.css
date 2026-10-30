@@ -1392,6 +1392,69 @@
 .shop-nav-item.is-active { color: var(--color-ink); }
 .shop-nav-item.is-active .icon { background: var(--color-fill-deep); }
 
+/* Aviso flotante al entrar a la vista imprenta */
+.shop-toast-root {
+  position: absolute;
+  right: var(--space-4);
+  bottom: calc(var(--size-cta) + var(--space-6) + env(safe-area-inset-bottom));
+  left: var(--space-4);
+  z-index: 45;
+  pointer-events: none;
+}
+
+.shop-new-tanda {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  background: var(--gradient-ink-fade);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-float);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.shop-new-tanda.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.shop-new-tanda-icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-new-tanda-icon .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.shop-new-tanda-text {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.shop-new-tanda .shop-new-tanda-action {
+  flex: 0 0 auto;
+  background: var(--color-tanda-deep);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-glow-tanda);
+}
+
+.shop-new-tanda .shop-new-tanda-action:hover {
+  background: var(--color-tanda-deep);
+  color: var(--color-ink);
+  filter: brightness(1.06);
+}
+
 /* Números grandes de los indicadores */
 .shop-metric {
   font-size: 40px;

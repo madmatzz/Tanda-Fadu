@@ -117,7 +117,7 @@ const App = {
     device.insertAdjacentHTML("beforebegin", `
       <nav class="segmented view-switch" aria-label="Cambiar vista">
         ${option("Vista estudiante", "index.html", !shop)}
-        ${option("Vista imprenta", "imprenta/index.html", shop)}
+        ${option("Vista imprenta", shop ? "imprenta/index.html" : "imprenta/index.html?nueva-tanda=1", shop)}
       </nav>`);
   },
 

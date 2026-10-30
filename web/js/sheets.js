@@ -36,7 +36,7 @@ const DemoMenu = {
           <div class="stack gap-2">
             ${UI.sectionLabel("Vistas")}
             ${row("user-round", "Estudiante", "Inicio de la app", "demoGo", { href: "index.html" })}
-            ${row("store", "Imprenta", "Panel de El Poli (modo oscuro)", "demoGo", { href: "imprenta/index.html" })}
+            ${row("store", "Imprenta", "Panel de El Poli (modo oscuro)", "demoGo", { href: "imprenta/index.html?nueva-tanda=1" })}
           </div>
           <div class="divider"></div>
           <div class="stack gap-2">
