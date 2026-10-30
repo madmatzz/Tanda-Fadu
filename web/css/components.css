@@ -329,16 +329,20 @@
 
 /* Lo que es tanda va en violeta suave, como las tarjetas con tanda al comparar locales */
 .action-card.is-tanda {
-  border-color: var(--color-tanda-border);
-  background: var(--color-tanda-soft);
-  color: var(--color-tanda);
+  border-color: var(--color-tanda);
+  background: var(--color-tanda);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-glow-tanda);
 }
 
-.action-card.is-tanda:hover { border-color: var(--color-tanda); box-shadow: var(--shadow-float); }
+.action-card.is-tanda:hover {
+  border-color: var(--color-tanda-light);
+  background: var(--color-tanda-deep);
+}
 
 .action-card.is-tanda .action-card-icon {
-  border-color: var(--color-tanda-border);
-  background: var(--color-tanda-muted);
+  border-color: rgb(255 255 255 / 0.28);
+  background: rgb(255 255 255 / 0.18);
 }
 
 /* Accesos secundarios más bajos, para que se vea más contenido sin scrollear */

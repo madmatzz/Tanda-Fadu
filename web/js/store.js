@@ -243,6 +243,16 @@ const actions = {
     Store.commit();
   },
 
+  /** Vuelve a encolar un pedido para reimprimirlo. */
+  redoOrder(orderId) {
+    const state = Store.state;
+    const order = orderById(state, orderId);
+    order.status = "en-cola";
+    order.filesDownloaded = false;
+    syncQueue(state, order.localId);
+    Store.commit();
+  },
+
   /** Cierra la tanda e imprime todos sus pedidos juntos: quedan listos para retirar. */
   printTanda(tandaId) {
     const state = Store.state;

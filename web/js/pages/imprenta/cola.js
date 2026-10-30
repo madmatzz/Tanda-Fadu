@@ -4,7 +4,7 @@
 /** Pedidos de cada lista que se muestran antes de "Ver todos". */
 const PREVIEW = 5;
 const QUEUE_PREVIEW = 7;
-const view = { open: { waiting: false, ready: false } };
+const view = { open: { waiting: false, ready: false }, downloading: null };
 
 /** Botón para desplegar o plegar una lista larga. */
 function toggleButton(list, count, limit = PREVIEW, label = "") {
@@ -28,6 +28,7 @@ function queueEntries(waiting, tandas) {
 function printingCard(order) {
   const specs = order.specs;
   const downloaded = Boolean(order.filesDownloaded);
+  const downloading = view.downloading === order.id;
   return `
     <div class="shop-printing">
       <a class="shop-printing-detail" href="pedido.html?id=${order.id}">
@@ -46,10 +47,11 @@ function printingCard(order) {
         ${specs.notes ? `<p class="t-small shop-printing-note"><span class="fw-semibold">Observaciones:</span> ${esc(specs.notes)}</p>` : ""}
       </a>
       ${UI.button({
-        label: downloaded ? "Listo para retirar" : "Descargar archivo",
+        label: downloading ? "Cargando…" : downloaded ? "Listo para retirar" : "Descargar archivo",
         icon: downloaded ? "check" : "download",
         variant: "accent",
         block: true,
+        loading: downloading,
         action: downloaded ? "finishPrinting" : "downloadOrder",
         data: { id: order.id },
       })}
@@ -64,6 +66,7 @@ function printingTandaCard(tanda, orders) {
   const extra = names.length - 3;
   const pages = pending.reduce((sum, order) => sum + order.specs.pages, 0);
   const downloaded = Boolean(tanda.filesDownloaded);
+  const downloading = view.downloading === tanda.id;
   return `
     <div class="shop-printing is-tanda">
       <a class="shop-printing-detail" href="imprenta/tanda.html?id=${tanda.id}">
@@ -82,10 +85,11 @@ function printingTandaCard(tanda, orders) {
         <p class="t-small shop-printing-note"><span class="fw-semibold">Nombres:</span> ${shown ? esc(shown) : "Sin pedidos"}${extra > 0 ? ` +${extra}` : ""}</p>
       </a>
       ${UI.button({
-        label: downloaded ? "Listo para retirar" : "Descargar archivos",
+        label: downloading ? "Cargando…" : downloaded ? "Listo para retirar" : "Descargar archivos",
         icon: downloaded ? "check" : "download",
         variant: "tanda",
         block: true,
+        loading: downloading,
         action: downloaded ? "finishTanda" : "downloadTanda",
         data: { id: tanda.id },
       })}
@@ -167,7 +171,7 @@ App.start({
 
           <section class="stack gap-3" id="retirar">
             <div class="row between gap-2">
-              ${UI.sectionLabel(`Para retirar (${ready.length})`)}
+              ${UI.sectionLabel(`Entregados (${ready.length})`)}
               <span class="t-caption c-muted">${plural(delivered.length, "entregado", "entregados")} hoy</span>
             </div>
             ${ready.length
@@ -175,7 +179,7 @@ App.start({
                 <div class="stack gap-2">
                   ${visible("ready", ready).map((order) => ShopUI.orderRow(
                     order,
-                    UI.button({ label: "Entregado", variant: "soft", size: "sm", action: "deliverOrder", data: { id: order.id } }),
+                    UI.button({ label: "Rehacer", variant: "soft", size: "sm", action: "redoOrder", data: { id: order.id } }),
                     order.tandaId && tandaById(state, order.tandaId),
                   )).join("")}
                 </div>
@@ -198,19 +202,35 @@ App.start({
     },
 
     downloadOrder(button) {
-      actions.downloadOrder(button.dataset.id);
+      const id = button.dataset.id;
+      if (view.downloading) return;
+      view.downloading = id;
+      App.render();
+      window.setTimeout(() => {
+        if (view.downloading !== id) return;
+        view.downloading = null;
+        actions.downloadOrder(id);
+      }, 900);
     },
 
     downloadTanda(button) {
-      actions.downloadTanda(button.dataset.id);
+      const id = button.dataset.id;
+      if (view.downloading) return;
+      view.downloading = id;
+      App.render();
+      window.setTimeout(() => {
+        if (view.downloading !== id) return;
+        view.downloading = null;
+        actions.downloadTanda(id);
+      }, 900);
     },
 
     startPrinting(button) {
       actions.startPrinting(button.dataset.id);
     },
 
-    deliverOrder(button) {
-      actions.deliverOrder(button.dataset.id);
+    redoOrder(button) {
+      actions.redoOrder(button.dataset.id);
     },
 
     toggleList(button) {
