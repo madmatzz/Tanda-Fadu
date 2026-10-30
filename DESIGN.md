@@ -2,9 +2,9 @@
 
 Sistema de diseño de **Fadu Print**, relevado de los mockups en `/pov usuario` y `/pov imprenta` y reinterpretado en la dirección visual **Papel & mandarina**.
 
-La app tiene **dos roles**: **usuario** (estudiante que imprime) e **imprenta** (local que recibe pedidos). La v2 no cambia flujos ni funcionalidad: cambia la piel. Los PNG originales siguen siendo la referencia de producto y se muestran en la página del design system.
+La app tiene **dos roles**: **usuario** (estudiante que imprime) e **imprenta** (local que recibe pedidos). La v2 no cambia flujos ni funcionalidad: cambia la piel. Los PNG originales siguen siendo la referencia de producto.
 
-> **Nota de estado:** la app oficial es la versión sin frameworks de `web/`. Este documento es la referencia del sistema visual.
+> **Nota de estado:** la app oficial es la versión sin frameworks de `web/`. La versión viva de este documento es [`web/design-system.html`](web/design-system.html); este archivo queda como referencia del sistema visual.
 
 ---
 

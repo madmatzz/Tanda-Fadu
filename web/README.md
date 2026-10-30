@@ -6,6 +6,16 @@ la imprenta. No hay que instalar nada: se abre `index.html` (estudiante) o `impr
 los comparten las dos vistas: lo que hace la imprenta (imprimir, cargar un aviso, cambiar el
 stock) lo ve el estudiante, y al revés. Desde el "Menú demo" se pasa de una vista a la otra.
 
+## Design system
+
+[`design-system.html`](design-system.html) es la referencia viva del sistema visual. Muestra la
+paleta, los tokens de tipografía, espaciado, radios, sombras, gradientes y movimiento, además de
+los componentes y patrones reales de la app. Usa las mismas hojas de estilo y clases que las
+pantallas, y tiene un selector **Estudiante / Imprenta** para ver el tema claro y el oscuro.
+
+Los valores se leen en vivo de `css/tokens.css`; si cambia un token, la documentación se actualiza
+sin tocar el HTML. También se puede abrir desde **Menú demo → Sistema → Design system**.
+
 ## Pantallas del estudiante
 
 Cada pantalla es un archivo HTML con su script en `js/pages/`:
@@ -52,11 +62,13 @@ las dos vistas. Además, cada HTML de `imprenta/` lleva `<base href="../">`: tod
 ## Cómo está organizado
 
 ```
+design-system.html documentación viva del sistema visual
 css/
-  tokens.css       colores, tipografía, radios, espacios y sombras (el sistema visual)
-  base.css         reset, marco del teléfono y utilidades de texto y layout
-  components.css   botones, tarjetas, campos, chips, paneles…
-  screens.css      estilos propios de cada pantalla
+  tokens.css           colores, tipografía, radios, espacios y sombras (el sistema visual)
+  base.css             reset, marco del teléfono y utilidades de texto y layout
+  components.css       botones, tarjetas, campos, chips, paneles…
+  screens.css          estilos propios de cada pantalla
+  design-system.css    layout de la documentación
 js/
   icons.js         íconos de Lucide como SVG
   logic.js         precios, validación de archivos, tiempos y búsquedas
@@ -67,6 +79,7 @@ js/
   sheets.js        paneles compartidos: menú demo e informar cola
   imprenta.js      piezas de la vista de imprenta: navegación, filas de pedidos y paneles
   floors.js        planos de los pisos de la FADU (trazos copiados de img/mapas)
+  design-system.js tema, copiar tokens, demos e iconos de la documentación
   pages/           una pantalla por archivo (pages/imprenta/ para la imprenta)
 imprenta/          los HTML de la vista de imprenta
 img/, fonts/       imágenes (logos de Tanda, favicon) y la fuente Inter

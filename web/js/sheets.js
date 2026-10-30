@@ -41,6 +41,7 @@ const DemoMenu = {
           <div class="divider"></div>
           <div class="stack gap-2">
             ${UI.sectionLabel("Sistema")}
+            ${row("book-open", "Design system", "Paleta, tokens y componentes", "demoGo", { href: "design-system.html" })}
             ${row("rotate-ccw", "Reiniciar demo", "Vuelve a los datos originales", "demoReset")}
           </div>
         </div>`,

@@ -1,0 +1,1504 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Design System · Tanda</title>
+  <meta name="description" content="Sistema de diseño de Tanda: paleta, tokens, tipografía, componentes y patrones de la app.">
+  <link rel="icon" href="img/favicon.svg">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/design-system.css">
+</head>
+<body class="ds-body">
+  <a class="ds-skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+    <defs>
+      <symbol id="ds-isotipo" viewBox="0 0 216 183">
+        <path d="M204 51H126.972L126.868 182.538L75.8682 182.498L75.9717 51H0V0H204V51Z" fill="currentColor"/>
+        <ellipse cx="188.5" cy="156" rx="27.5" ry="27" class="ds-brand-dot"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="ds-topbar">
+    <a class="ds-brand" href="index.html" aria-label="Tanda, ir al inicio">
+      <svg class="ds-brand-logo" viewBox="0 0 216 183" aria-hidden="true"><use href="#ds-isotipo"></use></svg>
+      <span class="ds-brand-copy">
+        <span class="ds-brand-title">Tanda</span>
+        <span class="ds-brand-sub">Design system · v2</span>
+      </span>
+    </a>
+    <div class="ds-top-actions">
+      <div class="segmented ds-theme-switch" role="group" aria-label="Tema de la documentación">
+        <button type="button" class="segmented-option is-checked" data-set-theme="estudiante" aria-pressed="true">Estudiante</button>
+        <button type="button" class="segmented-option" data-set-theme="imprenta" aria-pressed="false">Imprenta</button>
+      </div>
+      <a class="btn btn-outline btn-sm" href="index.html">Ver app <span data-icon="arrow-right" data-icon-size="icon-sm"></span></a>
+    </div>
+  </header>
+
+  <div class="ds-layout">
+    <aside class="ds-sidebar">
+      <nav aria-label="Contenido del design system">
+        <p class="t-label">Fundaciones</p>
+        <a href="#principios">Principios</a>
+        <a href="#marca">Marca</a>
+        <a href="#color">Color</a>
+        <a href="#tipografia">Tipografía</a>
+        <a href="#espaciado">Espaciado</a>
+        <a href="#radios">Radios</a>
+        <a href="#elevacion">Elevación</a>
+        <a href="#gradientes">Gradientes</a>
+        <a href="#movimiento">Movimiento</a>
+        <a href="#iconos">Iconos</a>
+        <a href="#layout">Layout</a>
+
+        <p class="t-label">Componentes</p>
+        <a href="#botones">Botones</a>
+        <a href="#chips">Chips</a>
+        <a href="#tarjetas">Tarjetas</a>
+        <a href="#acciones">Accesos</a>
+        <a href="#formularios">Formularios</a>
+        <a href="#seleccion">Selección</a>
+        <a href="#feedback">Feedback</a>
+        <a href="#datos">Datos</a>
+        <a href="#tandas">Tandas</a>
+        <a href="#avisos">Avisos</a>
+        <a href="#paneles">Paneles</a>
+
+        <p class="t-label">Patrones</p>
+        <a href="#header">Header</a>
+        <a href="#cta">CTA fijo</a>
+        <a href="#estados">Estados</a>
+        <a href="#cola">Cola virtual</a>
+
+        <p class="t-label">Guías</p>
+        <a href="#accesibilidad">Accesibilidad</a>
+        <a href="#voz">Voz y contenido</a>
+        <a href="#reglas">Reglas de uso</a>
+      </nav>
+      <p class="ds-sidebar-note">
+        Documento vivo. Los colores, espacios y radios se leen en vivo de
+        <code class="ds-code">css/tokens.css</code>.
+      </p>
+    </aside>
+
+    <main class="ds-main" id="contenido">
+      <section class="ds-hero" aria-labelledby="ds-title">
+        <div>
+          <p class="t-label">Sistema de diseño · v2</p>
+          <h1 id="ds-title">Papel &amp; mandarina</h1>
+          <p>
+            El sistema visual de Tanda: una app de impresión por tandas para la FADU.
+            Hecha con HTML, CSS y JavaScript común, con una vista clara para el estudiante
+            y una vista oscura para la imprenta.
+          </p>
+          <div class="ds-hero-chips">
+            <span class="chip">Inter Variable</span>
+            <span class="chip">HTML + CSS + JS</span>
+            <span class="chip">Sin frameworks</span>
+            <span class="chip">Estudiante + imprenta</span>
+          </div>
+          <div class="ds-hero-actions">
+            <a class="btn btn-accent btn-md" href="index.html">Abrir la app <span data-icon="arrow-right" data-icon-size="icon"></span></a>
+            <a class="btn btn-outline btn-md" href="#color">Explorar tokens</a>
+          </div>
+        </div>
+        <div class="ds-hero-board" aria-hidden="true">
+          <div class="row between gap-3">
+            <span class="t-label c-muted">Tanda</span>
+            <svg class="ds-brand-logo" viewBox="0 0 216 183" aria-hidden="true"><use href="#ds-isotipo"></use></svg>
+          </div>
+          <span class="t-big">Aa</span>
+          <div class="ds-hero-swatches">
+            <span style="--swatch: var(--color-ink);"></span>
+            <span style="--swatch: var(--color-accent);"></span>
+            <span style="--swatch: var(--color-tanda);"></span>
+            <span style="--swatch: var(--color-success);"></span>
+            <span style="--swatch: var(--color-fill-deep);"></span>
+          </div>
+          <p class="t-caption c-muted">Inter Variable · 402 × 874 · radios de 24 a 32 px</p>
+        </div>
+      </section>
+
+      <section class="ds-section" id="principios">
+        <div class="ds-section-head">
+          <p class="ds-kicker">01 · Fundaciones</p>
+          <h2>Principios</h2>
+          <p>Seis reglas que ordenan las decisiones visuales. Si una pantalla duda, vuelve acá.</p>
+        </div>
+        <div class="ds-grid cols-3">
+          <article class="ds-panel ds-principle">
+            <span class="round-icon is-accent" data-icon="file-text" data-icon-size="icon"></span>
+            <h3 class="t-h3">Papel antes que pantalla</h3>
+            <p>El fondo es un papel cálido y las superficies son blanco hueso. No hay blanco puro ni gris de laboratorio.</p>
+          </article>
+          <article class="ds-panel ds-principle">
+            <span class="round-icon is-accent" data-icon="sparkles" data-icon-size="icon"></span>
+            <h3 class="t-h3">Tinta para leer, mandarina para actuar</h3>
+            <p>La tinta carga el texto y las acciones primarias. La mandarina marca avance, selección y energía de marca.</p>
+          </article>
+          <article class="ds-panel ds-principle">
+            <span class="round-icon is-accent" data-icon="layers" data-icon-size="icon"></span>
+            <h3 class="t-h3">Vidrio solo en capas flotantes</h3>
+            <p>Header, chips y paneles pueden usar vidrio. Las tarjetas de lectura usan papel para no perder contraste.</p>
+          </article>
+          <article class="ds-panel ds-principle">
+            <span class="round-icon is-accent" data-icon="sliders-horizontal" data-icon-size="icon"></span>
+            <h3 class="t-h3">Radios generosos, sombras largas</h3>
+            <p>Las tarjetas van de 24 a 32 px y los controles son tipo pill. Las sombras son cálidas y de gran difusión.</p>
+          </article>
+          <article class="ds-panel ds-principle">
+            <span class="round-icon is-accent" data-icon="check-circle-2" data-icon-size="icon"></span>
+            <h3 class="t-h3">Estados con texto, no solo color</h3>
+            <p>Un chip siempre dice qué pasa: “En cola”, “Listo”, “Compatible”. El color acompaña, no reemplaza.</p>
+          </article>
+          <article class="ds-panel ds-principle">
+            <span class="round-icon is-accent" data-icon="repeat-2" data-icon-size="icon"></span>
+            <h3 class="t-h3">Dos vistas, un sistema</h3>
+            <p>Estudiante e imprenta comparten tokens y componentes. La imprenta invierte el tema a oscuro, no la estructura.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="ds-section" id="marca">
+        <div class="ds-section-head">
+          <p class="ds-kicker">02 · Fundaciones</p>
+          <h2>Marca</h2>
+          <p>El isotipo es la marca de la app. El lockup con nombre queda para piezas de comunicación externas.</p>
+        </div>
+        <div class="ds-brand-grid">
+          <div class="ds-brand-tile">
+            <svg class="brand-mark" viewBox="0 0 216 183" role="img" aria-label="Isotipo de Tanda"><use href="#ds-isotipo"></use></svg>
+            <p class="ds-brand-caption">Isotipo · encabezado de la app · 26 px</p>
+          </div>
+          <div class="ds-brand-tile">
+            <img class="ds-brand-wordmark" src="img/logo-tanda-nombre.svg" alt="Logotipo Tanda">
+            <p class="ds-brand-caption">Lockup con nombre · piezas externas</p>
+          </div>
+        </div>
+        <p class="ds-note">
+          La marca combina tinta y violeta. El violeta no es decorativo: en la app identifica todo lo que es una tanda.
+          El inicio usa solo el isotipo en el header; el lockup no se muestra en la pantalla principal.
+        </p>
+      </section>
+
+      <section class="ds-section" id="color">
+        <div class="ds-section-head">
+          <p class="ds-kicker">03 · Fundaciones</p>
+          <h2>Color</h2>
+          <p>
+            Todos los colores salen de <code class="ds-code">tokens.css</code>. Tocá cualquier muestra para copiar
+            la variable. Al cambiar a la vista imprenta, los valores se recalculan en vivo.
+          </p>
+        </div>
+
+        <div class="ds-color-group">
+          <h3 class="ds-subhead">Papel y superficies</h3>
+          <div class="ds-swatch-grid">
+            <button type="button" class="ds-swatch" data-copy="var(--color-bg)" title="Copiar var(--color-bg)" style="--swatch: var(--color-bg);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-bg</span>
+              <span class="ds-swatch-value" data-token-value="--color-bg" data-format="color">#F4EEE6</span>
+              <span class="ds-swatch-use">Fondo de la app y del documento</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-surface)" title="Copiar var(--color-surface)" style="--swatch: var(--color-surface);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-surface</span>
+              <span class="ds-swatch-value" data-token-value="--color-surface" data-format="color">#FFFCF7</span>
+              <span class="ds-swatch-use">Tarjetas, inputs, botones outline</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-surface-soft)" title="Copiar var(--color-surface-soft)" style="--swatch: var(--color-surface-soft);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-surface-soft</span>
+              <span class="ds-swatch-value" data-token-value="--color-surface-soft" data-format="color">#FBF6EF</span>
+              <span class="ds-swatch-use">Superficie secundaria y cajas de nota</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-fill)" title="Copiar var(--color-fill)" style="--swatch: var(--color-fill);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-fill</span>
+              <span class="ds-swatch-value" data-token-value="--color-fill" data-format="color">#F1E9DE</span>
+              <span class="ds-swatch-use">Chips neutros y track de controles</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-fill-deep)" title="Copiar var(--color-fill-deep)" style="--swatch: var(--color-fill-deep);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-fill-deep</span>
+              <span class="ds-swatch-value" data-token-value="--color-fill-deep" data-format="color">#E6DACB</span>
+              <span class="ds-swatch-use">Track de progreso y deshabilitados</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="ds-color-group">
+          <h3 class="ds-subhead">Tinta</h3>
+          <div class="ds-swatch-grid">
+            <button type="button" class="ds-swatch" data-copy="var(--color-ink)" title="Copiar var(--color-ink)" style="--swatch: var(--color-ink);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-ink</span>
+              <span class="ds-swatch-value" data-token-value="--color-ink" data-format="color">#1B1613</span>
+              <span class="ds-swatch-use">Texto principal y botón primario</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-ink-soft)" title="Copiar var(--color-ink-soft)" style="--swatch: var(--color-ink-soft);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-ink-soft</span>
+              <span class="ds-swatch-value" data-token-value="--color-ink-soft" data-format="color">#4D443C</span>
+              <span class="ds-swatch-use">Hover del primario y énfasis</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-text-secondary)" title="Copiar var(--color-text-secondary)" style="--swatch: var(--color-text-secondary);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-text-secondary</span>
+              <span class="ds-swatch-value" data-token-value="--color-text-secondary" data-format="color">#5F544A</span>
+              <span class="ds-swatch-use">Subtítulos, metadata y labels</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-text-muted)" title="Copiar var(--color-text-muted)" style="--swatch: var(--color-text-muted);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-text-muted</span>
+              <span class="ds-swatch-value" data-token-value="--color-text-muted" data-format="color">#74685C</span>
+              <span class="ds-swatch-use">Hints, notas y placeholders</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="ds-color-group">
+          <h3 class="ds-subhead">Acento mandarina</h3>
+          <div class="ds-swatch-grid">
+            <button type="button" class="ds-swatch" data-copy="var(--color-accent)" title="Copiar var(--color-accent)" style="--swatch: var(--color-accent);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-accent</span>
+              <span class="ds-swatch-value" data-token-value="--color-accent" data-format="color">#F06424</span>
+              <span class="ds-swatch-use">CTA de acción, selección y tabs activos</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-accent-dark)" title="Copiar var(--color-accent-dark)" style="--swatch: var(--color-accent-dark);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-accent-dark</span>
+              <span class="ds-swatch-value" data-token-value="--color-accent-dark" data-format="color">#C0450F</span>
+              <span class="ds-swatch-use">Hover y pressed del acento</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-accent-ink)" title="Copiar var(--color-accent-ink)" style="--swatch: var(--color-accent-ink);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-accent-ink</span>
+              <span class="ds-swatch-value" data-token-value="--color-accent-ink" data-format="color">#8F300B</span>
+              <span class="ds-swatch-use">Texto sobre fondos accent-soft</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-accent-soft)" title="Copiar var(--color-accent-soft)" style="--swatch: var(--color-accent-soft);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-accent-soft</span>
+              <span class="ds-swatch-value" data-token-value="--color-accent-soft" data-format="color">#FDE8DC</span>
+              <span class="ds-swatch-use">Fondo de chips, íconos y destacados</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-accent-border)" title="Copiar var(--color-accent-border)" style="--swatch: var(--color-accent-border);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-accent-border</span>
+              <span class="ds-swatch-value" data-token-value="--color-accent-border" data-format="color">#F6C4A9</span>
+              <span class="ds-swatch-use">Borde de chips y selección suave</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-sun-1)" title="Copiar var(--color-sun-1)" style="--swatch: var(--color-sun-1);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-sun-1</span>
+              <span class="ds-swatch-value" data-token-value="--color-sun-1" data-format="color">#FFC08E</span>
+              <span class="ds-swatch-use">Luz del gradiente sunset</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="ds-color-group">
+          <h3 class="ds-subhead">Tanda violeta</h3>
+          <div class="ds-swatch-grid">
+            <button type="button" class="ds-swatch" data-copy="var(--color-tanda)" title="Copiar var(--color-tanda)" style="--swatch: var(--color-tanda);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-tanda</span>
+              <span class="ds-swatch-value" data-token-value="--color-tanda" data-format="color">#7A3FC4</span>
+              <span class="ds-swatch-use">Identidad de tandas y coincidencias</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-tanda-soft)" title="Copiar var(--color-tanda-soft)" style="--swatch: var(--color-tanda-soft);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-tanda-soft</span>
+              <span class="ds-swatch-value" data-token-value="--color-tanda-soft" data-format="color">#F1E8FC</span>
+              <span class="ds-swatch-use">Fondo de tarjetas de tanda</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-tanda-border)" title="Copiar var(--color-tanda-border)" style="--swatch: var(--color-tanda-border);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-tanda-border</span>
+              <span class="ds-swatch-value" data-token-value="--color-tanda-border" data-format="color">#D7C2F2</span>
+              <span class="ds-swatch-use">Borde de componentes de tanda</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-tanda-muted)" title="Copiar var(--color-tanda-muted)" style="--swatch: var(--color-tanda-muted);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-tanda-muted</span>
+              <span class="ds-swatch-value" data-token-value="--color-tanda-muted" data-format="color">#E5D6F8</span>
+              <span class="ds-swatch-use">Fondo de íconos de tanda</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-tanda-light)" title="Copiar var(--color-tanda-light)" style="--swatch: var(--color-tanda-light);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-tanda-light</span>
+              <span class="ds-swatch-value" data-token-value="--color-tanda-light" data-format="color">#A672E8</span>
+              <span class="ds-swatch-use">Luz del gradiente tanda</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-tanda-deep)" title="Copiar var(--color-tanda-deep)" style="--swatch: var(--color-tanda-deep);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-tanda-deep</span>
+              <span class="ds-swatch-value" data-token-value="--color-tanda-deep" data-format="color">#5E2BA3</span>
+              <span class="ds-swatch-use">Sombra del gradiente tanda</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="ds-color-group">
+          <h3 class="ds-subhead">Estados</h3>
+          <div class="ds-swatch-grid">
+            <button type="button" class="ds-swatch" data-copy="var(--color-success)" title="Copiar var(--color-success)" style="--swatch: var(--color-success);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-success</span>
+              <span class="ds-swatch-value" data-token-value="--color-success" data-format="color">#1F7A52</span>
+              <span class="ds-swatch-use">Listo, impreso y validación OK</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-success-soft)" title="Copiar var(--color-success-soft)" style="--swatch: var(--color-success-soft);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-success-soft</span>
+              <span class="ds-swatch-value" data-token-value="--color-success-soft" data-format="color">#E7F4ED</span>
+              <span class="ds-swatch-use">Fondo de estados OK</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-success-border)" title="Copiar var(--color-success-border)" style="--swatch: var(--color-success-border);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-success-border</span>
+              <span class="ds-swatch-value" data-token-value="--color-success-border" data-format="color">#BFE0D0</span>
+              <span class="ds-swatch-use">Borde de validación OK</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-info)" title="Copiar var(--color-info)" style="--swatch: var(--color-info);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-info</span>
+              <span class="ds-swatch-value" data-token-value="--color-info" data-format="color">#2F6BA8</span>
+              <span class="ds-swatch-use">En cola y tiempos</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-info-soft)" title="Copiar var(--color-info-soft)" style="--swatch: var(--color-info-soft);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-info-soft</span>
+              <span class="ds-swatch-value" data-token-value="--color-info-soft" data-format="color">#E9F1FA</span>
+              <span class="ds-swatch-use">Fondo de avisos informativos</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-info-border)" title="Copiar var(--color-info-border)" style="--swatch: var(--color-info-border);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-info-border</span>
+              <span class="ds-swatch-value" data-token-value="--color-info-border" data-format="color">#C6DAEE</span>
+              <span class="ds-swatch-use">Borde de avisos informativos</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-warning)" title="Copiar var(--color-warning)" style="--swatch: var(--color-warning);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-warning</span>
+              <span class="ds-swatch-value" data-token-value="--color-warning" data-format="color">#A45C08</span>
+              <span class="ds-swatch-use">Avisos y alta demanda</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-warning-bg)" title="Copiar var(--color-warning-bg)" style="--swatch: var(--color-warning-bg);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-warning-bg</span>
+              <span class="ds-swatch-value" data-token-value="--color-warning-bg" data-format="color">#FDF0D8</span>
+              <span class="ds-swatch-use">Fondo de avisos y alertas</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-warning-border)" title="Copiar var(--color-warning-border)" style="--swatch: var(--color-warning-border);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-warning-border</span>
+              <span class="ds-swatch-value" data-token-value="--color-warning-border" data-format="color">#EBCB92</span>
+              <span class="ds-swatch-use">Borde de avisos y alertas</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-danger)" title="Copiar var(--color-danger)" style="--swatch: var(--color-danger);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-danger</span>
+              <span class="ds-swatch-value" data-token-value="--color-danger" data-format="color">#B2401E</span>
+              <span class="ds-swatch-use">Errores, en terracota</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-danger-soft)" title="Copiar var(--color-danger-soft)" style="--swatch: var(--color-danger-soft);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-danger-soft</span>
+              <span class="ds-swatch-value" data-token-value="--color-danger-soft" data-format="color">#FAE7DE</span>
+              <span class="ds-swatch-use">Fondo de errores</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-danger-border)" title="Copiar var(--color-danger-border)" style="--swatch: var(--color-danger-border);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-danger-border</span>
+              <span class="ds-swatch-value" data-token-value="--color-danger-border" data-format="color">#EEBFA9</span>
+              <span class="ds-swatch-use">Borde de errores</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-disabled)" title="Copiar var(--color-disabled)" style="--swatch: var(--color-disabled);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-disabled</span>
+              <span class="ds-swatch-value" data-token-value="--color-disabled" data-format="color">#B4A89C</span>
+              <span class="ds-swatch-use">Controles deshabilitados</span>
+            </button>
+          </div>
+          <p class="ds-note">
+            Los estados nunca se comunican solo con color: el chip o la nota siempre incluyen texto.
+            El acento no se usa para párrafos largos; para texto sobre fondos suaves se usa
+            <code class="ds-code">--color-accent-ink</code>.
+          </p>
+        </div>
+
+        <div class="ds-color-group">
+          <h3 class="ds-subhead">Líneas y vidrio</h3>
+          <div class="ds-swatch-grid">
+            <button type="button" class="ds-swatch" data-copy="var(--color-border)" title="Copiar var(--color-border)" style="--swatch: var(--color-border);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-border</span>
+              <span class="ds-swatch-value" data-token-value="--color-border" data-format="color">#E4D9CC</span>
+              <span class="ds-swatch-use">Bordes visibles y divisores fuertes</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-border-soft)" title="Copiar var(--color-border-soft)" style="--swatch: var(--color-border-soft);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-border-soft</span>
+              <span class="ds-swatch-value" data-token-value="--color-border-soft" data-format="color">#EFE6DB</span>
+              <span class="ds-swatch-use">Bordes de tarjeta y divisores internos</span>
+            </button>
+            <button type="button" class="ds-swatch is-glass" data-copy="var(--color-glass)" title="Copiar var(--color-glass)" style="--swatch: var(--color-glass);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-glass</span>
+              <span class="ds-swatch-value" data-token-value="--color-glass" data-format="color">rgb(255 252 247 / .68)</span>
+              <span class="ds-swatch-use">Fondo de capas de vidrio</span>
+            </button>
+            <button type="button" class="ds-swatch is-glass" data-copy="var(--color-glass-strong)" title="Copiar var(--color-glass-strong)" style="--swatch: var(--color-glass-strong);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-glass-strong</span>
+              <span class="ds-swatch-value" data-token-value="--color-glass-strong" data-format="color">rgb(255 252 247 / .86)</span>
+              <span class="ds-swatch-use">Vidrio sobre superficies claras</span>
+            </button>
+            <button type="button" class="ds-swatch is-glass" data-copy="var(--color-glass-border)" title="Copiar var(--color-glass-border)" style="--swatch: var(--color-glass-border);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-glass-border</span>
+              <span class="ds-swatch-value" data-token-value="--color-glass-border" data-format="color">rgb(255 255 255 / .72)</span>
+              <span class="ds-swatch-use">Borde de luz sobre gradientes</span>
+            </button>
+            <button type="button" class="ds-swatch is-glass" data-copy="var(--color-overlay)" title="Copiar var(--color-overlay)" style="--swatch: var(--color-overlay);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-overlay</span>
+              <span class="ds-swatch-value" data-token-value="--color-overlay" data-format="color">rgb(27 22 19 / .38)</span>
+              <span class="ds-swatch-use">Scrim de modales y paneles</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-device)" title="Copiar var(--color-device)" style="--swatch: var(--color-device);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-device</span>
+              <span class="ds-swatch-value" data-token-value="--color-device" data-format="color">#080606</span>
+              <span class="ds-swatch-use">Carcasa e isla de la cámara</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="ds-color-group">
+          <h3 class="ds-subhead">Mapa</h3>
+          <div class="ds-swatch-grid">
+            <button type="button" class="ds-swatch" data-copy="var(--color-pin-red)" title="Copiar var(--color-pin-red)" style="--swatch: var(--color-pin-red);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-pin-red</span>
+              <span class="ds-swatch-value" data-token-value="--color-pin-red" data-format="color">#E0453A</span>
+              <span class="ds-swatch-use">Pin de local</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-pin-blue)" title="Copiar var(--color-pin-blue)" style="--swatch: var(--color-pin-blue);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-pin-blue</span>
+              <span class="ds-swatch-value" data-token-value="--color-pin-blue" data-format="color">#3F7FD6</span>
+              <span class="ds-swatch-use">Pin de local</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-pin-green)" title="Copiar var(--color-pin-green)" style="--swatch: var(--color-pin-green);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-pin-green</span>
+              <span class="ds-swatch-value" data-token-value="--color-pin-green" data-format="color">#4E9A2E</span>
+              <span class="ds-swatch-use">Pin de local</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-pin-pink)" title="Copiar var(--color-pin-pink)" style="--swatch: var(--color-pin-pink);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-pin-pink</span>
+              <span class="ds-swatch-value" data-token-value="--color-pin-pink" data-format="color">#C95BB6</span>
+              <span class="ds-swatch-use">Pin de local</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-pin-amber)" title="Copiar var(--color-pin-amber)" style="--swatch: var(--color-pin-amber);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-pin-amber</span>
+              <span class="ds-swatch-value" data-token-value="--color-pin-amber" data-format="color">#C98510</span>
+              <span class="ds-swatch-use">Pin de local</span>
+            </button>
+            <button type="button" class="ds-swatch" data-copy="var(--color-map-bg)" title="Copiar var(--color-map-bg)" style="--swatch: var(--color-map-bg);">
+              <span class="ds-swatch-color" aria-hidden="true"></span>
+              <span class="ds-swatch-token">--color-map-bg</span>
+              <span class="ds-swatch-value" data-token-value="--color-map-bg" data-format="color">#EFE7DC</span>
+              <span class="ds-swatch-use">Fondo de los planos</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="tipografia">
+        <div class="ds-section-head">
+          <p class="ds-kicker">04 · Fundaciones</p>
+          <h2>Tipografía</h2>
+          <p>Una sola familia: Inter Variable. Títulos con tracking negativo, cuerpo con interlineado amplio y labels en mayúsculas con tracking positivo.</p>
+        </div>
+        <div class="ds-font-card">
+          <span class="ds-font-aa" aria-hidden="true">Aa</span>
+          <div class="ds-font-copy">
+            <h3>Inter Variable</h3>
+            <p>Variable de 100 a 900, servida localmente desde <code class="ds-code">fonts/inter-latin-wght-normal.woff2</code> y aplicada con <code class="ds-code">--font-sans</code>. Sin fuentes externas ni FOUT de terceros.</p>
+            <div class="ds-demo-row">
+              <span class="chip">400 · Regular</span>
+              <span class="chip">600 · Semibold</span>
+              <span class="chip">700 · Bold</span>
+              <span class="chip">800 · ExtraBold</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="ds-subhead">Escala</h3>
+        <div class="ds-panel ds-type-list">
+          <div class="ds-type-row">
+            <div class="ds-type-sample">
+              <div class="ds-ticket-sample"><span class="t-caption">Ticket</span><span class="t-ticket">36</span></div>
+            </div>
+            <div class="ds-type-meta"><code>.t-ticket</code><span>104 / .727 · 800 · -.05em</span></div>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-sample"><span class="t-big">23</span></div>
+            <div class="ds-type-meta"><code>.t-big</code><span>40 / 1 · 800 · -.035em</span></div>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-sample"><p class="t-h1">¿Dónde imprimir?</p></div>
+            <div class="ds-type-meta"><code>.t-h1</code><span>30 / 1.12 · 700 · -.03em</span></div>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-sample"><p class="t-h2">Tandas ya!</p></div>
+            <div class="ds-type-meta"><code>.t-h2</code><span>23 / 1.22 · 700 · -.018em</span></div>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-sample"><p class="t-h3">El Poli</p></div>
+            <div class="ds-type-meta"><code>.t-h3</code><span>18 / 1.3 · 600 · -.01em</span></div>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-sample"><p class="t-body">Tu archivo está listo para imprimir.</p></div>
+            <div class="ds-type-meta"><code>.t-body</code><span>16 / 1.5 · 400</span></div>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-sample"><p class="t-strong">Total estimado</p></div>
+            <div class="ds-type-meta"><code>.t-strong</code><span>16 / 1.45 · 600</span></div>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-sample"><p class="t-small">2 archivos · simple faz · B&amp;N</p></div>
+            <div class="ds-type-meta"><code>.t-small</code><span>14 / 1.45 · 400</span></div>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-sample"><p class="t-caption">Demo · miércoles 11:20</p></div>
+            <div class="ds-type-meta"><code>.t-caption</code><span>13 / 1.4 · 400</span></div>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-sample"><p class="t-label">¿Qué querés hacer?</p></div>
+            <div class="ds-type-meta"><code>.t-label</code><span>11 / 1.1 · 650 · +.12em</span></div>
+          </div>
+        </div>
+
+        <h3 class="ds-subhead">Pesos</h3>
+        <div class="ds-weights">
+          <div class="ds-weight"><span class="ds-weight-aa" style="font-weight: 400;">Aa</span><span>400 · Regular</span></div>
+          <div class="ds-weight"><span class="ds-weight-aa" style="font-weight: 600;">Aa</span><span>600 · Semibold</span></div>
+          <div class="ds-weight"><span class="ds-weight-aa" style="font-weight: 700;">Aa</span><span>700 · Bold</span></div>
+          <div class="ds-weight"><span class="ds-weight-aa" style="font-weight: 800;">Aa</span><span>800 · ExtraBold</span></div>
+        </div>
+        <p class="ds-note">
+          Los títulos no se separan en dos pesos distintos: un mismo nivel usa siempre el mismo peso.
+          Los labels de sección van en mayúsculas, 11 px y tracking amplio.
+        </p>
+      </section>
+
+      <section class="ds-section" id="espaciado">
+        <div class="ds-section-head">
+          <p class="ds-kicker">05 · Fundaciones</p>
+          <h2>Espaciado</h2>
+          <p>Escala base de 4 px. Todos los márgenes, paddings y gaps salen de estos tokens: no se inventan medidas sueltas.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel">
+            <p class="ds-label">Escala</p>
+            <div class="ds-space-list">
+              <div class="ds-space-row"><code>--space-1</code><span class="ds-space-bar" style="--space: var(--space-1);"></span><span class="ds-space-value" data-token-value="--space-1">4px</span></div>
+              <div class="ds-space-row"><code>--space-2</code><span class="ds-space-bar" style="--space: var(--space-2);"></span><span class="ds-space-value" data-token-value="--space-2">8px</span></div>
+              <div class="ds-space-row"><code>--space-3</code><span class="ds-space-bar" style="--space: var(--space-3);"></span><span class="ds-space-value" data-token-value="--space-3">12px</span></div>
+              <div class="ds-space-row"><code>--space-4</code><span class="ds-space-bar" style="--space: var(--space-4);"></span><span class="ds-space-value" data-token-value="--space-4">16px</span></div>
+              <div class="ds-space-row"><code>--space-5</code><span class="ds-space-bar" style="--space: var(--space-5);"></span><span class="ds-space-value" data-token-value="--space-5">20px</span></div>
+              <div class="ds-space-row"><code>--space-6</code><span class="ds-space-bar" style="--space: var(--space-6);"></span><span class="ds-space-value" data-token-value="--space-6">24px</span></div>
+              <div class="ds-space-row"><code>--space-8</code><span class="ds-space-bar" style="--space: var(--space-8);"></span><span class="ds-space-value" data-token-value="--space-8">32px</span></div>
+              <div class="ds-space-row"><code>--space-10</code><span class="ds-space-bar" style="--space: var(--space-10);"></span><span class="ds-space-value" data-token-value="--space-10">40px</span></div>
+              <div class="ds-space-row"><code>--space-12</code><span class="ds-space-bar" style="--space: var(--space-12);"></span><span class="ds-space-value" data-token-value="--space-12">48px</span></div>
+              <div class="ds-space-row"><code>--space-16</code><span class="ds-space-bar" style="--space: var(--space-16);"></span><span class="ds-space-value" data-token-value="--space-16">64px</span></div>
+            </div>
+            <p class="ds-note">Las barras están a escala real. El gutter de pantalla y el padding de tarjeta son de 20 px.</p>
+          </div>
+          <div class="ds-panel">
+            <p class="ds-label">Medidas de layout</p>
+            <div class="ds-size-grid">
+              <div class="ds-size-item"><code>--gutter</code><strong data-token-value="--gutter">20px</strong><span>Padding lateral</span></div>
+              <div class="ds-size-item"><code>--card-padding</code><strong data-token-value="--card-padding">20px</strong><span>Padding de tarjeta</span></div>
+              <div class="ds-size-item"><code>--size-header</code><strong data-token-value="--size-header">64px</strong><span>Header</span></div>
+              <div class="ds-size-item"><code>--size-status-bar</code><strong data-token-value="--size-status-bar">56px</strong><span>Status bar</span></div>
+              <div class="ds-size-item"><code>--size-cta</code><strong data-token-value="--size-cta">56px</strong><span>CTA fijo</span></div>
+              <div class="ds-size-item"><code>--size-field</code><strong data-token-value="--size-field">52px</strong><span>Inputs y botones md</span></div>
+              <div class="ds-size-item"><code>--size-control</code><strong data-token-value="--size-control">44px</strong><span>Icon button</span></div>
+              <div class="ds-size-item"><code>--size-control-sm</code><strong data-token-value="--size-control-sm">36px</strong><span>Icon button sm</span></div>
+              <div class="ds-size-item"><code>--size-thumb</code><strong data-token-value="--size-thumb">56px</strong><span>Status box</span></div>
+              <div class="ds-size-item"><code>--size-icon</code><strong data-token-value="--size-icon">20px</strong><span>Ícono base</span></div>
+              <div class="ds-size-item"><code>--size-icon-lg</code><strong data-token-value="--size-icon-lg">24px</strong><span>Ícono grande</span></div>
+              <div class="ds-size-item"><code>--device-width</code><strong data-token-value="--device-width">402px</strong><span>Ancho del teléfono</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="radios">
+        <div class="ds-section-head">
+          <p class="ds-kicker">06 · Fundaciones</p>
+          <h2>Radios</h2>
+          <p>Radios generosos para separar la app de una interfaz de escritorio. Los controles son pill; las tarjetas van de 24 a 32 px.</p>
+        </div>
+        <div class="ds-radius-grid">
+          <div class="ds-radius-item"><div class="ds-radius-shape" style="--radius: var(--radius-xs);">Aa</div><div class="ds-radius-meta"><code>--radius-xs</code><span data-token-value="--radius-xs">10px</span></div></div>
+          <div class="ds-radius-item"><div class="ds-radius-shape" style="--radius: var(--radius-sm);">Aa</div><div class="ds-radius-meta"><code>--radius-sm</code><span data-token-value="--radius-sm">14px</span></div></div>
+          <div class="ds-radius-item"><div class="ds-radius-shape" style="--radius: var(--radius-md);">Aa</div><div class="ds-radius-meta"><code>--radius-md</code><span data-token-value="--radius-md">18px</span></div></div>
+          <div class="ds-radius-item"><div class="ds-radius-shape" style="--radius: var(--radius-lg);">Aa</div><div class="ds-radius-meta"><code>--radius-lg</code><span data-token-value="--radius-lg">24px</span></div></div>
+          <div class="ds-radius-item"><div class="ds-radius-shape" style="--radius: var(--radius-xl);">Aa</div><div class="ds-radius-meta"><code>--radius-xl</code><span data-token-value="--radius-xl">32px</span></div></div>
+          <div class="ds-radius-item"><div class="ds-radius-shape" style="--radius: var(--radius-device);">Aa</div><div class="ds-radius-meta"><code>--radius-device</code><span data-token-value="--radius-device">54px</span></div></div>
+          <div class="ds-radius-item"><div class="ds-radius-shape" style="--radius: var(--radius-pill);">Aa</div><div class="ds-radius-meta"><code>--radius-pill</code><span data-token-value="--radius-pill">999px</span></div></div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="elevacion">
+        <div class="ds-section-head">
+          <p class="ds-kicker">07 · Fundaciones</p>
+          <h2>Elevación</h2>
+          <p>Sombras cálidas, nunca grises. La elevación indica qué flota sobre qué: tarjeta, elemento flotante o teléfono.</p>
+        </div>
+        <div class="ds-shadow-grid">
+          <div class="ds-shadow-card" style="--shadow: var(--shadow-soft);"><code>--shadow-soft</code><span>Tarjetas, controles y chips</span></div>
+          <div class="ds-shadow-card" style="--shadow: var(--shadow-float);"><code>--shadow-float</code><span>Elementos flotantes y botón primario</span></div>
+          <div class="ds-shadow-card is-glow"><code>--shadow-glow</code><span>Botón y hero mandarina</span></div>
+          <div class="ds-shadow-card is-tanda"><code>--shadow-glow-tanda</code><span>Superficies de tanda</span></div>
+        </div>
+        <div class="ds-grid cols-2" style="margin-top: var(--space-4);">
+          <div class="ds-panel">
+            <p class="ds-label">Luz interna</p>
+            <div class="ds-rim-demo"></div>
+            <p class="ds-note"><code class="ds-code">--shadow-rim</code> da un borde de luz interno a tracks e inputs. No se usa como sombra exterior.</p>
+          </div>
+          <div class="ds-panel">
+            <p class="ds-label">Marco del teléfono</p>
+            <div class="ds-device-shadow"></div>
+            <p class="ds-note"><code class="ds-code">--shadow-device</code> separa el teléfono del fondo oscuro del stage en desktop.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="gradientes">
+        <div class="ds-section-head">
+          <p class="ds-kicker">08 · Fundaciones</p>
+          <h2>Gradientes</h2>
+          <p>Cuatro gradientes con función: mandarina para energía, papel para selección, tinta para superficies fuertes y violeta para tandas.</p>
+        </div>
+        <div class="ds-gradient-grid">
+          <div class="ds-gradient-item"><div class="ds-gradient-tile" style="--gradient: var(--gradient-sunset);" aria-hidden="true"></div><div class="ds-gradient-meta"><code>--gradient-sunset</code><span>Hero y tarjetas de marca</span></div></div>
+          <div class="ds-gradient-item"><div class="ds-gradient-tile" style="--gradient: var(--gradient-sunrise);" aria-hidden="true"></div><div class="ds-gradient-meta"><code>--gradient-sunrise</code><span>Selección y destacados</span></div></div>
+          <div class="ds-gradient-item"><div class="ds-gradient-tile" style="--gradient: var(--gradient-ink-fade);" aria-hidden="true"></div><div class="ds-gradient-meta"><code>--gradient-ink-fade</code><span>Tarjetas de tinta</span></div></div>
+          <div class="ds-gradient-item"><div class="ds-gradient-tile" style="--gradient: var(--gradient-tanda);" aria-hidden="true"></div><div class="ds-gradient-meta"><code>--gradient-tanda</code><span>Tandas y coincidencias</span></div></div>
+          <div class="ds-gradient-item"><div class="ds-gradient-tile" style="--gradient: var(--stage-bg);" aria-hidden="true"></div><div class="ds-gradient-meta"><code>--stage-bg</code><span>Fondo del stage en desktop</span></div></div>
+        </div>
+        <p class="ds-note">El gradiente no reemplaza el color plano: se usa en superficies grandes o para indicar marca, no en textos ni íconos pequeños.</p>
+      </section>
+
+      <section class="ds-section" id="movimiento">
+        <div class="ds-section-head">
+          <p class="ds-kicker">09 · Fundaciones</p>
+          <h2>Movimiento</h2>
+          <p>El movimiento es corto y funcional. La transición base es de 150 ms; los paneles tardan un poco más porque cambian de contexto.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-4">
+            <p class="ds-label">Transición base</p>
+            <code class="ds-code">--transition: 150ms cubic-bezier(0.4, 0, 0.2, 1)</code>
+            <div class="ds-motion-track" aria-hidden="true"><span class="ds-motion-dot"></span></div>
+            <div><button type="button" class="btn btn-outline btn-sm" data-motion-play>Reproducir movimiento</button></div>
+            <p class="ds-note">Se usa en hover, foco, color y pequeñas elevaciones. No se anima el layout completo.</p>
+          </div>
+          <div class="ds-panel stack gap-4">
+            <p class="ds-label">Estados animados</p>
+            <div class="ds-motion-icons">
+              <span><span data-icon="loader-2" data-icon-size="icon spin"></span> Cargando</span>
+              <span><span class="running-dot" aria-hidden="true"><span></span></span> En proceso</span>
+              <span><span class="pending-dot" aria-hidden="true">·</span> Pendiente</span>
+            </div>
+            <p class="ds-note">Con <code class="ds-code">prefers-reduced-motion: reduce</code> la app desactiva animaciones y transiciones desde <code class="ds-code">base.css</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="iconos">
+        <div class="ds-section-head">
+          <p class="ds-kicker">10 · Fundaciones</p>
+          <h2>Iconos</h2>
+          <p>Íconos de Lucide copiados como SVG inline. Heredan <code class="ds-code">currentColor</code>, no tienen dependencias y se dibujan a 12, 20 o 24 px.</p>
+        </div>
+        <div class="ds-panel">
+          <div class="ds-icon-toolbar">
+            <label class="form-field">
+              <span class="form-label">Buscar ícono</span>
+              <input class="input" type="search" placeholder="printer, map, check…" data-icon-filter autocomplete="off">
+            </label>
+            <span class="chip" data-icon-count>Íconos</span>
+          </div>
+          <div class="ds-demo-row" style="margin-bottom: var(--space-4);">
+            <span class="chip"><span data-icon="printer" data-icon-size="icon-sm"></span> 12 px</span>
+            <span class="chip"><span data-icon="printer" data-icon-size="icon"></span> 20 px</span>
+            <span class="chip"><span data-icon="printer" data-icon-size="icon-lg"></span> 24 px</span>
+          </div>
+          <div class="ds-icon-grid" data-icon-grid></div>
+          <p class="ds-icon-empty" data-icon-empty hidden>No hay íconos con ese nombre.</p>
+          <p class="ds-note">Lucide · licencia ISC · trazo 2 px · <code class="ds-code">icon(name, "icon")</code>.</p>
+        </div>
+      </section>
+
+      <section class="ds-section" id="layout">
+        <div class="ds-section-head">
+          <p class="ds-kicker">11 · Fundaciones</p>
+          <h2>Layout</h2>
+          <p>La app vive en un teléfono de 402 × 874 px. En mobile el marco desaparece y la pantalla ocupa el alto completo.</p>
+        </div>
+        <div class="ds-shell-grid">
+          <div class="ds-shell-frame" aria-hidden="true">
+            <div class="ds-shell-status"><span>Status bar</span><span>56</span></div>
+            <div class="ds-shell-header"><span>Header</span><span>64</span></div>
+            <div class="ds-shell-content">
+              <span>Contenido · gutter 20</span>
+              <span class="ds-shell-block"></span>
+              <span class="ds-shell-block is-accent"></span>
+              <span class="ds-shell-block"></span>
+            </div>
+            <div class="ds-shell-footer"><span>CTA fijo</span><span>56</span></div>
+            <div class="ds-shell-home"></div>
+          </div>
+          <div>
+            <dl class="ds-spec-list">
+              <div class="ds-spec"><dt>Teléfono</dt><dd>402 × 874</dd></div>
+              <div class="ds-spec"><dt>Radio del marco</dt><dd>54 px</dd></div>
+              <div class="ds-spec"><dt>Status bar</dt><dd>56 px</dd></div>
+              <div class="ds-spec"><dt>Header</dt><dd>64 px</dd></div>
+              <div class="ds-spec"><dt>Contenido</dt><dd>24 / 20 / 32</dd></div>
+              <div class="ds-spec"><dt>CTA fijo</dt><dd>56 px</dd></div>
+              <div class="ds-spec"><dt>Gutter</dt><dd>20 px</dd></div>
+              <div class="ds-spec"><dt>Home indicator</dt><dd>128 × 4</dd></div>
+              <div class="ds-spec"><dt>Desenfoque de vidrio</dt><dd data-token-value="--blur-glass">16px</dd></div>
+              <div class="ds-spec"><dt>Desenfoque de orbes</dt><dd data-token-value="--blur-orb">80px</dd></div>
+            </dl>
+            <p class="ds-note">En desktop el teléfono se centra sobre <code class="ds-code">--stage-bg</code>; el selector de vista usa <code class="ds-code">--stage-switch-*</code>. En mobile se eliminan marco, status bar y selector.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="botones">
+        <div class="ds-section-head">
+          <p class="ds-kicker">12 · Componentes</p>
+          <h2>Botones</h2>
+          <p>El botón primario es tinta; el acento es mandarina. La jerarquía se decide por importancia, no por gusto.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-4">
+            <p class="ds-label">Variantes</p>
+            <div class="ds-demo-row">
+              <button type="button" class="btn btn-primary btn-md">Primario</button>
+              <button type="button" class="btn btn-accent btn-md">Acento</button>
+              <button type="button" class="btn btn-outline btn-md">Outline</button>
+              <button type="button" class="btn btn-soft btn-md">Soft</button>
+            </div>
+            <div class="ds-demo-row">
+              <button type="button" class="btn btn-primary btn-md"><span data-icon="printer" data-icon-size="icon"></span>Imprimir</button>
+              <button type="button" class="btn btn-accent btn-md"><span data-icon="arrow-right" data-icon-size="icon"></span>Continuar</button>
+            </div>
+            <p class="ds-note"><code class="ds-code">btn · btn-primary · btn-accent · btn-outline · btn-soft</code>. El primario usa tinta; el acento se reserva para avance positivo.</p>
+          </div>
+          <div class="ds-panel stack gap-4">
+            <p class="ds-label">Tamaños y estados</p>
+            <div class="ds-demo-row">
+              <button type="button" class="btn btn-primary btn-sm">Small</button>
+              <button type="button" class="btn btn-primary btn-md">Medium</button>
+              <button type="button" class="btn btn-primary btn-lg">Large</button>
+            </div>
+            <div class="ds-demo-row">
+              <button type="button" class="btn btn-primary btn-md" disabled>Deshabilitado</button>
+              <button type="button" class="btn btn-primary btn-md is-loading" aria-busy="true" disabled><span data-icon="loader-2" data-icon-size="icon spin"></span>Cargando…</button>
+            </div>
+            <div class="ds-demo-row">
+              <button type="button" class="btn btn-primary btn-lg btn-block">Botón de ancho completo</button>
+            </div>
+            <p class="ds-note">El loading conserva el color y el disabled se apaga. Alturas: 36 / 52 / 56 px.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="chips">
+        <div class="ds-section-head">
+          <p class="ds-kicker">13 · Componentes</p>
+          <h2>Chips</h2>
+          <p>Pills para estados, filtros y etiquetas. El texto siempre explica el estado; el tono acompaña.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Tonos</p>
+            <div class="ds-demo-row">
+              <span class="chip">Neutral</span>
+              <span class="chip chip-accent">Acento</span>
+              <span class="chip chip-success">Listo</span>
+              <span class="chip chip-info">En cola</span>
+              <span class="chip chip-warning">Atención</span>
+              <span class="chip chip-danger">Rechazado</span>
+              <span class="chip chip-ink">Tinta</span>
+              <span class="chip chip-tanda">Tanda</span>
+              <span class="chip chip-outline">Outline</span>
+            </div>
+            <p class="ds-note"><code class="ds-code">chip · chip-accent · chip-success · chip-info · chip-warning · chip-danger · chip-ink · chip-tanda</code>.</p>
+          </div>
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Tamaño y vidrio</p>
+            <div class="ds-demo-row">
+              <span class="chip">Small</span>
+              <span class="chip chip-md">Medium</span>
+            </div>
+            <div class="ds-glass-stage">
+              <span class="chip chip-glass">Vidrio</span>
+              <span class="chip chip-ink">Sobre gradiente</span>
+            </div>
+            <p class="ds-note">El vidrio se usa en capas flotantes, no en bloques largos de lectura.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="tarjetas">
+        <div class="ds-section-head">
+          <p class="ds-kicker">14 · Componentes</p>
+          <h2>Tarjetas</h2>
+          <p>El contenedor base. La superficie es papel; la selección se marca con un anillo, sin mover el contenido.</p>
+        </div>
+        <div class="ds-grid cols-3">
+          <div class="card stack gap-2">
+            <p class="t-h3">Tarjeta base</p>
+            <p class="t-small c-secondary">Superficie, borde suave, radio 24 y sombra corta.</p>
+            <span class="chip">surface</span>
+          </div>
+          <div class="card card-sunrise stack gap-2">
+            <p class="t-h3">Sunrise</p>
+            <p class="t-small c-secondary">Selección amable y destacados. Borde mandarina.</p>
+            <span class="chip chip-accent">sunrise</span>
+          </div>
+          <div class="card card-ink stack gap-2">
+            <p class="t-h3">Tinta</p>
+            <p class="t-small is-faded">Superficie fuerte para acciones principales y resúmenes.</p>
+            <span class="chip chip-glass">ink</span>
+          </div>
+          <div class="card is-selected stack gap-2">
+            <p class="t-h3">Selección mandarina</p>
+            <p class="t-small c-secondary">Anillo de 2 px y fondo sunrise.</p>
+            <span class="chip chip-accent">is-selected</span>
+          </div>
+          <div class="card is-selected-ink stack gap-2">
+            <p class="t-h3">Selección tinta</p>
+            <p class="t-small c-secondary">Para decisiones fuertes, como el pago.</p>
+            <span class="chip chip-ink">is-selected-ink</span>
+          </div>
+          <div class="soft-box">Caja suave para notas y aclaraciones. No lleva sombra ni compite con la tarjeta principal.</div>
+        </div>
+        <div class="ds-glass-stage" style="margin-top: var(--space-4);">
+          <div class="card card-glass stack gap-2" style="max-width: 360px;">
+            <p class="t-h3">Tarjeta de vidrio</p>
+            <p class="t-small c-secondary">Solo en capas flotantes sobre gradientes o mapas.</p>
+            <span class="chip chip-glass">card-glass</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="acciones">
+        <div class="ds-section-head">
+          <p class="ds-kicker">15 · Componentes</p>
+          <h2>Accesos principales</h2>
+          <p>Las ActionCard son la entrada a los flujos. Tinta para la acción principal, violeta para tandas y compactas para accesos secundarios.</p>
+        </div>
+        <div class="ds-grid cols-3">
+          <a class="action-card is-ink" href="imprimir.html?nuevo=1">
+            <span class="action-card-icon"><span data-icon="printer" data-icon-size="icon-lg"></span></span>
+            <span class="t-h3">Imprimir</span>
+          </a>
+          <a class="action-card is-tanda" href="tandas.html">
+            <span class="action-card-icon"><span data-icon="layers" data-icon-size="icon-lg"></span></span>
+            <span class="t-h3">Tandas disponibles</span>
+          </a>
+          <a class="action-card is-compact" href="locales.html">
+            <span class="action-card-icon"><span data-icon="map-pin" data-icon-size="icon-lg"></span></span>
+            <span class="t-h3">Buscar locales</span>
+          </a>
+        </div>
+        <p class="ds-note"><code class="ds-code">action-card · is-ink · is-tanda · is-compact</code>. El violeta no se usa para acciones generales.</p>
+      </section>
+
+      <section class="ds-section" id="formularios">
+        <div class="ds-section-head">
+          <p class="ds-kicker">16 · Componentes</p>
+          <h2>Formularios</h2>
+          <p>Campos de 52 px, radio 18 y foco con anillo mandarina. Los formularios se leen de arriba hacia abajo, sin columnas apretadas.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-4">
+            <div class="form-field">
+              <label class="form-label" for="ds-input-name">Nombre del archivo</label>
+              <input class="input" id="ds-input-name" type="text" value="entrega_final.pdf" autocomplete="off">
+              <p class="form-hint">PDF, DOCX o imagen.</p>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="ds-input-size">Tamaño</label>
+              <div class="select-wrap">
+                <select class="input" id="ds-input-size">
+                  <option>A4</option>
+                  <option>A5</option>
+                  <option>Carta</option>
+                </select>
+                <span data-icon="chevron-down" data-icon-size="icon"></span>
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="ds-input-notes">Observaciones</label>
+              <textarea class="input" id="ds-input-notes" placeholder="Algo que tenga que saber el local…"></textarea>
+            </div>
+          </div>
+          <div class="ds-panel stack gap-4">
+            <div class="form-field">
+              <label class="form-label" for="ds-input-error">Páginas a imprimir</label>
+              <input class="input is-invalid" id="ds-input-error" type="text" value="1-500" aria-invalid="true">
+              <div class="note is-small"><span data-icon="x" data-icon-size="icon"></span><span>El archivo tiene más páginas de las permitidas.</span></div>
+            </div>
+            <div class="form-field">
+              <span class="form-label">Modo de impresión</span>
+              <div class="segmented" data-demo-segmented role="radiogroup" aria-label="Modo de impresión">
+                <label class="segmented-option is-checked"><input type="radio" class="sr-only" name="ds-mode" checked>B&amp;N</label>
+                <label class="segmented-option"><input type="radio" class="sr-only" name="ds-mode">Color</label>
+              </div>
+            </div>
+            <div class="form-field">
+              <span class="form-label">Copias</span>
+              <div class="stepper" role="group" aria-label="Copias">
+                <button type="button" class="stepper-btn" aria-label="Restar" disabled><span data-icon="minus" data-icon-size="icon"></span></button>
+                <output class="t-strong">2</output>
+                <button type="button" class="stepper-btn" aria-label="Sumar"><span data-icon="plus" data-icon-size="icon"></span></button>
+              </div>
+            </div>
+            <div class="dropzone">
+              <span class="round-icon is-accent"><span data-icon="upload" data-icon-size="icon-lg"></span></span>
+              <span class="stack gap-1">
+                <span class="t-h3">Subí tu archivo</span>
+                <span class="t-small c-secondary">PDF, DOCX o JPG · hasta 20 MB</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <p class="ds-note">El foco se ve al tabular. Los errores usan terracota, borde <code class="ds-code">--color-danger</code> y texto explicativo.</p>
+      </section>
+
+      <section class="ds-section" id="seleccion">
+        <div class="ds-section-head">
+          <p class="ds-kicker">17 · Componentes</p>
+          <h2>Selección</h2>
+          <p>Tarjetas con círculo o casilla. La selección amable usa mandarina; la selección fuerte, tinta.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Radio cards</p>
+            <div class="stack gap-3" data-demo-radios>
+              <label class="radio-card is-checked">
+                <input type="radio" class="sr-only" name="ds-payment" checked>
+                <span class="radio-card-body">
+                  <span class="radio-dot"></span>
+                  <span class="stack gap-1 grow">
+                    <span class="row between gap-3"><span class="radio-card-title">Tarjeta</span><span class="chip chip-ink">Recomendado</span></span>
+                    <span class="radio-card-text">Débito o crédito · pago simulado</span>
+                  </span>
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" class="sr-only" name="ds-payment">
+                <span class="radio-card-body">
+                  <span class="radio-dot"></span>
+                  <span class="stack gap-1 grow">
+                    <span class="radio-card-title">Efectivo</span>
+                    <span class="radio-card-text">Pagás al retirar en el local</span>
+                  </span>
+                </span>
+              </label>
+            </div>
+            <div class="stack gap-3" data-demo-radios>
+              <label class="radio-card is-accent is-checked">
+                <input type="radio" class="sr-only" name="ds-paper" checked>
+                <span class="radio-card-body">
+                  <span class="radio-dot"></span>
+                  <span class="stack gap-1 grow">
+                    <span class="radio-card-title">Obra</span>
+                    <span class="radio-card-text">Papel cálido para textos largos</span>
+                  </span>
+                </span>
+              </label>
+            </div>
+            <p class="ds-note">El círculo se rellena; el anillo de la tarjeta indica la selección. No se mueve el contenido al cambiar de estado.</p>
+          </div>
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Check cards</p>
+            <div class="stack gap-3" data-demo-checks>
+              <label class="check-card is-checked">
+                <input type="checkbox" class="sr-only" checked>
+                <span class="radio-card-body">
+                  <span class="check-box"><span data-icon="check" data-icon-size="icon-sm"></span></span>
+                  <span class="stack gap-1">
+                    <span class="radio-card-title">Color</span>
+                    <span class="radio-card-text">+ $80 por página</span>
+                    <span class="check-note">Se imprime a todo color</span>
+                  </span>
+                </span>
+              </label>
+              <label class="check-card">
+                <input type="checkbox" class="sr-only">
+                <span class="radio-card-body">
+                  <span class="check-box"></span>
+                  <span class="stack gap-1">
+                    <span class="radio-card-title">Terminación</span>
+                    <span class="radio-card-text">Laminado mate o brillante</span>
+                  </span>
+                </span>
+              </label>
+            </div>
+            <p class="ds-note">Las casillas permiten varias opciones. El check se dibuja con el mismo ícono de Lucide.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="feedback">
+        <div class="ds-section-head">
+          <p class="ds-kicker">18 · Componentes</p>
+          <h2>Feedback</h2>
+          <p>Estados del sistema: notas, cajas de validación, progreso y estados vacíos. Siempre con texto e ícono, nunca solo color.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-4">
+            <p class="ds-label">Notas y validación</p>
+            <div class="note"><span data-icon="x" data-icon-size="icon"></span><div class="stack gap-1"><span class="t-strong">No pudimos procesar el archivo</span><span>Probá con un PDF de hasta 20 MB.</span></div></div>
+            <div class="note is-warning"><span data-icon="alert-triangle" data-icon-size="icon"></span><div class="stack gap-1"><span class="t-strong">Alta demanda</span><span>La espera puede ser mayor a la habitual.</span></div></div>
+            <div class="ds-demo-row">
+              <span class="status-box is-success" role="img" aria-label="Listo"><span data-icon="check" data-icon-size="icon-lg"></span></span>
+              <span class="status-box is-warning" role="img" aria-label="Atención"><span data-icon="alert-triangle" data-icon-size="icon-lg"></span></span>
+              <span class="status-box is-danger" role="img" aria-label="Error"><span data-icon="x" data-icon-size="icon-lg"></span></span>
+              <span class="check-dot"><span data-icon="check" data-icon-size="icon-sm"></span></span>
+            </div>
+          </div>
+          <div class="ds-panel stack gap-4">
+            <p class="ds-label">Vacío y progreso</p>
+            <div class="empty-state">
+              <span class="round-icon"><span data-icon="printer" data-icon-size="icon"></span></span>
+              <div class="stack gap-1"><p class="t-h3">Todavía no hiciste pedidos</p><p class="t-small c-secondary">Cuando imprimas, vas a poder seguir la cola desde acá.</p></div>
+              <button type="button" class="btn btn-soft btn-sm">Empezar</button>
+            </div>
+            <div class="stack gap-2">
+              <div class="row is-baseline between gap-3"><span class="t-body c-secondary">Validación</span><span class="t-body">65%</span></div>
+              <div class="progress" role="progressbar" aria-label="Validación" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65"><div class="progress-fill" style="width: 65%;"></div></div>
+            </div>
+            <div class="stack gap-2">
+              <div class="stage-progress-bars"><span class="is-ink"></span><span class="is-accent"></span><span></span></div>
+              <div class="stage-progress-labels"><span class="t-small fw-semibold">Recibido</span><span class="t-small c-secondary">En cola</span><span class="t-small c-secondary">Listo</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="datos">
+        <div class="ds-section-head">
+          <p class="ds-kicker">19 · Componentes</p>
+          <h2>Datos</h2>
+          <p>Filas, archivos y pedidos. La información se ordena con jerarquía: título, metadata y estado.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Key-value y archivo</p>
+            <div class="card stack gap-3">
+              <div class="kv-row"><span class="t-body c-secondary">Local</span><span class="t-body">El Poli</span></div>
+              <div class="kv-row"><span class="t-body c-secondary">Espera estimada</span><span class="t-body">12 min</span></div>
+              <div class="kv-row"><span class="t-body c-secondary">Total</span><span class="t-strong">$1.240</span></div>
+            </div>
+            <div class="card">
+              <div class="row is-top gap-3">
+                <span class="tile-icon"><span data-icon="file-text" data-icon-size="icon-lg"></span></span>
+                <div class="stack gap-1 grow">
+                  <span class="t-h3 truncate">entrega_final.pdf</span>
+                  <span class="t-small c-secondary">8 páginas · A4 · B&amp;N</span>
+                </div>
+                <button type="button" class="ghost-btn" aria-label="Quitar archivo"><span data-icon="trash-2" data-icon-size="icon-lg"></span></button>
+              </div>
+            </div>
+          </div>
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Pedidos y locales</p>
+            <a class="card card-button order-row ds-order-row" href="pedidos.html">
+              <span class="local-logo is-sunset">EP</span>
+              <span class="stack gap-05 grow">
+                <span class="t-h3 truncate">El Poli</span>
+                <span class="t-small c-secondary">2 archivos · simple faz · B&amp;N</span>
+              </span>
+              <span class="chip chip-success">Entregado</span>
+            </a>
+            <div class="card">
+              <div class="row gap-3">
+                <span class="local-logo">FP</span>
+                <div class="stack gap-05 grow">
+                  <span class="t-h3">Fadu Print</span>
+                  <span class="row gap-1 t-small c-secondary"><span data-icon="map-pin" data-icon-size="icon-sm"></span>Piso 1 · 9 a 18 h</span>
+                </div>
+                <button type="button" class="btn btn-soft btn-md">Ver local</button>
+              </div>
+            </div>
+            <div class="card stack gap-2">
+              <span class="t-label c-muted">Valoración</span>
+              <span class="stars" role="img" aria-label="4 de 5">
+                <span class="stars-row">
+                  <span data-icon="star" data-icon-size="icon-sm is-on"></span>
+                  <span data-icon="star" data-icon-size="icon-sm is-on"></span>
+                  <span data-icon="star" data-icon-size="icon-sm is-on"></span>
+                  <span data-icon="star" data-icon-size="icon-sm is-on"></span>
+                  <span data-icon="star" data-icon-size="icon-sm"></span>
+                </span>
+                <span class="t-small fw-semibold">4,2</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="tandas">
+        <div class="ds-section-head">
+          <p class="ds-kicker">20 · Componentes</p>
+          <h2>Tandas</h2>
+          <p>El violeta identifica coincidencias y ahorro de tiempo. La tarjeta de tanda es la única que puede usar este color como superficie.</p>
+        </div>
+        <div class="ds-tanda-stage">
+          <a class="tanda-promo-card" href="tandas.html">
+            <span class="row between gap-2">
+              <span class="t-label">Tanda 4</span>
+              <span class="row gap-1 t-caption fw-semibold"><span data-icon="clock" data-icon-size="icon-sm"></span>Cierra en 1 h</span>
+            </span>
+            <span class="stack gap-05">
+              <span class="t-h3">A4 · Color</span>
+              <span class="t-small is-faded">10 a 40 páginas · Obra 120g</span>
+            </span>
+            <span class="tanda-promo-bar" aria-hidden="true"><span style="width: 58%;"></span></span>
+            <span class="row between gap-2 t-small"><span class="fw-semibold">El Poli</span><span class="is-faded">7/12 pedidos</span></span>
+          </a>
+          <a class="tanda-promo-card" href="tandas.html">
+            <span class="row between gap-2">
+              <span class="t-label">Tanda 5</span>
+              <span class="row gap-1 t-caption fw-semibold"><span data-icon="clock" data-icon-size="icon-sm"></span>Cierra en 3 h</span>
+            </span>
+            <span class="stack gap-05">
+              <span class="t-h3">A5 · B&amp;N</span>
+              <span class="t-small is-faded">5 a 20 páginas · Reciclado 80g</span>
+            </span>
+            <span class="tanda-promo-bar" aria-hidden="true"><span style="width: 42%;"></span></span>
+            <span class="row between gap-2 t-small"><span class="fw-semibold">Fadu Print</span><span class="is-faded">5/12 pedidos</span></span>
+          </a>
+          <span class="ds-tanda-caption">Carrusel horizontal · se arrastra con mouse o dedo · snap a la tarjeta más cercana</span>
+        </div>
+        <div class="ds-grid cols-2" style="margin-top: var(--space-4);">
+          <div class="card card-button tanda-card">
+            <span class="row is-top between gap-2"><span class="t-h3">Tanda 4 · A4 Color</span><span class="chip chip-success">Compatible</span></span>
+            <span class="stack gap-2">
+              <div class="kv-row"><span class="t-body c-secondary">Local</span><span class="t-body">El Poli</span></div>
+              <span class="t-small c-secondary">Color · Obra · 120 g/m²</span>
+              <div class="kv-row"><span class="t-body c-secondary">Pedidos agrupados</span><span class="t-body">7/12</span></div>
+              <div class="progress"><div class="progress-fill" style="width: 58%;"></div></div>
+              <div class="kv-row"><span class="t-body c-secondary">Espera estimada</span><span class="t-body">12 min</span></div>
+            </span>
+            <p class="t-small fw-semibold c-success">Tu archivo coincide con esta tanda.</p>
+          </div>
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Reglas de la tanda</p>
+            <p class="t-body c-secondary">El violeta se usa para la tarjeta, el chip y el progreso de tanda. No se usa para errores, navegación general ni botones primarios.</p>
+            <div class="ds-demo-row">
+              <span class="chip chip-tanda">Compatible</span>
+              <span class="chip chip-tanda">Tanda 4</span>
+              <span class="chip chip-warning">Completa</span>
+            </div>
+            <p class="ds-note">La compatibilidad se explica con texto. El color violeta no es el único indicador.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="avisos">
+        <div class="ds-section-head">
+          <p class="ds-kicker">21 · Componentes</p>
+          <h2>Avisos</h2>
+          <p>Avisos del local: stock, problemas técnicos, descuentos o información. El tono indica urgencia; el texto explica qué hacer.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="alert-card is-warning">
+            <div class="row is-top gap-3">
+              <span class="alert-card-icon"><span data-icon="alert-triangle" data-icon-size="icon"></span></span>
+              <div class="stack gap-1 grow">
+                <div class="row is-top between gap-2"><p class="t-strong">Stock bajo de papel obra</p><span class="chip chip-accent">Nuevo</span></div>
+                <p class="t-small c-secondary">Quedan pocas resmas para tandas de 120 g.</p>
+                <div class="row wrap gap-2 t-caption c-muted"><span>El Poli</span><span aria-hidden="true">·</span><span>Hace 20 min</span></div>
+              </div>
+            </div>
+            <div class="alert-card-actions"><a class="link t-small" href="local.html">Ver local</a></div>
+          </div>
+          <div class="alert-card is-info">
+            <div class="row is-top gap-3">
+              <span class="alert-card-icon"><span data-icon="info" data-icon-size="icon"></span></span>
+              <div class="stack gap-1 grow">
+                <div class="row is-top between gap-2"><p class="t-strong">Nuevo horario de verano</p></div>
+                <p class="t-small c-secondary">El local abre de 9 a 18 h durante esta semana.</p>
+                <div class="row wrap gap-2 t-caption c-muted"><span>Fadu Print</span><span aria-hidden="true">·</span><span>Hace 1 h</span></div>
+              </div>
+            </div>
+            <div class="alert-card-actions"><a class="link t-small" href="avisos.html">Ver avisos</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="paneles">
+        <div class="ds-section-head">
+          <p class="ds-kicker">22 · Componentes</p>
+          <h2>Paneles</h2>
+          <p>Los paneles suben desde abajo, oscurecen el fondo y se recortan con el radio del teléfono. El foco se mueve al panel al abrirlo.</p>
+        </div>
+        <div class="ds-sheet-stage">
+          <div class="sheet is-static">
+            <div class="sheet-backdrop" aria-hidden="true"></div>
+            <div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Informar cola">
+              <div class="sheet-header">
+                <div class="stack gap-1 grow">
+                  <h2 class="t-h2">Informar cola</h2>
+                  <p class="t-small c-secondary">Cola presencial de El Poli · Planta baja</p>
+                </div>
+                <button type="button" class="icon-btn is-sm" aria-label="Cerrar"><span data-icon="x" data-icon-size="icon-lg"></span></button>
+              </div>
+              <div class="sheet-body stack gap-4">
+                <div class="stack gap-2">
+                  <label class="radio-card is-checked">
+                    <input type="radio" class="sr-only" name="ds-sheet-queue" checked>
+                    <span class="radio-card-body">
+                      <span class="radio-dot"></span>
+                      <span class="stack gap-1"><span class="radio-card-title">Ya estoy en la fila</span><span class="radio-card-text">Contate a vos también.</span></span>
+                    </span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" class="sr-only" name="ds-sheet-queue">
+                    <span class="radio-card-body">
+                      <span class="radio-dot"></span>
+                      <span class="stack gap-1"><span class="radio-card-title">Solo estoy mirando</span></span>
+                    </span>
+                  </label>
+                </div>
+                <div class="form-field">
+                  <span class="form-label">¿Cuántas personas hay ahora?</span>
+                  <div class="stepper"><button type="button" class="stepper-btn" aria-label="Restar" disabled><span data-icon="minus" data-icon-size="icon"></span></button><output class="t-strong">3</output><button type="button" class="stepper-btn" aria-label="Sumar"><span data-icon="plus" data-icon-size="icon"></span></button></div>
+                  <p class="form-hint text-center">Contá a todos los que están esperando.</p>
+                </div>
+              </div>
+              <div class="sheet-footer">
+                <button type="button" class="btn btn-primary btn-lg btn-block">Actualizar cola</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="header">
+        <div class="ds-section-head">
+          <p class="ds-kicker">23 · Patrones</p>
+          <h2>Header y status bar</h2>
+          <p>El header es vidrio, mide 64 px y queda pegado arriba. La status bar es una simulación de iOS en desktop; en mobile desaparece.</p>
+        </div>
+        <div class="ds-pattern-stage">
+          <div class="status-bar" aria-hidden="true">
+            <span class="t-strong">9:41</span>
+            <span class="status-bar-island"></span>
+            <span class="row gap-2"><span data-icon="signal-high" data-icon-size="icon"></span><span data-icon="wifi" data-icon-size="icon"></span><span data-icon="battery-full" data-icon-size="icon-lg"></span></span>
+          </div>
+          <header class="header">
+            <div class="header-left">
+              <span class="header-title t-h3"><svg class="brand-mark" viewBox="0 0 216 183" aria-hidden="true"><use href="#ds-isotipo"></use></svg>Inicio</span>
+            </div>
+            <div class="row gap-2 shrink-0">
+              <span class="badge-wrap">
+                <a class="icon-btn" href="avisos.html" aria-label="Ver avisos"><span data-icon="bell" data-icon-size="icon-lg"></span></a>
+                <span class="badge-dot"></span>
+              </span>
+              <span class="chip">Inicio</span>
+              <a class="chip-button" href="perfil.html"><span class="chip chip-accent">Mi perfil</span></a>
+            </div>
+          </header>
+        </div>
+        <p class="ds-note">El header usa <code class="ds-code">--color-glass</code> + <code class="ds-code">--blur-glass</code>. La campana lleva un punto de aviso, no un número.</p>
+      </section>
+
+      <section class="ds-section" id="cta">
+        <div class="ds-section-head">
+          <p class="ds-kicker">24 · Patrones</p>
+          <h2>CTA fijo</h2>
+          <p>El pie de acción queda pegado abajo, con vidrio y safe area. El total estimado vive a la izquierda; la acción principal, a la derecha.</p>
+        </div>
+        <div class="ds-pattern-stage">
+          <div class="footer">
+            <div class="row between gap-3">
+              <div class="price-summary">
+                <div class="row is-baseline between gap-2"><span class="t-small c-secondary">Total estimado <span class="t-caption c-muted">· En El Poli</span></span><span class="t-h2 shrink-0">$1.240</span></div>
+                <span class="t-caption c-muted">$31 por página · 40 páginas · 1 copia</span>
+              </div>
+              <button type="button" class="btn btn-primary btn-md shrink-0">Continuar</button>
+            </div>
+          </div>
+        </div>
+        <p class="ds-note">El CTA de 56 px se usa en flujos de decisión. En el pie se prefiere un botón md si convive con el resumen de precio.</p>
+      </section>
+
+      <section class="ds-section" id="estados">
+        <div class="ds-section-head">
+          <p class="ds-kicker">25 · Patrones</p>
+          <h2>Estados de pedido</h2>
+          <p>El estado se cuenta con texto, ícono y progreso. El color no es el único canal.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-4">
+            <p class="ds-label">Chips</p>
+            <div class="ds-demo-row">
+              <span class="chip chip-info">En cola</span>
+              <span class="chip chip-ink">Imprimiendo</span>
+              <span class="chip chip-success">Listo</span>
+              <span class="chip">Entregado</span>
+            </div>
+            <p class="ds-label">Progreso de 3 etapas</p>
+            <div class="stack gap-2">
+              <div class="stage-progress-bars"><span class="is-ink"></span><span class="is-accent"></span><span></span></div>
+              <div class="stage-progress-labels"><span class="t-small fw-semibold">Recibido</span><span class="t-small c-secondary">En cola</span><span class="t-small c-secondary">Listo</span></div>
+            </div>
+          </div>
+          <div class="ds-panel stack gap-4">
+            <p class="ds-label">Stepper de retiro</p>
+            <div class="stack gap-2" role="img" aria-label="Estado: Listo para retirar">
+              <div class="order-steps">
+                <div class="order-steps-item"><span class="order-steps-marker is-done"><span data-icon="check" data-icon-size="icon"></span></span><span class="order-steps-line is-done"></span></div>
+                <div class="order-steps-item"><span class="order-steps-marker"><span class="stepper-dot is-current"></span></span><span class="order-steps-line"></span></div>
+                <div class="order-steps-item"><span class="order-steps-marker"><span class="stepper-dot"></span></span></div>
+              </div>
+              <div class="row between gap-2"><span class="t-caption c-secondary">Recibido</span><span class="t-caption fw-semibold">Listo para retirar</span><span class="t-caption c-secondary">Entregado</span></div>
+            </div>
+            <p class="ds-note">El check de la etapa completada usa tinta; la etapa actual se marca con un punto lleno.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="cola">
+        <div class="ds-section-head">
+          <p class="ds-kicker">26 · Patrones</p>
+          <h2>Cola virtual</h2>
+          <p>La firma visual de Tanda: pedidos en fila hacia la impresora. La persona propia va en mandarina; la impresora, en tinta.</p>
+        </div>
+        <div class="ds-panel">
+          <div class="virtual-queue" role="img" aria-label="Cola virtual: tu pedido es el 36, hay uno adelante y otro imprimiéndose">
+            <span class="virtual-queue-line" aria-hidden="true"></span>
+            <div class="queue-slot is-muted"><span class="person is-muted" aria-hidden="true"><span class="person-head"></span><span class="person-body"></span></span><span class="t-strong queue-slot-number">+7</span><span class="t-caption nowrap queue-slot-label">En cola</span></div>
+            <div class="queue-slot"><span class="person is-muted" aria-hidden="true"><span class="person-head"></span><span class="person-body"></span></span><span class="t-strong queue-slot-number">37</span><span class="t-caption nowrap queue-slot-label">Martín</span></div>
+            <div class="queue-slot is-self"><span class="person is-accent is-large" aria-hidden="true"><span class="person-head"></span><span class="person-body"></span></span><span class="t-strong queue-slot-number">36</span><span class="t-caption nowrap queue-slot-label">Vos</span></div>
+            <div class="queue-slot"><span class="person is-ink" aria-hidden="true"><span class="person-head"></span><span class="person-body"></span></span><span class="t-strong queue-slot-number">35</span><span class="t-caption nowrap queue-slot-label">Camila</span></div>
+            <div class="queue-slot"><span class="queue-printer" aria-hidden="true"><span data-icon="printer" data-icon-size="icon"></span></span><span class="t-strong queue-slot-number">34</span><span class="t-caption nowrap queue-slot-label">Imprimiendo</span></div>
+          </div>
+          <p class="ds-note">La cola se puede leer de derecha a izquierda: la impresora está a la derecha y el último pedido, a la izquierda. En mobile se mantiene el orden y se achican los espacios.</p>
+        </div>
+      </section>
+
+      <section class="ds-section" id="accesibilidad">
+        <div class="ds-section-head">
+          <p class="ds-kicker">27 · Guías</p>
+          <h2>Accesibilidad</h2>
+          <p>La app se usa en un celular, muchas veces de pie y con una mano. Los controles tienen que ser grandes, claros y navegables con teclado.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-4">
+            <p class="ds-label">Foco visible</p>
+            <div class="ds-focus-demo">
+              <button type="button" class="btn btn-outline btn-md">Enfocame con Tab</button>
+              <span class="t-small c-secondary">El foco usa un anillo mandarina de 2 px.</span>
+            </div>
+            <p class="ds-label">Tamaños táctiles</p>
+            <div class="ds-targets">
+              <div class="ds-target"><span class="ds-target-box is-sm">36</span><span>compacto</span></div>
+              <div class="ds-target"><span class="ds-target-box is-md">44</span><span>mínimo</span></div>
+              <div class="ds-target"><span class="ds-target-box is-lg">52</span><span>campo</span></div>
+            </div>
+            <p class="ds-note">El mínimo recomendado para tocar es 44 × 44 px. Los controles de 36 px se reservan para acciones secundarias dentro de tarjetas.</p>
+          </div>
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Reglas</p>
+            <div class="ds-rule"><span class="round-icon"><span data-icon="check" data-icon-size="icon"></span></span><p><strong>Texto + color.</strong> Los estados siempre incluyen una palabra: “Listo”, “En cola”, “Compatible”.</p></div>
+            <div class="ds-rule"><span class="round-icon"><span data-icon="check" data-icon-size="icon"></span></span><p><strong>Contraste.</strong> El texto principal usa tinta sobre papel. El acento no se usa para párrafos pequeños.</p></div>
+            <div class="ds-rule is-dont"><span class="round-icon"><span data-icon="x" data-icon-size="icon"></span></span><p><strong>No solo color.</strong> No alcanza con pintar un chip de verde para decir que está listo.</p></div>
+            <div class="ds-rule is-dont"><span class="round-icon"><span data-icon="x" data-icon-size="icon"></span></span><p><strong>No targets chicos.</strong> Un ícono de 20 px necesita un área de toque de 44 px.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="voz">
+        <div class="ds-section-head">
+          <p class="ds-kicker">28 · Guías</p>
+          <h2>Voz y contenido</h2>
+          <p>La app habla como una persona: claro, directo y cercano. Usa “vos”, evita el lenguaje administrativo y explica qué sigue.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Sí decimos</p>
+            <div class="ds-voice-example is-do"><strong>Tu archivo está listo para imprimir.</strong><br>El siguiente paso es elegir papel y terminación.</div>
+            <div class="ds-voice-example is-do"><strong>Cierra en 1 h.</strong><br>Quedan 5 lugares en esta tanda.</div>
+            <div class="ds-voice-example is-do"><strong>No pudimos procesar el archivo.</strong><br>Probá con un PDF de hasta 20 MB.</div>
+          </div>
+          <div class="ds-panel stack gap-3">
+            <p class="ds-label">Evitamos</p>
+            <div class="ds-voice-example is-dont"><strong>El proceso de validación ha finalizado exitosamente.</strong><br>Lenguaje de sistema, no de persona.</div>
+            <div class="ds-voice-example is-dont"><strong>Expira en 60 minutos.</strong><br>Mejor: “Cierra en 1 h”.</div>
+            <div class="ds-voice-example is-dont"><strong>Error 403: archivo inválido.</strong><br>Mejor explicar qué pasó y cómo seguir.</div>
+          </div>
+        </div>
+        <p class="ds-note">Números, fechas y horas: <code class="ds-code">11:20</code>, <code class="ds-code">$1.240</code>, <code class="ds-code">#36</code>, <code class="ds-code">3 páginas</code>, <code class="ds-code">A4 · B&amp;N</code>.</p>
+      </section>
+
+      <section class="ds-section" id="reglas">
+        <div class="ds-section-head">
+          <p class="ds-kicker">29 · Guías</p>
+          <h2>Reglas de uso</h2>
+          <p>El sistema es chico a propósito. Estas son las decisiones que no conviene romper.</p>
+        </div>
+        <div class="ds-grid cols-2">
+          <div class="ds-rule"><span class="round-icon"><span data-icon="check" data-icon-size="icon"></span></span><p><strong>Tinta para lo primario.</strong> El botón principal y las tarjetas de acción usan tinta.</p></div>
+          <div class="ds-rule is-dont"><span class="round-icon"><span data-icon="x" data-icon-size="icon"></span></span><p><strong>No todo es mandarina.</strong> El acento marca avance y selección; si todo es naranja, nada se destaca.</p></div>
+          <div class="ds-rule"><span class="round-icon"><span data-icon="check" data-icon-size="icon"></span></span><p><strong>Violeta = tanda.</strong> Se usa para tarjetas, chips y progreso de tandas.</p></div>
+          <div class="ds-rule is-dont"><span class="round-icon"><span data-icon="x" data-icon-size="icon"></span></span><p><strong>No violeta genérico.</strong> No se usa para errores, navegación ni botones primarios.</p></div>
+          <div class="ds-rule"><span class="round-icon"><span data-icon="check" data-icon-size="icon"></span></span><p><strong>Vidrio en capas flotantes.</strong> Header, chips, paneles y controles sobre gradientes.</p></div>
+          <div class="ds-rule is-dont"><span class="round-icon"><span data-icon="x" data-icon-size="icon"></span></span><p><strong>No vidrio en lectura.</strong> Los bloques largos de texto van sobre papel opaco.</p></div>
+          <div class="ds-rule"><span class="round-icon"><span data-icon="check" data-icon-size="icon"></span></span><p><strong>Estados con texto.</strong> El chip siempre dice qué pasa; el color acompaña.</p></div>
+          <div class="ds-rule is-dont"><span class="round-icon"><span data-icon="x" data-icon-size="icon"></span></span><p><strong>No rojo puro.</strong> Los errores usan terracota, dentro de la paleta cálida.</p></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="ds-footer">
+    <span>Tanda Design System · v2 · 30 oct 2026</span>
+    <span>Hecho con los mismos tokens que la app · <a href="index.html">Estudiante</a> · <a href="imprenta/index.html">Imprenta</a></span>
+  </footer>
+
+  <div class="ds-toast" role="status" aria-live="polite" data-toast></div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/design-system.js"></script>
+</body>
+</html>

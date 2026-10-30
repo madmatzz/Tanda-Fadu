@@ -10,6 +10,7 @@ No hace falta instalar nada:
 
 - Estudiante: abrir [`web/index.html`](web/index.html) en el navegador.
 - Imprenta: abrir [`web/imprenta/index.html`](web/imprenta/index.html).
+- Design system: abrir [`web/design-system.html`](web/design-system.html).
 
 Para servirla como en producción (recomendado si el navegador bloquea algo al abrir archivos locales):
 
@@ -63,12 +64,14 @@ La imprenta se ve en **modo oscuro**, como el "detrás de escena" de la app. Cad
 ```
 web/
   index.html, *.html       pantallas del estudiante
+  design-system.html       documentación viva del sistema visual
   imprenta/                pantallas de la imprenta
   css/
     tokens.css             colores, tipografía, radios, espacios y sombras
     base.css               reset, marco del teléfono y utilidades
     components.css         botones, tarjetas, campos, chips, paneles…
     screens.css            estilos propios de cada pantalla
+    design-system.css      layout de la documentación
   js/
     icons.js               íconos de Lucide como SVG
     logic.js               precios, validación de archivos, tiempos y búsquedas
@@ -79,6 +82,7 @@ web/
     sheets.js              paneles compartidos: menú demo e informar cola
     imprenta.js            piezas de la vista de imprenta
     floors.js              planos de los pisos de la FADU
+    design-system.js       tema, copiar tokens, demos e iconos de la documentación
     pages/                 una pantalla por archivo
   img/, fonts/             imágenes, logos, planos y la fuente Inter
 ```
@@ -108,4 +112,5 @@ El workflow `.github/workflows/deploy-pages.yml` copia `web/` a la rama `gh-page
 ## Documentación
 
 - [`web/README.md`](web/README.md) — estructura interna, pantallas y cómo funciona una pantalla.
+- [`web/design-system.html`](web/design-system.html) — design system vivo: paleta, tokens, tipografía, componentes y patrones.
 - [`DESIGN.md`](DESIGN.md) — sistema visual: colores, tipografía, espaciado y componentes.
