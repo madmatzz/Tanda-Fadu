@@ -55,7 +55,9 @@ App.start({
       const unavailable = stock === "out";
       const tags = [
         hasTanda && UI.chip("¡Tanda!", { tone: "tanda" }),
-        total === cheapest && UI.chip("Mejor precio", { tone: "accent" }),
+        local.id === "local-cefadu"
+          ? UI.chip("Solo blanco y negro", { tone: "accent" })
+          : total === cheapest && UI.chip("Mejor precio", { tone: "accent" }),
         local.queue.waitVirtual === fastest && UI.chip("Menos espera", { tone: "success" }),
         stock !== "ok" && UI.chip(STOCK_LABELS[stock], { tone: stockTone(stock) }),
       ].filter(Boolean);
