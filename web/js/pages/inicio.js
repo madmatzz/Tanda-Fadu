@@ -114,24 +114,21 @@ App.start({
       actions: headerActions,
       content: `
         <div class="stack gap-6">
-          <div class="stack gap-4">
-            <h1 class="brand-wordmark"><img src="img/logo-tanda-nombre.svg" alt="Tanda"></h1>
-            <div class="stack gap-3">
-              ${UI.sectionLabel("¿Qué querés hacer?")}
-              <a class="action-card is-ink" href="imprimir.html?nuevo=1">
-                <span class="action-card-icon">${icon("printer", "icon-lg")}</span>
-                <span class="t-h3">Imprimir</span>
+          <div class="stack gap-3">
+            ${UI.sectionLabel("¿Qué querés hacer?")}
+            <a class="action-card is-ink" href="imprimir.html?nuevo=1">
+              <span class="action-card-icon">${icon("printer", "icon-lg")}</span>
+              <span class="t-h3">Imprimir</span>
+            </a>
+            <div class="grid-2 gap-3">
+              <a class="action-card is-compact" href="locales.html">
+                <span class="action-card-icon">${icon("map-pin", "icon-lg")}</span>
+                <span class="t-h3">Buscar locales</span>
               </a>
-              <div class="grid-2 gap-3">
-                <a class="action-card is-compact" href="locales.html">
-                  <span class="action-card-icon">${icon("map-pin", "icon-lg")}</span>
-                  <span class="t-h3">Buscar locales</span>
-                </a>
-                <a class="action-card is-compact is-tanda" href="tandas.html">
-                  <span class="action-card-icon">${icon("layers", "icon-lg")}</span>
-                  <span class="t-h3">Tandas disponibles</span>
-                </a>
-              </div>
+              <a class="action-card is-compact is-tanda" href="tandas.html">
+                <span class="action-card-icon">${icon("layers", "icon-lg")}</span>
+                <span class="t-h3">Tandas disponibles</span>
+              </a>
             </div>
           </div>
 

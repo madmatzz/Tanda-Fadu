@@ -91,20 +91,10 @@
   padding: var(--space-3) var(--space-4);
 }
 
-/* Marca: isotipo en el encabezado y logo con nombre arriba de todo */
+/* Marca: isotipo en el encabezado */
 .brand-mark {
   display: block;
   height: 26px;
-}
-
-.brand-wordmark {
-  display: flex;
-  justify-content: center;
-}
-
-.brand-wordmark img {
-  width: 64%;
-  height: auto;
 }
 
 /* "Tandas ya!": bloque violeta a todo el ancho, pegado al final de la pantalla */
