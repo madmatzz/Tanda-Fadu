@@ -104,10 +104,6 @@ Cada pantalla llama a `App.start({ render, actions })`: `render()` devuelve el H
 
 ## Deploy
 
-### Vercel
-
-El repo incluye `vercel.json` con `outputDirectory: "web"` y sin build. Al importar el proyecto en Vercel alcanza con dejar el preset **Other** y desplegar; cada push publica la app.
-
 ### GitHub Pages
 
 El workflow `.github/workflows/deploy-pages.yml` copia `web/` a la rama `gh-pages` en cada push a `main`. En GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch**, elegir branch **gh-pages** y carpeta **/ (root)**.
