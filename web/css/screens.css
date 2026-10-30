@@ -1452,21 +1452,54 @@
 
 /* Tanda mezclada entre los pedidos individuales de la cola */
 .shop-tanda-row {
+  position: relative;
+  overflow: hidden;
   border-color: var(--color-tanda-border);
-  background: var(--color-tanda-soft);
+  background: linear-gradient(
+    120deg,
+    var(--color-tanda-soft) 0%,
+    var(--color-tanda-muted) 35%,
+    var(--color-tanda-border) 55%,
+    var(--color-tanda-muted) 75%,
+    var(--color-tanda-soft) 100%
+  );
+  background-size: 200% 200%;
+  animation: shop-tanda-shift 7s linear infinite;
+}
+
+.shop-tanda-row > * {
+  position: relative;
+  z-index: 1;
+}
+
+.shop-tanda-row::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 60%;
+  background: linear-gradient(105deg, transparent, var(--color-tanda), transparent);
+  opacity: 0.16;
+  pointer-events: none;
+  content: "";
+  animation: shop-tanda-sheen 5.5s linear infinite;
 }
 
 .shop-tanda-row:hover { border-color: var(--color-tanda); }
 
-.shop-tanda-mark {
-  display: grid;
-  width: var(--size-control);
-  height: var(--size-control);
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: var(--radius-sm);
-  background: var(--color-tanda-muted);
-  color: var(--color-tanda);
+@keyframes shop-tanda-shift {
+  from { background-position: 200% 50%; }
+  to { background-position: 0% 50%; }
+}
+
+@keyframes shop-tanda-sheen {
+  from { transform: translateX(0); }
+  to { transform: translateX(280%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-tanda-row,
+  .shop-tanda-row::after { animation: none; }
 }
 
 /* Pedido en la impresora */

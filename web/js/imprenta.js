@@ -83,10 +83,11 @@ const ShopUI = {
     const shown = names.slice(0, 3).join(", ");
     const extra = names.length - 3;
     const pages = pending.reduce((sum, order) => sum + order.specs.pages, 0);
+    const firstTicket = pending[0]?.ticket;
     const status = tandaClosed(tanda) ? "Completa" : `Cierra ${tanda.closesAt}`;
     return `
       <a class="card card-button shop-order shop-tanda-row" href="imprenta/tanda.html?id=${tanda.id}">
-        <span class="shop-tanda-mark" aria-hidden="true">${icon("layers")}</span>
+        <span class="shop-order-ticket">${firstTicket ? `#${firstTicket}` : "#—"}</span>
         <span class="stack gap-05 grow shop-order-info">
           <span class="row gap-2 t-strong">
             <span class="truncate">${esc(tanda.label)}</span>
