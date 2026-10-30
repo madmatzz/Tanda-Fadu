@@ -92,7 +92,8 @@ Cada archivo de `js/pages/` llama a `App.start({ render, actions })`:
   - `data-action="nombre"` al hacer clic,
   - `data-input="nombre"` al escribir en un campo,
   - `data-change="nombre"` al elegir una opción, una casilla o un archivo.
-- Una zona con `data-scroll` (y un `id`) scrollea arrastrando con el mouse y mantiene su
-  scroll al redibujar. Una zona con `data-gesture` maneja sus propios arrastres (el mapa).
+- Una zona con `data-scroll` (y un `id`) scrollea en vertical arrastrando con el mouse; con
+  `data-scroll-x` scrollea en horizontal, como el carrusel de tandas. En los dos casos mantiene
+  su scroll al redibujar. Una zona con `data-gesture` maneja sus propios arrastres (el mapa).
 
 Para cambiar un color o una medida, se edita `css/tokens.css` y se actualiza en toda la app.

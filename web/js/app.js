@@ -40,8 +40,8 @@ const App = {
     const scroll = this.screenEl.scrollTop;
     const oldSheetBody = this.sheetEl.querySelector(".sheet-body");
     const sheetScroll = oldSheetBody ? oldSheetBody.scrollTop : 0;
-    // Zonas que scrollean por su cuenta (data-scroll con id): se mantienen en el mismo lugar.
-    const innerScrolls = [...this.screenEl.querySelectorAll("[data-scroll][id]")].map((el) => [el.id, el.scrollTop]);
+    // Zonas que scrollean por su cuenta (data-scroll o data-scroll-x con id): se mantienen en el mismo lugar.
+    const innerScrolls = [...this.screenEl.querySelectorAll("[data-scroll][id], [data-scroll-x][id]")].map((el) => [el.id, el.scrollTop, el.scrollLeft]);
 
     this.screenEl.innerHTML = UI.statusBar(page.statusBar) + page.render();
     const sheetHtml = page.sheet && this.openSheetName ? page.sheet(this.openSheetName) : "";
@@ -49,9 +49,12 @@ const App = {
     this.sheetEl.innerHTML = sheetHtml;
     this.screenEl.classList.toggle("is-locked", Boolean(sheetHtml));
     this.screenEl.scrollTop = scroll;
-    innerScrolls.forEach(([id, top]) => {
+    innerScrolls.forEach(([id, top, left]) => {
       const el = document.getElementById(id);
-      if (el) el.scrollTop = top;
+      if (el) {
+        el.scrollTop = top;
+        el.scrollLeft = left;
+      }
     });
 
     // El panel se anima solo al abrirse; al redibujarlo queda quieto y en el mismo scroll.
@@ -130,62 +133,104 @@ const App = {
    * En computadora, la pantalla del teléfono se scrollea arrastrando con el mouse,
    * como con el dedo en un celular, y sigue un poco por inercia al soltar.
    * En pantallas táctiles no hace nada: el navegador ya scrollea con el dedo.
-   * Además de la pantalla y los paneles, scrollea cualquier zona marcada con data-scroll.
+   * Además de la pantalla y los paneles, scrollea cualquier zona marcada con data-scroll
+   * (vertical) o data-scroll-x (horizontal, como el carrusel de tandas).
    * Las zonas con data-gesture manejan sus propios arrastres (por ejemplo, un mapa).
    */
   enableDragScroll() {
     let drag = null;
     let momentum = null;
+    let momentumEl = null;
 
     const stopMomentum = () => {
       if (momentum) cancelAnimationFrame(momentum);
       momentum = null;
+      if (momentumEl) momentumEl.classList.remove("is-dragging");
+      momentumEl = null;
     };
 
     document.addEventListener("pointerdown", (event) => {
       if (event.pointerType !== "mouse" || event.button !== 0) return;
       // En los campos de texto el mouse sirve para escribir y seleccionar, no para scrollear.
       if (event.target.closest("input, textarea, select, [data-gesture]")) return;
-      const scroller = event.target.closest("[data-scroll], .sheet-body, .device-screen");
+      const scroller = event.target.closest("[data-scroll], [data-scroll-x], .sheet-body, .device-screen");
       if (!scroller) return;
       stopMomentum();
-      drag = { scroller, startY: event.clientY, startTop: scroller.scrollTop, lastY: event.clientY, lastTime: event.timeStamp, velocity: 0, moved: false };
+      drag = {
+        scroller,
+        horizontal: scroller.hasAttribute("data-scroll-x"),
+        startX: event.clientX,
+        startY: event.clientY,
+        startLeft: scroller.scrollLeft,
+        startTop: scroller.scrollTop,
+        lastX: event.clientX,
+        lastY: event.clientY,
+        lastTime: event.timeStamp,
+        velocity: 0,
+        moved: false,
+      };
     });
 
     document.addEventListener("pointermove", (event) => {
       if (!drag) return;
-      const distance = event.clientY - drag.startY;
+      const dx = event.clientX - drag.startX;
+      const dy = event.clientY - drag.startY;
+      const distance = drag.horizontal ? dx : dy;
       // Recién se considera arrastre después de unos píxeles, para no confundirlo con un clic.
       if (!drag.moved && Math.abs(distance) < 6) return;
       if (!drag.moved) {
         drag.moved = true;
         document.body.classList.add("is-dragging");
+        drag.scroller.classList.add("is-dragging");
       }
-      drag.scroller.scrollTop = drag.startTop - distance;
+      if (drag.horizontal) {
+        drag.scroller.scrollLeft = drag.startLeft - dx;
+      } else {
+        drag.scroller.scrollTop = drag.startTop - dy;
+      }
       const elapsed = Math.max(1, event.timeStamp - drag.lastTime);
-      drag.velocity = (drag.lastY - event.clientY) / elapsed;
+      drag.velocity = drag.horizontal
+        ? (drag.lastX - event.clientX) / elapsed
+        : (drag.lastY - event.clientY) / elapsed;
+      drag.lastX = event.clientX;
       drag.lastY = event.clientY;
       drag.lastTime = event.timeStamp;
     });
 
     document.addEventListener("pointerup", () => {
       if (!drag) return;
-      const { scroller, moved } = drag;
+      const { scroller, horizontal, moved } = drag;
       let velocity = drag.velocity * 16; // píxeles por cuadro
       drag = null;
       if (!moved) return;
       document.body.classList.remove("is-dragging");
       this.suppressClick();
+      if (Math.abs(velocity) < 0.5) {
+        scroller.classList.remove("is-dragging");
+        return;
+      }
+      momentumEl = scroller;
       const glide = () => {
         if (Math.abs(velocity) < 0.5) {
           momentum = null;
+          scroller.classList.remove("is-dragging");
+          momentumEl = null;
           return;
         }
-        scroller.scrollTop += velocity;
+        if (horizontal) scroller.scrollLeft += velocity;
+        else scroller.scrollTop += velocity;
         velocity *= 0.95;
         momentum = requestAnimationFrame(glide);
       };
       momentum = requestAnimationFrame(glide);
+    });
+
+    // Si se cancela el gesto (por ejemplo, el mouse sale de la ventana), se corta el arrastre.
+    document.addEventListener("pointercancel", () => {
+      if (drag) drag.scroller.classList.remove("is-dragging");
+      drag = null;
+      document.body.classList.remove("is-dragging");
+      stopMomentum();
     });
 
     // La rueda del mouse frena la inercia.

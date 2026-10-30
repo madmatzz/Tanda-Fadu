@@ -135,9 +135,16 @@
   scroll-padding: 0 var(--gutter);
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  cursor: grab;
 }
 
 .tandas-track::-webkit-scrollbar { display: none; }
+
+/* Mientras se arrastra con el mouse no se pega a las tarjetas: el snap vuelve al soltar. */
+.tandas-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
 
 .tanda-promo-card {
   display: flex;

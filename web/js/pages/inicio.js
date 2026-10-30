@@ -147,7 +147,7 @@ App.start({
               <h2 class="t-h2">Tandas ya!</h2>
               <a class="tandas-promo-link t-small fw-semibold" href="tandas.html">Ver todas</a>
             </div>
-            <div class="tandas-track" id="tandas-track">${promoCards}</div>
+            <div class="tandas-track" id="tandas-track" data-scroll-x>${promoCards}</div>
             <div class="tandas-promo-dots" aria-hidden="true">
               ${promoTandas.map((tanda, index) => `<span class="${index === 0 ? "is-active" : ""}"></span>`).join("")}
             </div>
