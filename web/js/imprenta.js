@@ -31,8 +31,7 @@ const ShopUI = {
         : title,
       back,
       actions: `
-        ${UI.chip("Imprenta", { tone: "ink" })}
-        ${tab ? UI.iconButton({ label: "Ver la app como estudiante", icon: "repeat-2", href: "index.html" }) : ""}`,
+        ${UI.chip("Imprenta", { tone: "ink" })}`,
       content,
       footer: tab ? ShopUI.nav(tab) : footer,
     });
