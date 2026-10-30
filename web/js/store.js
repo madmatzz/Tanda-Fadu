@@ -214,12 +214,25 @@ const actions = {
     Store.commit();
   },
 
+  /** El local descarga el archivo antes de marcarlo listo para retirar. */
+  downloadOrder(orderId) {
+    orderById(Store.state, orderId).filesDownloaded = true;
+    Store.commit();
+  },
+
+  /** El local descarga todos los archivos de la tanda. */
+  downloadTanda(tandaId) {
+    tandaById(Store.state, tandaId).filesDownloaded = true;
+    Store.commit();
+  },
+
   /** Imprime ya un pedido de la cola (si no hay otro pedido o tanda imprimiéndose). */
   startPrinting(orderId) {
     const state = Store.state;
     const order = orderById(state, orderId);
     if (printingEntry(state, order.localId)) return;
     order.status = "imprimiendo";
+    order.filesDownloaded = false;
     syncQueue(state, order.localId);
     Store.commit();
   },
@@ -290,8 +303,13 @@ function startNextInQueue(state, localId) {
   }
 
   const next = firstQueueEntry(state, localId);
-  if (next?.type === "order") next.order.status = "imprimiendo";
-  else if (next?.type === "tanda") next.tanda.printing = true;
+  if (next?.type === "order") {
+    next.order.status = "imprimiendo";
+    next.order.filesDownloaded = false;
+  } else if (next?.type === "tanda") {
+    next.tanda.printing = true;
+    next.tanda.filesDownloaded = false;
+  }
   syncQueue(state, localId);
 }
 

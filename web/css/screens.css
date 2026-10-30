@@ -1600,6 +1600,13 @@
   box-shadow: var(--shadow-float);
 }
 
+.shop-printing-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  color: inherit;
+}
+
 .shop-printing-ticket {
   font-size: 56px;
   font-weight: 800;

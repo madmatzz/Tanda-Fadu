@@ -27,22 +27,32 @@ function queueEntries(waiting, tandas) {
 /** El pedido que está en la impresora, con todo lo que hace falta para imprimirlo. */
 function printingCard(order) {
   const specs = order.specs;
+  const downloaded = Boolean(order.filesDownloaded);
   return `
     <div class="shop-printing">
-      <div class="row between gap-2">
-        <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Próximo pedido</span>
-        <span class="t-caption">Pedido de ${esc(order.owner)}</span>
-      </div>
-      <div class="row is-bottom gap-4">
-        <span class="shop-printing-ticket">#${order.ticket}</span>
-        <div class="stack gap-05 grow">
-          <span class="t-strong truncate">${esc(order.file.name)}</span>
-          <span class="t-small">${plural(specs.pages, "página", "páginas")} · ${plural(specs.copies, "copia", "copias")}</span>
-          <span class="t-small">${specs.size} · ${modeLabel(specs.mode)} · ${paperDisplay(specs)}</span>
+      <a class="shop-printing-detail" href="pedido.html?id=${order.id}">
+        <div class="row between gap-2">
+          <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Próximo pedido</span>
+          <span class="t-caption">Pedido de ${esc(order.owner)}</span>
         </div>
-      </div>
-      ${specs.notes ? `<p class="t-small shop-printing-note"><span class="fw-semibold">Observaciones:</span> ${esc(specs.notes)}</p>` : ""}
-      ${UI.button({ label: "Listo para retirar", icon: "check", variant: "accent", block: true, action: "finishPrinting", data: { id: order.id } })}
+        <div class="row is-bottom gap-4">
+          <span class="shop-printing-ticket">#${order.ticket}</span>
+          <div class="stack gap-05 grow">
+            <span class="t-strong truncate">${esc(order.file.name)}</span>
+            <span class="t-small">${plural(specs.pages, "página", "páginas")} · ${plural(specs.copies, "copia", "copias")}</span>
+            <span class="t-small">${specs.size} · ${modeLabel(specs.mode)} · ${paperDisplay(specs)}</span>
+          </div>
+        </div>
+        ${specs.notes ? `<p class="t-small shop-printing-note"><span class="fw-semibold">Observaciones:</span> ${esc(specs.notes)}</p>` : ""}
+      </a>
+      ${UI.button({
+        label: downloaded ? "Listo para retirar" : "Descargar archivo",
+        icon: downloaded ? "check" : "download",
+        variant: "accent",
+        block: true,
+        action: downloaded ? "finishPrinting" : "downloadOrder",
+        data: { id: order.id },
+      })}
     </div>`;
 }
 
@@ -53,22 +63,32 @@ function printingTandaCard(tanda, orders) {
   const shown = names.slice(0, 3).join(", ");
   const extra = names.length - 3;
   const pages = pending.reduce((sum, order) => sum + order.specs.pages, 0);
+  const downloaded = Boolean(tanda.filesDownloaded);
   return `
     <div class="shop-printing is-tanda">
-      <div class="row between gap-2">
-        <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Próximo pedido</span>
-        <span class="t-caption">${tanda.label}</span>
-      </div>
-      <div class="row is-bottom gap-4">
-        <span class="shop-printing-ticket">#${pending[0]?.ticket ?? "—"}</span>
-        <div class="stack gap-05 grow">
-          <span class="t-strong truncate">${plural(pending.length, "pedido", "pedidos")} en tanda</span>
-          <span class="t-small">${plural(pages, "página", "páginas")} · ${tanda.size} ${modeShort(tanda.mode)}</span>
-          <span class="t-small">${PAPER_LABELS[tanda.paper]} ${tanda.grammage}g</span>
+      <a class="shop-printing-detail" href="imprenta/tanda.html?id=${tanda.id}">
+        <div class="row between gap-2">
+          <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Próximo pedido</span>
+          <span class="t-caption">${tanda.label}</span>
         </div>
-      </div>
-      <p class="t-small shop-printing-note"><span class="fw-semibold">Nombres:</span> ${shown ? esc(shown) : "Sin pedidos"}${extra > 0 ? ` +${extra}` : ""}</p>
-      ${UI.button({ label: "Listo para retirar", icon: "check", variant: "tanda", block: true, action: "finishTanda", data: { id: tanda.id } })}
+        <div class="row is-bottom gap-4">
+          <span class="shop-printing-ticket">#${pending[0]?.ticket ?? "—"}</span>
+          <div class="stack gap-05 grow">
+            <span class="t-strong truncate">${plural(pending.length, "pedido", "pedidos")} en tanda</span>
+            <span class="t-small">${plural(pages, "página", "páginas")} · ${tanda.size} ${modeShort(tanda.mode)}</span>
+            <span class="t-small">${PAPER_LABELS[tanda.paper]} ${tanda.grammage}g</span>
+          </div>
+        </div>
+        <p class="t-small shop-printing-note"><span class="fw-semibold">Nombres:</span> ${shown ? esc(shown) : "Sin pedidos"}${extra > 0 ? ` +${extra}` : ""}</p>
+      </a>
+      ${UI.button({
+        label: downloaded ? "Listo para retirar" : "Descargar archivos",
+        icon: downloaded ? "check" : "download",
+        variant: "tanda",
+        block: true,
+        action: downloaded ? "finishTanda" : "downloadTanda",
+        data: { id: tanda.id },
+      })}
     </div>`;
 }
 
@@ -175,6 +195,14 @@ App.start({
 
     finishTanda(button) {
       actions.printTanda(button.dataset.id);
+    },
+
+    downloadOrder(button) {
+      actions.downloadOrder(button.dataset.id);
+    },
+
+    downloadTanda(button) {
+      actions.downloadTanda(button.dataset.id);
     },
 
     startPrinting(button) {
