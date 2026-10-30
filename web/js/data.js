@@ -258,7 +258,7 @@ function createInitialState() {
     reviews,
     orders,
     tandas,
-    savedLocalIds: ["local-el-poli"],
+    savedLocalIds: [],
     savedCard: null,
     nextTicket: tandaTicket,
   };
