@@ -148,9 +148,26 @@
   color: var(--color-surface);
   scroll-snap-align: start;
   transition: background var(--transition);
+  animation: tanda-promo-twinkle 4.8s ease-in-out infinite;
 }
 
+.tanda-promo-card:nth-child(2) { animation-delay: -1.6s; }
+.tanda-promo-card:nth-child(3) { animation-delay: -3.2s; }
+
 .tanda-promo-card:hover { background: rgb(255 255 255 / 0.22); }
+
+@keyframes tanda-promo-twinkle {
+  0%, 100% {
+    border-color: rgb(255 255 255 / 0.26);
+    box-shadow: 0 0 0 rgb(255 255 255 / 0);
+    opacity: 0.94;
+  }
+  50% {
+    border-color: rgb(255 255 255 / 0.42);
+    box-shadow: 0 0 18px rgb(255 255 255 / 0.16);
+    opacity: 1;
+  }
+}
 
 .tanda-promo-bar {
   height: 6px;

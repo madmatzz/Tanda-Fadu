@@ -311,6 +311,22 @@
   background: rgb(255 252 247 / 0.1);
 }
 
+/* Acción principal en el naranja de la app */
+.action-card.is-accent {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-glow);
+}
+
+.action-card.is-accent:hover { border-color: var(--color-accent-dark); }
+.theme-imprenta .action-card.is-accent { color: var(--color-surface); }
+
+.action-card.is-accent .action-card-icon {
+  border-color: rgb(255 255 255 / 0.32);
+  background: rgb(255 252 247 / 0.24);
+}
+
 /* Lo que es tanda va en violeta suave, como las tarjetas con tanda al comparar locales */
 .action-card.is-tanda {
   border-color: var(--color-tanda-border);

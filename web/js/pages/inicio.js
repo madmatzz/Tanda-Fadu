@@ -116,7 +116,7 @@ App.start({
         <div class="stack gap-6">
           <div class="stack gap-3">
             ${UI.sectionLabel("¿Qué querés hacer?")}
-            <a class="action-card is-ink" href="imprimir.html?nuevo=1">
+            <a class="action-card is-accent" href="imprimir.html?nuevo=1">
               <span class="action-card-icon">${icon("printer", "icon-lg")}</span>
               <span class="t-h3">Imprimir</span>
             </a>
