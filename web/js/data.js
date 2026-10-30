@@ -119,7 +119,7 @@ function createInitialState() {
       services: ["bn", "color", "a3", "anillado", "plastificado", "escaneo", "gran-formato"],
       papers: ["obra-80", "obra-120", "ilustracion-150", "reciclado-90", "foamboard-3"],
       stock: { ...fullStock, "obra-80": "low", "foamboard-3": "out" },
-      queue: { printing: 34, virtual: 23, inPerson: 3, waitVirtual: 8, waitInPerson: 5, updatedAt: ago(7) },
+      queue: { printing: 34, virtual: 12, inPerson: 3, waitVirtual: 4, waitInPerson: 5, updatedAt: ago(7) },
       occupancy: [3, 4, 5, 6, 7, 9, 8, null], ratings: { quality: 4.9, price: 4.6, speed: 4.9 },
       map: { floor: 0, x: 0.41, y: 0.74, color: "red" }, tone: "sunset", logo: "img/locales/el-poli-logo.png", photo: "img/locales/el-poli-foto.png",
     },
@@ -225,10 +225,11 @@ function createInitialState() {
     });
   };
 
-  // Cola virtual de El Poli: el #34 se está imprimiendo y del #35 al #57 esperan (23 en total,
-  // como dice el local). El #36 no está: es el pedido de la demo, que va en la Tanda 1.
+  // Cola virtual de El Poli: el #34 se está imprimiendo y del #35 al #46 esperan
+  // (11 pedidos individuales, la mitad de la cola original para que no sea tan larga).
+  // El #36 no está: es el pedido de la demo, que va en la Tanda 1.
   // Los #30 a #33 ya se imprimieron: dos esperan que los retiren.
-  const queueTickets = [34, 35, ...Array.from({ length: 21 }, (_, i) => 37 + i)];
+  const queueTickets = [34, 35, ...Array.from({ length: 10 }, (_, i) => 37 + i)];
   orders.push(
     ...[30, 31].map((ticket, i) => studentOrder(ticket, i, "entregado")),
     ...[32, 33].map((ticket, i) => studentOrder(ticket, i + 2, "listo")),
@@ -250,7 +251,7 @@ function createInitialState() {
   });
 
   return {
-    version: 6,
+    version: 7,
     demoClock: DEMO_CLOCK,
     draft: emptyDraft(),
     locals,
