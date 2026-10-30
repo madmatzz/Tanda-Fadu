@@ -262,7 +262,7 @@ Escala base 4px: `0 / 4 / 8 / 12 / 16 / 20 / 24 / 28 / 32 / 36 / 40 / 48 / 56 / 
 |---|---|---|
 | I1 | **Panel (inicio)** | Header logo + “El Poli / Panel”. Logo en tarjeta, OutlineButton “Editar perfil” + WarningOutlineButton “Cargar Aviso”. Sección “Ahora”: tarjeta Cola virtual + tarjeta Para retirar, las dos a ancho completo. Sección “Reseñas”: fila “Ver y responder reviews” con chevron. |
 | I2 | **Tanda (detalle)** | Header “El Poli / Tanda 1” con volver a la cola. H1 + subtítulo, métricas, PrinterTrayIllustration, OrderRows con los nombres de la tanda, CTA fijo “Imprimir tanda”. |
-| I3 | **Cola virtual** | Header “El Poli / Cola”. Pedido imprimiéndose, lista “En cola” con pedidos individuales y tandas mezcladas, y “Para retirar”. Las tandas abren I2. |
+| I3 | **Cola virtual** | Header “El Poli / Cola”. Pedido o tanda imprimiéndose; la tanda usa tarjeta y botón violetas con la animación de tanda. Lista “En cola” con pedidos individuales y tandas mezcladas, y “Para retirar”. Las tandas abren I2. |
 | I4 | **Editar mi perfil** | ProfileHeader en modo edición, InfoBaseCard con inputs + AvisoBox editable, ConcurrenciaCard con BarChart, CatalogCard con “Editar catálogo”, ReviewsCard, MapSchematic. |
 
 ### Qué comparten entre pantallas

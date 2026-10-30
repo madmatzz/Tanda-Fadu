@@ -1451,7 +1451,8 @@
 .shop-order-info { min-width: 0; }
 
 /* Tanda mezclada entre los pedidos individuales de la cola */
-.shop-tanda-row {
+.shop-tanda-row,
+.shop-printing.is-tanda {
   position: relative;
   overflow: hidden;
   border-color: var(--color-tanda-border);
@@ -1467,12 +1468,14 @@
   animation: shop-tanda-shift 7s linear infinite;
 }
 
-.shop-tanda-row > * {
+.shop-tanda-row > *,
+.shop-printing.is-tanda > * {
   position: relative;
   z-index: 1;
 }
 
-.shop-tanda-row::after {
+.shop-tanda-row::after,
+.shop-printing.is-tanda::after {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -1486,6 +1489,7 @@
 }
 
 .shop-tanda-row:hover { border-color: var(--color-tanda); }
+.shop-printing.is-tanda { box-shadow: var(--shadow-glow-tanda); }
 
 @keyframes shop-tanda-shift {
   from { background-position: 200% 50%; }
@@ -1499,7 +1503,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .shop-tanda-row,
-  .shop-tanda-row::after { animation: none; }
+  .shop-tanda-row::after,
+  .shop-printing.is-tanda,
+  .shop-printing.is-tanda::after { animation: none; }
 }
 
 /* Pedido en la impresora */

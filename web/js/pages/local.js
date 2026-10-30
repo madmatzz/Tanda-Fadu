@@ -296,6 +296,8 @@ App.start({
               ${contactRow("clock", "Horario", local.hours)}
               <div class="divider"></div>
               ${contactRow("phone", "Teléfono", local.phone)}
+              <div class="divider"></div>
+              ${UI.button({ label: "Ver en el mapa", icon: "map", variant: "outline", size: "md", block: true, href: `locales.html?local=${local.slug}` })}
             </div>`)}
 
           <p class="t-caption c-muted">${local.reviewCount} estudiantes ya reseñaron este local. Los datos son ficticios para la demo.</p>

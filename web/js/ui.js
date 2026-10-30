@@ -112,7 +112,7 @@ const UI = {
 
   /**
    * Botón. Con `href` es un link; con `action` ejecuta una acción de la pantalla.
-   * variant: primary | accent | outline | soft · size: sm | md | lg
+   * variant: primary | accent | tanda | outline | soft · size: sm | md | lg
    */
   button({ label, variant = "primary", size = "lg", icon: iconName, block = false, disabled = false, loading = false, href, action, data, id }) {
     const className = cx("btn", `btn-${variant}`, `btn-${size}`, block && "btn-block", loading && "is-loading");

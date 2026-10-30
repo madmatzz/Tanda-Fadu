@@ -97,6 +97,7 @@ Cada pantalla llama a `App.start({ render, actions })`: `render()` devuelve el H
 - El reloj está fijo en **miércoles 11:20**. Los estados, esperas y movimientos de cola son ficticios.
 - La demo arranca sin pedido en curso: el acceso flotante **Mi pedido** aparece recién cuando confirmás una impresión.
 - Los cambios se guardan en `localStorage` con la clave `tanda-demo-web` y los comparten las dos vistas.
+- La demo se mantiene al navegar entre pantallas y se reinicia al recargar la página (F5 o Ctrl+R).
 - **Menú demo** (Home o perfil) permite cargar estados de validación, abrir rutas de apoyo y reiniciar la demo.
 - **Vista estudiante / Vista imprenta** es un control de demo externo al dispositivo en desktop. En mobile se accede desde el **Menú demo**.
 - El pago es simulado y no se envían datos de tarjeta.

@@ -5,9 +5,14 @@ App.start({
     const state = Store.state;
     const local = shopLocal(state);
     const queue = queueOrders(state, local.id);
-    const printing = queue.find((order) => order.status === "imprimiendo");
+    const current = printingEntry(state, local.id);
     const waiting = queue.filter((order) => order.status === "en-cola");
     const ready = localOrdersByStatus(state, local.id, "listo");
+    const printingLabel = current?.type === "order"
+      ? `Imprimiendo #${current.order.ticket}`
+      : current?.type === "tanda"
+        ? `Imprimiendo ${current.tanda.label}`
+        : "Impresora libre";
     const reviews = localReviews(state, local.id);
     const unanswered = reviews.filter((review) => !review.reply).length;
     const alerts = state.alerts.filter((alert) => alert.localId === local.id);
@@ -33,9 +38,9 @@ App.start({
                 <span class="row gap-1 t-small fw-semibold">Ver cola ${icon("arrow-right", "icon-sm")}</span>
               </span>
               <span class="row is-bottom between gap-3">
-                ${ShopUI.metric(waiting.length + (printing ? 1 : 0), "pedidos en cola")}
+                ${ShopUI.metric(waiting.length + (current ? 1 : 0), "pedidos en cola")}
                 <span class="stack gap-05 text-right">
-                  <span class="t-strong">${printing ? `Imprimiendo #${printing.ticket}` : "Impresora libre"}</span>
+                  <span class="t-strong">${printingLabel}</span>
                   <span class="t-caption">Espera estimada ${local.queue.waitVirtual} min</span>
                 </span>
               </span>

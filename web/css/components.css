@@ -90,6 +90,9 @@
 .btn-accent:hover { background: var(--color-accent-dark); color: var(--color-surface); }
 .theme-imprenta .btn-accent { color: var(--color-surface); }
 
+.btn-tanda { background: var(--color-tanda); color: var(--color-surface); box-shadow: var(--shadow-glow-tanda); }
+.btn-tanda:hover { filter: brightness(1.06); }
+
 .btn-outline { border-color: var(--color-border); background: var(--color-surface); color: var(--color-ink); box-shadow: var(--shadow-soft); }
 .btn-outline:hover { background: var(--color-surface-soft); }
 

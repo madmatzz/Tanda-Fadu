@@ -16,24 +16,12 @@ function visible(list, items, limit = PREVIEW) {
   return view.open[list] ? items : items.slice(0, limit);
 }
 
-/** Tandas con pedidos pendientes, ordenadas por cierre. */
-function queueTandas(state, localId) {
-  return localTandas(state, localId)
-    .filter((tanda) => !tanda.printed)
-    .map((tanda) => ({ tanda, orders: tandaOrders(state, tanda.id) }))
-    .filter((entry) => entry.orders.some((order) => order.status === "en-cola" || order.status === "imprimiendo"))
-    .sort((a, b) => a.tanda.closesAt.localeCompare(b.tanda.closesAt));
-}
-
-/** Mezcla las tandas entre los pedidos individuales de la cola. */
+/** Mezcla pedidos y tandas y los ordena por número de pedido. */
 function queueEntries(waiting, tandas) {
-  const entries = waiting.map((order) => ({ type: "order", order }));
-  let insertAt = 1;
-  tandas.forEach((entry) => {
-    entries.splice(Math.min(entries.length, insertAt), 0, { type: "tanda", ...entry });
-    insertAt += 2;
-  });
-  return entries;
+  return [
+    ...waiting.map((order) => ({ type: "order", order, ticket: order.ticket })),
+    ...tandas.map((entry) => ({ type: "tanda", ...entry })),
+  ].sort((a, b) => a.ticket - b.ticket);
 }
 
 /** El pedido que está en la impresora, con todo lo que hace falta para imprimirlo. */
@@ -58,6 +46,32 @@ function printingCard(order) {
     </div>`;
 }
 
+/** La tanda que está en la impresora, con sus nombres y el CTA para cerrarla. */
+function printingTandaCard(tanda, orders) {
+  const pending = orders.filter((order) => order.status === "en-cola" || order.status === "imprimiendo");
+  const names = [...new Set(pending.map((order) => order.owner))];
+  const shown = names.slice(0, 3).join(", ");
+  const extra = names.length - 3;
+  const pages = pending.reduce((sum, order) => sum + order.specs.pages, 0);
+  return `
+    <div class="shop-printing is-tanda">
+      <div class="row between gap-2">
+        <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Imprimiendo ahora</span>
+        <span class="t-caption">${tanda.label}</span>
+      </div>
+      <div class="row is-bottom gap-4">
+        <span class="shop-printing-ticket">#${pending[0]?.ticket ?? "—"}</span>
+        <div class="stack gap-05 grow">
+          <span class="t-strong truncate">${plural(pending.length, "pedido", "pedidos")} en tanda</span>
+          <span class="t-small">${plural(pages, "página", "páginas")} · ${tanda.size} ${modeShort(tanda.mode)}</span>
+          <span class="t-small">${PAPER_LABELS[tanda.paper]} ${tanda.grammage}g</span>
+        </div>
+      </div>
+      <p class="t-small shop-printing-note"><span class="fw-semibold">Nombres:</span> ${shown ? esc(shown) : "Sin pedidos"}${extra > 0 ? ` +${extra}` : ""}</p>
+      ${UI.button({ label: "Listo para retirar", icon: "check", variant: "tanda", block: true, action: "finishTanda", data: { id: tanda.id } })}
+    </div>`;
+}
+
 App.start({
   init() {
     // Desde el panel se puede llegar directo a "Para retirar".
@@ -70,40 +84,45 @@ App.start({
     const state = Store.state;
     const local = shopLocal(state);
     const queue = queueOrders(state, local.id);
-    const printing = queue.find((order) => order.status === "imprimiendo");
+    const current = printingEntry(state, local.id);
+    const printingOrder = current?.type === "order" ? current.order : null;
+    const printingTanda = current?.type === "tanda" ? current.tanda : null;
     const waiting = queue.filter((order) => order.status === "en-cola");
-    // Las tandas se mezclan con los pedidos individuales en la cola.
-    const tandas = queueTandas(state, local.id);
+    // Las tandas se mezclan con los pedidos individuales y se ordenan por número de pedido.
+    const tandas = pendingTandas(state, local.id);
     const entries = queueEntries(waiting, tandas);
     // Para retirar van todos los pedidos impresos del local, también los de las tandas.
     const ready = localOrdersByStatus(state, local.id, "listo");
     const delivered = localOrdersByStatus(state, local.id, "entregado");
-    const active = waiting.length + (printing ? 1 : 0);
+    const active = waiting.length + (current ? 1 : 0);
+    const tandaCount = tandas.length + (printingTanda ? 1 : 0);
     // Minutos aproximados hasta que le toca a cada pedido, según su lugar en la cola.
     const minutesUntil = (index) => Math.max(1, Math.round((index + 1) * MINUTES_PER_ORDER));
 
-    const idle = printing
-      ? printingCard(printing)
-      : waiting.length
-        ? UI.card(`
-            <div class="stack gap-3">
-              <span class="row gap-2 t-strong">${icon("printer")}La impresora está libre</span>
-              ${UI.button({ label: `Imprimir el #${waiting[0].ticket}`, block: true, action: "startPrinting", data: { id: waiting[0].id } })}
-            </div>`)
-        : tandas.length
+    const idle = printingOrder
+      ? printingCard(printingOrder)
+      : printingTanda
+        ? printingTandaCard(printingTanda, tandaOrders(state, printingTanda.id))
+        : waiting.length
           ? UI.card(`
               <div class="stack gap-3">
                 <span class="row gap-2 t-strong">${icon("printer")}La impresora está libre</span>
-                <p class="t-small c-secondary">Hay tandas esperando. Abrí una para imprimir todos sus pedidos juntos.</p>
+                ${UI.button({ label: `Imprimir el #${waiting[0].ticket}`, block: true, action: "startPrinting", data: { id: waiting[0].id } })}
               </div>`)
-          : UI.emptyState({ icon: "check-check", title: "No hay pedidos en la cola", description: "Cuando un estudiante haga un pedido, aparece acá." });
+          : tandas.length
+            ? UI.card(`
+                <div class="stack gap-3">
+                  <span class="row gap-2 t-strong">${icon("printer")}La impresora está libre</span>
+                  <p class="t-small c-secondary">Hay tandas esperando. Abrí una para imprimir todos sus pedidos juntos.</p>
+                </div>`)
+            : UI.emptyState({ icon: "check-check", title: "No hay pedidos en la cola", description: "Cuando un estudiante haga un pedido, aparece acá." });
 
     const waitingList = entries.length
       ? `
         <div class="stack gap-2">
           ${visible("waiting", entries, QUEUE_PREVIEW).map((entry, index) => entry.type === "tanda"
             ? ShopUI.tandaRow(entry.tanda, entry.orders)
-            : ShopUI.orderRow(entry.order, index === 0 && !printing
+            : ShopUI.orderRow(entry.order, index === 0 && !current
               ? ""
               : index === 0 ? UI.chip("Siguiente", { tone: "info" }) : `<span class="t-caption c-muted nowrap">en ${minutesUntil(index)} min</span>`)).join("")}
         </div>
@@ -114,7 +133,7 @@ App.start({
       tab: "cola",
       content: `
         <div class="stack gap-5">
-          ${UI.pageTitle("Cola virtual", `${plural(active, "pedido", "pedidos")}${tandas.length ? ` y ${plural(tandas.length, "tanda", "tandas")}` : ""} · espera estimada ${local.queue.waitVirtual} min`)}
+          ${UI.pageTitle("Cola virtual", `${plural(active, "pedido", "pedidos")}${tandaCount ? ` y ${plural(tandaCount, "tanda", "tandas")}` : ""} · espera estimada ${local.queue.waitVirtual} min`)}
 
           ${idle}
 
@@ -152,6 +171,10 @@ App.start({
   actions: {
     finishPrinting(button) {
       actions.finishPrinting(button.dataset.id);
+    },
+
+    finishTanda(button) {
+      actions.printTanda(button.dataset.id);
     },
 
     startPrinting(button) {

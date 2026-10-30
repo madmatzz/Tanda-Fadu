@@ -292,6 +292,41 @@ function localTandas(state, localId) {
   return state.tandas.filter((tanda) => tanda.localId === localId);
 }
 
+/** Tandas sin imprimir con pedidos pendientes, ordenadas por el número de su primer pedido. */
+function pendingTandas(state, localId) {
+  return localTandas(state, localId)
+    .filter((tanda) => !tanda.printed && !tanda.printing)
+    .map((tanda) => {
+      const orders = tandaOrders(state, tanda.id).filter((order) => order.status === "en-cola" || order.status === "imprimiendo");
+      return { tanda, orders, ticket: orders[0]?.ticket ?? Infinity };
+    })
+    .filter((entry) => entry.orders.length)
+    .sort((a, b) => a.ticket - b.ticket);
+}
+
+/** Lo que está en la impresora ahora: un pedido individual o una tanda. */
+function printingEntry(state, localId) {
+  const order = queueOrders(state, localId).find((item) => item.status === "imprimiendo");
+  if (order) return { type: "order", order };
+
+  const tanda = localTandas(state, localId).find((item) => item.printing && !item.printed);
+  if (!tanda) return null;
+  return {
+    type: "tanda",
+    tanda,
+    orders: tandaOrders(state, tanda.id).filter((item) => item.status === "en-cola" || item.status === "imprimiendo"),
+  };
+}
+
+/** Próximo pedido o tanda a imprimir, mezclando ambos por número de pedido. */
+function firstQueueEntry(state, localId) {
+  const orders = queueOrders(state, localId)
+    .filter((order) => order.status === "en-cola")
+    .map((order) => ({ type: "order", order, ticket: order.ticket }));
+  const tandas = pendingTandas(state, localId).map((entry) => ({ type: "tanda", ...entry }));
+  return [...orders, ...tandas].sort((a, b) => a.ticket - b.ticket)[0] || null;
+}
+
 /** Una tanda está cerrada cuando el local ya la imprimió o se completó el cupo. */
 function tandaClosed(tanda) {
   return Boolean(tanda.printed) || tanda.participants >= tanda.capacity;

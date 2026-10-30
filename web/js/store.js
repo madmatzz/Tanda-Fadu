@@ -1,5 +1,8 @@
 // Estado de la demo. Se guarda en el navegador (localStorage) para que se mantenga
 // al pasar de una página a otra. Las pantallas lo cambian solo a través de `actions`.
+//
+// Importante: una recarga real (F5 / Ctrl+R) reinicia la demo; la navegación normal
+// entre pantallas conserva el estado para poder recorrer los flujos completos.
 
 const STORAGE_KEY = "tanda-demo-web";
 
@@ -19,7 +22,23 @@ const Store = {
   },
 };
 
+/** true solo cuando la página se recarga, no cuando se navega entre pantallas. */
+function isPageReload() {
+  const entries = performance.getEntriesByType?.("navigation") || [];
+  if (entries[0]) return entries[0].type === "reload";
+  return performance.navigation?.type === 1;
+}
+
 function loadState() {
+  if (isPageReload()) {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (error) {
+      // Si no se puede borrar, igual arranca desde el estado inicial en esta carga.
+    }
+    return createInitialState();
+  }
+
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (saved && saved.version === createInitialState().version) return saved;
@@ -195,12 +214,11 @@ const actions = {
     Store.commit();
   },
 
-  /** Imprime ya un pedido de la cola (si no hay otro imprimiéndose). */
+  /** Imprime ya un pedido de la cola (si no hay otro pedido o tanda imprimiéndose). */
   startPrinting(orderId) {
     const state = Store.state;
     const order = orderById(state, orderId);
-    const busy = queueOrders(state, order.localId).some((item) => item.status === "imprimiendo");
-    if (busy) return;
+    if (printingEntry(state, order.localId)) return;
     order.status = "imprimiendo";
     syncQueue(state, order.localId);
     Store.commit();
@@ -217,12 +235,14 @@ const actions = {
     const state = Store.state;
     const tanda = tandaById(state, tandaId);
     tanda.printed = true;
+    tanda.printing = false;
     tandaOrders(state, tandaId).forEach((order) => {
       if (order.status === "en-cola" || order.status === "imprimiendo") {
         order.status = "listo";
         order.readyAt = state.demoClock;
       }
     });
+    startNextInQueue(state, tanda.localId);
     Store.commit();
   },
 
@@ -262,10 +282,16 @@ const actions = {
   },
 };
 
-/** Pasa a imprimir el primer pedido que espera en la cola virtual del local. */
+/** Pasa a imprimir el primer pedido o tanda que espera, según el número de pedido. */
 function startNextInQueue(state, localId) {
-  const next = queueOrders(state, localId).find((order) => order.status === "en-cola");
-  if (next) next.status = "imprimiendo";
+  if (printingEntry(state, localId)) {
+    syncQueue(state, localId);
+    return;
+  }
+
+  const next = firstQueueEntry(state, localId);
+  if (next?.type === "order") next.order.status = "imprimiendo";
+  else if (next?.type === "tanda") next.tanda.printing = true;
   syncQueue(state, localId);
 }
 
@@ -278,7 +304,13 @@ function syncQueue(state, localId) {
   if (localId !== SHOP_LOCAL_ID) return;
   const queue = localById(state, localId).queue;
   const active = queueOrders(state, localId).filter((order) => order.status === "en-cola" || order.status === "imprimiendo");
-  const printing = active.find((order) => order.status === "imprimiendo") || active[0];
+  const current = printingEntry(state, localId);
+  const printing = current?.type === "order"
+    ? current.order
+    : current?.type === "tanda"
+      ? current.orders[0]
+      : active.find((order) => order.status === "imprimiendo") || active[0];
+
   queue.virtual = active.length;
   queue.waitVirtual = Math.round(active.length * MINUTES_PER_ORDER);
   if (printing) queue.printing = printing.ticket;
