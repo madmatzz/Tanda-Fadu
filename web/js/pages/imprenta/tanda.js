@@ -26,12 +26,12 @@ App.start({
     if (!tanda || tanda.localId !== SHOP_LOCAL_ID) {
       return ShopUI.screen({
         title: "Tanda",
-        back: "imprenta/tandas.html",
+        back: "imprenta/cola.html",
         content: UI.emptyState({
           icon: "layers",
           title: "No encontramos esa tanda",
-          description: "Volvé a la lista de tandas del local.",
-          action: UI.button({ label: "Ver tandas", variant: "outline", size: "md", href: "imprenta/tandas.html" }),
+          description: "Volvé a la cola virtual del local.",
+          action: UI.button({ label: "Volver a la cola", variant: "outline", size: "md", href: "imprenta/cola.html" }),
         }),
       });
     }
@@ -50,7 +50,7 @@ App.start({
 
     return ShopUI.screen({
       title: tanda.label,
-      back: "imprenta/tandas.html",
+      back: "imprenta/cola.html",
       footer: tanda.printed
         ? UI.button({ label: "Tanda impresa", icon: "check", variant: "soft", block: true, disabled: true })
         : UI.button({ label: `Imprimir tanda · ${plural(pending.length, "pedido", "pedidos")}`, icon: "printer", block: true, disabled: !pending.length, action: "askPrint" }),

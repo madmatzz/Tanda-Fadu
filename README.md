@@ -50,12 +50,14 @@ Están en `web/imprenta/`, con su script en `web/js/pages/imprenta/`. Administra
 | Archivo | Pantalla |
 |---|---|
 | `web/imprenta/index.html` | Panel: resumen del día, cola presencial, stock, reseñas y avisos |
-| `web/imprenta/cola.html` | Cola virtual: el pedido que se imprime, los que esperan y los que hay que entregar |
-| `web/imprenta/tandas.html` | Tandas del local |
+| `web/imprenta/cola.html` | Cola virtual: pedidos individuales y tandas, impresión y retiro |
 | `web/imprenta/tanda.html` | Detalle de una tanda, con la impresora y el botón para imprimirla |
 | `web/imprenta/local.html` | Mi local: vista previa del perfil y datos editables |
 | `web/imprenta/stock.html` | Stock de papel |
 | `web/imprenta/resenas.html` | Reseñas y respuestas |
+
+Las tandas se ven dentro de la **Cola virtual**, mezcladas con los pedidos individuales. Al abrir una
+se entra al detalle de la tanda, con la impresora, los nombres de sus pedidos y el CTA para imprimirla.
 
 La imprenta se ve en **modo oscuro**, como el "detrás de escena" de la app. Cada HTML lleva `<html class="theme-imprenta">` y `web/css/tokens.css` redefine los colores para esa vista. Además, cada HTML de `imprenta/` lleva `<base href="../">`, así todas sus rutas se escriben desde `web/`.
 

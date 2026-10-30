@@ -9,8 +9,8 @@ stock) lo ve el estudiante, y al revés. Desde el "Menú demo" se pasa de una vi
 ## Design system
 
 [`design-system.html`](design-system.html) es la referencia viva del sistema visual. Muestra la
-paleta, los tokens de tipografía, espaciado, radios, sombras, gradientes y movimiento, además de
-los componentes y patrones reales de la app. Usa las mismas hojas de estilo y clases que las
+paleta, los tokens de tipografía, espaciado, radios, sombras y gradientes, además de los
+componentes y patrones reales de la app. Usa las mismas hojas de estilo y clases que las
 pantallas, y tiene un selector **Estudiante / Imprenta** para ver el tema claro y el oscuro.
 
 Los valores se leen en vivo de `css/tokens.css`; si cambia un token, la documentación se actualiza
@@ -46,12 +46,14 @@ Están en `imprenta/`, con su script en `js/pages/imprenta/`. Administran El Pol
 | Archivo | Pantalla |
 |---|---|
 | `imprenta/index.html` | Panel: resumen del día, cola presencial, stock, reseñas y avisos |
-| `imprenta/cola.html` | Cola virtual: el pedido que se imprime, los que esperan y los que hay que entregar |
-| `imprenta/tandas.html` | Tandas del local |
+| `imprenta/cola.html` | Cola virtual: pedidos individuales y tandas, impresión y retiro |
 | `imprenta/tanda.html` | Detalle de una tanda, con la impresora y el botón para imprimirla |
 | `imprenta/local.html` | Mi local: vista previa del perfil y datos editables |
 | `imprenta/stock.html` | Stock de papel |
 | `imprenta/resenas.html` | Reseñas y respuestas |
+
+Las tandas se ven dentro de la **Cola virtual**, mezcladas con los pedidos individuales. Al abrir una
+se entra al detalle de la tanda, con la impresora, los nombres de sus pedidos y el CTA para imprimirla.
 
 La imprenta se ve en **modo oscuro**, como el "detrás de escena" de la app. No tiene estilos
 aparte: cada HTML lleva `<html class="theme-imprenta">`, y en `css/tokens.css` esa clase

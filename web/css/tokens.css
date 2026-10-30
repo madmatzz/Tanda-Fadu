@@ -1,5 +1,5 @@
 /*
-  Tokens del sistema visual · Papel & mandarina.
+  Tokens del sistema visual · Papel & tinta.
   Única fuente de colores, tipografías, radios, espacios y sombras.
   El resto del CSS usa solo estas variables: nada de colores o medidas sueltas.
 */
@@ -34,7 +34,7 @@
   --color-glass-border: rgb(255 255 255 / 0.72);
   --color-overlay: rgb(27 22 19 / 0.38);
 
-  /* Acento mandarina (riso) */
+  /* Acento naranja (riso) */
   --color-accent: #F06424;
   --color-accent-dark: #C0450F;
   --color-accent-ink: #8F300B;

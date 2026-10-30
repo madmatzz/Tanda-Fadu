@@ -134,75 +134,6 @@
     });
   });
 
-  document.querySelectorAll("[data-demo-radios]").forEach((group) => {
-    group.addEventListener("change", (event) => {
-      if (!event.target.matches('input[type="radio"]')) return;
-      group.querySelectorAll(".radio-card").forEach((card) => {
-        card.classList.toggle("is-checked", card.contains(event.target));
-      });
-    });
-  });
-
-  document.querySelectorAll("[data-demo-checks]").forEach((group) => {
-    group.addEventListener("change", (event) => {
-      if (!event.target.matches('input[type="checkbox"]')) return;
-      const card = event.target.closest(".check-card");
-      if (!card) return;
-      card.classList.toggle("is-checked", event.target.checked);
-      const box = card.querySelector(".check-box");
-      if (box) box.innerHTML = event.target.checked && typeof icon === "function" ? icon("check", "icon-sm") : "";
-    });
-  });
-
-  const motionButton = document.querySelector("[data-motion-play]");
-  const motionTrack = document.querySelector(".ds-motion-track");
-  if (motionButton && motionTrack) {
-    motionButton.addEventListener("click", () => {
-      motionTrack.classList.remove("is-moving");
-      void motionTrack.offsetWidth;
-      motionTrack.classList.add("is-moving");
-      window.setTimeout(() => motionTrack.classList.remove("is-moving"), 750);
-    });
-  }
-
-  // ---------- Catálogo de iconos ----------
-
-  const iconGrid = document.querySelector("[data-icon-grid]");
-  const iconFilter = document.querySelector("[data-icon-filter]");
-  const iconCount = document.querySelector("[data-icon-count]");
-  const iconEmpty = document.querySelector("[data-icon-empty]");
-
-  if (iconGrid && typeof ICONS === "object") {
-    const names = Object.keys(ICONS).sort();
-    const cards = names.map((name) => {
-      const card = document.createElement("div");
-      card.className = "ds-icon-card";
-      card.dataset.iconName = name;
-      card.innerHTML = `${icon(name, "icon")}<span>${name}</span>`;
-      return card;
-    });
-    iconGrid.append(...cards);
-
-    const updateCount = (visible) => {
-      if (iconCount) iconCount.textContent = `${visible} de ${names.length} íconos`;
-      if (iconEmpty) iconEmpty.hidden = visible > 0;
-    };
-
-    const filterIcons = () => {
-      const query = (iconFilter?.value || "").trim().toLowerCase();
-      let visible = 0;
-      cards.forEach((card) => {
-        const show = !query || card.dataset.iconName.includes(query);
-        card.hidden = !show;
-        if (show) visible += 1;
-      });
-      updateCount(visible);
-    };
-
-    iconFilter?.addEventListener("input", filterIcons);
-    updateCount(names.length);
-  }
-
   // ---------- Navegación activa ----------
 
   const navLinks = [...document.querySelectorAll('.ds-sidebar a[href^="#"]')];
@@ -245,7 +176,7 @@
   const updateActiveLink = () => {
     if (!sections.length) return;
     const topbarHeight = Number.parseFloat(getComputedStyle(root).getPropertyValue("--ds-topbar-height")) || 72;
-    const offset = topbarHeight + (window.innerWidth <= 900 ? 64 : 32);
+    const offset = topbarHeight + (window.innerWidth <= 900 ? 64 : 32) + 2;
     let current = sections[0];
     sections.forEach((section) => {
       if (section.getBoundingClientRect().top <= offset) current = section;

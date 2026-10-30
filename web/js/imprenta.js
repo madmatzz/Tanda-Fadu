@@ -15,7 +15,6 @@ function tandaShopTitle(tanda) {
 const SHOP_TABS = [
   { id: "panel", label: "Panel", icon: "house", href: "imprenta/index.html" },
   { id: "cola", label: "Cola", icon: "list-checks", href: "imprenta/cola.html" },
-  { id: "tandas", label: "Tandas", icon: "layers", href: "imprenta/tandas.html" },
   { id: "local", label: "Mi local", icon: "store", href: "imprenta/local.html" },
 ];
 
@@ -75,6 +74,29 @@ const ShopUI = {
         </span>
         ${aside}
       </div>`;
+  },
+
+  /** Fila de una tanda dentro de la cola: nombres, páginas y estado; lleva a la info de la tanda. */
+  tandaRow(tanda, orders) {
+    const pending = orders.filter((order) => order.status === "en-cola" || order.status === "imprimiendo");
+    const names = [...new Set(pending.map((order) => order.owner))];
+    const shown = names.slice(0, 3).join(", ");
+    const extra = names.length - 3;
+    const pages = pending.reduce((sum, order) => sum + order.specs.pages, 0);
+    const status = tandaClosed(tanda) ? "Completa" : `Cierra ${tanda.closesAt}`;
+    return `
+      <a class="card card-button shop-order shop-tanda-row" href="imprenta/tanda.html?id=${tanda.id}">
+        <span class="shop-tanda-mark" aria-hidden="true">${icon("layers")}</span>
+        <span class="stack gap-05 grow shop-order-info">
+          <span class="row gap-2 t-strong">
+            <span class="truncate">${esc(tanda.label)}</span>
+            <span class="t-caption fw-semibold c-tanda nowrap">${plural(pending.length, "pedido", "pedidos")}</span>
+          </span>
+          <span class="t-caption c-secondary truncate">${shown ? esc(shown) : "Sin pedidos"}${extra > 0 ? ` +${extra}` : ""}</span>
+          <span class="t-caption c-muted">${plural(pages, "pág.", "págs.")} · ${tanda.size} ${modeShort(tanda.mode)} · ${status}</span>
+        </span>
+        <span class="c-muted shrink-0">${icon("chevron-right")}</span>
+      </a>`;
   },
 };
 

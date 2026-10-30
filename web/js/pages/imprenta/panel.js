@@ -8,8 +8,6 @@ App.start({
     const printing = queue.find((order) => order.status === "imprimiendo");
     const waiting = queue.filter((order) => order.status === "en-cola");
     const ready = localOrdersByStatus(state, local.id, "listo");
-    const openTandas = localTandas(state, local.id).filter((tanda) => !tandaClosed(tanda));
-    const nextClose = [...openTandas].sort((a, b) => a.closesAt.localeCompare(b.closesAt))[0];
     const reviews = localReviews(state, local.id);
     const unanswered = reviews.filter((review) => !review.reply).length;
     const alerts = state.alerts.filter((alert) => alert.localId === local.id);
@@ -42,18 +40,11 @@ App.start({
                 </span>
               </span>
             </a>
-            <div class="grid-2 gap-3">
-              <a class="shop-tile is-tanda" href="imprenta/tandas.html">
-                <span class="row gap-2 t-small fw-semibold">${icon("layers")}Tandas</span>
-                ${ShopUI.metric(openTandas.length, openTandas.length === 1 ? "abierta" : "abiertas")}
-                <span class="t-caption">${nextClose ? `La próxima cierra ${nextClose.closesAt} h` : "Sin tandas abiertas"}</span>
-              </a>
-              <a class="shop-tile" href="imprenta/cola.html#retirar">
-                <span class="row gap-2 t-small fw-semibold">${icon("package")}Para retirar</span>
-                ${ShopUI.metric(ready.length, ready.length === 1 ? "pedido listo" : "pedidos listos")}
-                <span class="t-caption">Esperan en el mostrador</span>
-              </a>
-            </div>
+            <a class="shop-tile" href="imprenta/cola.html#retirar">
+              <span class="row gap-2 t-small fw-semibold">${icon("package")}Para retirar</span>
+              ${ShopUI.metric(ready.length, ready.length === 1 ? "pedido listo" : "pedidos listos")}
+              <span class="t-caption">Esperan en el mostrador</span>
+            </a>
           </div>
 
           ${UI.card(`

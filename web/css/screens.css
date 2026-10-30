@@ -1347,7 +1347,7 @@
 
 .shop-nav {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .shop-nav-item {
@@ -1450,6 +1450,25 @@
 
 .shop-order-info { min-width: 0; }
 
+/* Tanda mezclada entre los pedidos individuales de la cola */
+.shop-tanda-row {
+  border-color: var(--color-tanda-border);
+  background: var(--color-tanda-soft);
+}
+
+.shop-tanda-row:hover { border-color: var(--color-tanda); }
+
+.shop-tanda-mark {
+  display: grid;
+  width: var(--size-control);
+  height: var(--size-control);
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: var(--color-tanda-muted);
+  color: var(--color-tanda);
+}
+
 /* Pedido en la impresora */
 .shop-printing {
   display: flex;
@@ -1474,16 +1493,6 @@
   border-radius: var(--radius-sm);
   background: rgb(0 0 0 / 0.18);
 }
-
-/* Tandas del local */
-.shop-tanda {
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.shop-tanda.is-open { border-color: var(--color-tanda-border); }
-.shop-tanda.is-open:hover { border-color: var(--color-tanda); }
-.shop-tanda .progress-fill { background: var(--color-tanda); }
 
 /* En oscuro, la opción elegida de un segmentado necesita más contraste */
 .theme-imprenta .segmented-option.is-checked { background: var(--color-fill-deep); }

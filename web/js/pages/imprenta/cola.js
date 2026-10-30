@@ -3,16 +3,37 @@
 
 /** Pedidos de cada lista que se muestran antes de "Ver todos". */
 const PREVIEW = 5;
+const QUEUE_PREVIEW = 7;
 const view = { open: { waiting: false, ready: false } };
 
 /** Botón para desplegar o plegar una lista larga. */
-function toggleButton(list, count) {
-  if (count <= PREVIEW) return "";
-  return UI.button({ label: view.open[list] ? "Ver menos" : `Ver los ${count} pedidos`, icon: "chevron-down", variant: "outline", size: "md", block: true, action: "toggleList", data: { list } });
+function toggleButton(list, count, limit = PREVIEW, label = "") {
+  if (count <= limit) return "";
+  return UI.button({ label: view.open[list] ? "Ver menos" : label || `Ver los ${count} pedidos`, icon: "chevron-down", variant: "outline", size: "md", block: true, action: "toggleList", data: { list } });
 }
 
-function visible(list, items) {
-  return view.open[list] ? items : items.slice(0, PREVIEW);
+function visible(list, items, limit = PREVIEW) {
+  return view.open[list] ? items : items.slice(0, limit);
+}
+
+/** Tandas con pedidos pendientes, ordenadas por cierre. */
+function queueTandas(state, localId) {
+  return localTandas(state, localId)
+    .filter((tanda) => !tanda.printed)
+    .map((tanda) => ({ tanda, orders: tandaOrders(state, tanda.id) }))
+    .filter((entry) => entry.orders.some((order) => order.status === "en-cola" || order.status === "imprimiendo"))
+    .sort((a, b) => a.tanda.closesAt.localeCompare(b.tanda.closesAt));
+}
+
+/** Mezcla las tandas entre los pedidos individuales de la cola. */
+function queueEntries(waiting, tandas) {
+  const entries = waiting.map((order) => ({ type: "order", order }));
+  let insertAt = 1;
+  tandas.forEach((entry) => {
+    entries.splice(Math.min(entries.length, insertAt), 0, { type: "tanda", ...entry });
+    insertAt += 2;
+  });
+  return entries;
 }
 
 /** El pedido que está en la impresora, con todo lo que hace falta para imprimirlo. */
@@ -51,6 +72,9 @@ App.start({
     const queue = queueOrders(state, local.id);
     const printing = queue.find((order) => order.status === "imprimiendo");
     const waiting = queue.filter((order) => order.status === "en-cola");
+    // Las tandas se mezclan con los pedidos individuales en la cola.
+    const tandas = queueTandas(state, local.id);
+    const entries = queueEntries(waiting, tandas);
     // Para retirar van todos los pedidos impresos del local, también los de las tandas.
     const ready = localOrdersByStatus(state, local.id, "listo");
     const delivered = localOrdersByStatus(state, local.id, "entregado");
@@ -66,30 +90,38 @@ App.start({
               <span class="row gap-2 t-strong">${icon("printer")}La impresora está libre</span>
               ${UI.button({ label: `Imprimir el #${waiting[0].ticket}`, block: true, action: "startPrinting", data: { id: waiting[0].id } })}
             </div>`)
-        : UI.emptyState({ icon: "check-check", title: "No hay pedidos en la cola", description: "Cuando un estudiante haga un pedido, aparece acá." });
+        : tandas.length
+          ? UI.card(`
+              <div class="stack gap-3">
+                <span class="row gap-2 t-strong">${icon("printer")}La impresora está libre</span>
+                <p class="t-small c-secondary">Hay tandas esperando. Abrí una para imprimir todos sus pedidos juntos.</p>
+              </div>`)
+          : UI.emptyState({ icon: "check-check", title: "No hay pedidos en la cola", description: "Cuando un estudiante haga un pedido, aparece acá." });
 
-    const waitingList = waiting.length
+    const waitingList = entries.length
       ? `
         <div class="stack gap-2">
-          ${visible("waiting", waiting).map((order, index) => ShopUI.orderRow(order, index === 0 && !printing
-            ? ""
-            : index === 0 ? UI.chip("Siguiente", { tone: "info" }) : `<span class="t-caption c-muted nowrap">en ${minutesUntil(index)} min</span>`)).join("")}
+          ${visible("waiting", entries, QUEUE_PREVIEW).map((entry, index) => entry.type === "tanda"
+            ? ShopUI.tandaRow(entry.tanda, entry.orders)
+            : ShopUI.orderRow(entry.order, index === 0 && !printing
+              ? ""
+              : index === 0 ? UI.chip("Siguiente", { tone: "info" }) : `<span class="t-caption c-muted nowrap">en ${minutesUntil(index)} min</span>`)).join("")}
         </div>
-        ${toggleButton("waiting", waiting.length)}`
+        ${toggleButton("waiting", entries.length, QUEUE_PREVIEW, "Ver toda la cola")}`
       : '<div class="soft-box is-compact">No hay pedidos esperando.</div>';
 
     return ShopUI.screen({
       tab: "cola",
       content: `
         <div class="stack gap-5">
-          ${UI.pageTitle("Cola virtual", `${plural(active, "pedido", "pedidos")} · espera estimada ${local.queue.waitVirtual} min`)}
+          ${UI.pageTitle("Cola virtual", `${plural(active, "pedido", "pedidos")}${tandas.length ? ` y ${plural(tandas.length, "tanda", "tandas")}` : ""} · espera estimada ${local.queue.waitVirtual} min`)}
 
           ${idle}
 
           <section class="stack gap-3">
             <div class="row between gap-2">
-              ${UI.sectionLabel(`En cola (${waiting.length})`)}
-              <span class="t-caption c-muted">Por orden de llegada</span>
+              ${UI.sectionLabel(`En cola (${entries.length})`)}
+              <span class="t-caption c-muted">${waiting.length} pedidos${tandas.length ? ` + ${tandas.length} ${tandas.length === 1 ? "tanda" : "tandas"}` : ""}</span>
             </div>
             ${waitingList}
           </section>
@@ -112,7 +144,7 @@ App.start({
               : '<div class="soft-box is-compact">No hay pedidos esperando en el mostrador.</div>'}
           </section>
 
-          <p class="t-caption c-muted">Los pedidos de las tandas se imprimen juntos desde Tandas y, ya impresos, se entregan acá.</p>
+          <p class="t-caption c-muted">Las tandas se mezclan con los pedidos individuales. Al abrir una, se imprimen todos sus pedidos juntos y pasan a “Para retirar”.</p>
         </div>`,
     });
   },
