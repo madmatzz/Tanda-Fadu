@@ -30,8 +30,7 @@ const ShopUI = {
         ? `<span class="row gap-2">${UI.localLogo(local, "sm")}<span class="truncate">${local.name}</span></span>`
         : title,
       back,
-      actions: `
-        ${UI.chip("Imprenta", { tone: "ink" })}`,
+      actions: "",
       content,
       footer: tab ? ShopUI.nav(tab) : footer,
     });
