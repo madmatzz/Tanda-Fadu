@@ -98,9 +98,14 @@ App.start({
     // Si el local ya está elegido (tanda, perfil del local o comparación), se cobra lo de ese local
     // y se pasa directo al pago; si no, primero se comparan locales.
     const fixedLocal = chosenLocal(state);
+    const selectedTanda = state.draft.tandaId ? tandaById(state, state.draft.tandaId) : null;
+    const tandaLocal = selectedTanda ? localById(state, selectedTanda.localId) : null;
+    const tandaMatch = ready && isTandaFlow() && state.draft.tandaPreselected && selectedTanda;
     const total = fixedLocal ? estimateTotal(specs, fixedLocal) : averageTotal(specs, state.locals);
     const next = isTandaFlow()
-      ? { label: "Continuar con la tanda", href: "tanda.html?flujo=tanda" }
+      ? state.draft.tandaPreselected
+        ? { label: `Continuar con la tanda en ${tandaLocal?.name || fixedLocal?.name || "el local"}`, href: "pago.html?flujo=tanda" }
+        : { label: "Continuar con la tanda", href: "tanda.html?flujo=tanda" }
       : fixedLocal
         ? { label: "Continuar", href: "pago.html" }
         : { label: "Continuar y elegir local", href: "comparar.html?desde=validacion" };
@@ -128,6 +133,14 @@ App.start({
     let body;
     if (ready) {
       body = `
+        ${tandaMatch ? `
+          <div class="tanda-match-banner" role="status">
+            <span class="round-icon">${icon("layers", "icon-lg")}</span>
+            <span class="stack gap-1 grow">
+              <span class="t-strong">Tu archivo es compatible con la tanda que elegiste</span>
+              <span class="t-small">${esc(selectedTanda.label)} · ${esc(selectedTanda.userTitle)}${tandaLocal ? ` · ${esc(tandaLocal.name)}` : ""}</span>
+            </span>
+          </div>` : ""}
         ${fileSummary(file, specs, total)}
         <div class="row is-top gap-2 t-small c-secondary">
           <span class="check-offset">${UI.checkDot()}</span>

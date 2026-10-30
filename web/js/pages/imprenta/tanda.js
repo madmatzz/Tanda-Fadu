@@ -2,7 +2,7 @@
 // "Imprimir tanda" la cierra e imprime todos los pedidos juntos.
 
 const PREVIEW = 4;
-const view = { showAll: false };
+const view = { showAll: false, downloading: false };
 
 /** Impresora: arriba la bandeja con los pedidos que esperan, abajo la salida con los impresos. */
 function printerIllustration(pending, printed) {
@@ -48,12 +48,21 @@ App.start({
         <span class="t-caption c-secondary">${label}</span>
       </div>`;
 
+    let footer;
+    if (tanda.printed) {
+      footer = UI.button({ label: "Tanda impresa", icon: "check", variant: "soft", block: true, disabled: true });
+    } else if (view.downloading) {
+      footer = UI.button({ label: "Cargando…", icon: "download", block: true, loading: true, disabled: true });
+    } else if (!tanda.filesDownloaded) {
+      footer = UI.button({ label: "Descargar archivos", icon: "download", block: true, disabled: !pending.length, action: "downloadFiles" });
+    } else {
+      footer = UI.button({ label: `Imprimir tanda · ${plural(pending.length, "pedido", "pedidos")}`, icon: "printer", block: true, disabled: !pending.length, action: "askPrint" });
+    }
+
     return ShopUI.screen({
       title: tanda.label,
       back: "imprenta/cola.html",
-      footer: tanda.printed
-        ? UI.button({ label: "Tanda impresa", icon: "check", variant: "soft", block: true, disabled: true })
-        : UI.button({ label: `Imprimir tanda · ${plural(pending.length, "pedido", "pedidos")}`, icon: "printer", block: true, disabled: !pending.length, action: "askPrint" }),
+      footer,
       content: `
         <div class="stack gap-5">
           <div class="stack gap-3">
@@ -118,6 +127,17 @@ App.start({
   },
 
   actions: {
+    downloadFiles() {
+      const tanda = tandaById(Store.state, App.params.get("id"));
+      if (!tanda || view.downloading) return;
+      view.downloading = true;
+      App.render();
+      window.setTimeout(() => {
+        view.downloading = false;
+        actions.downloadTanda(tanda.id);
+      }, 900);
+    },
+
     askPrint() {
       App.openSheet("print");
     },

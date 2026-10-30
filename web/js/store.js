@@ -66,7 +66,16 @@ const actions = {
   setFlow(flow) {
     const draft = Store.state.draft;
     draft.flow = flow;
-    if (flow === "print") draft.tandaId = null;
+    if (flow === "print") {
+      draft.tandaId = null;
+      draft.tandaPreselected = false;
+    }
+    Store.commit();
+  },
+
+  /** Recuerda si la tanda se eligió antes de subir el archivo, para no volver a preguntarla. */
+  setTandaPreselected(value) {
+    Store.state.draft.tandaPreselected = Boolean(value);
     Store.commit();
   },
 

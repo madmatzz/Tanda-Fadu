@@ -497,15 +497,19 @@ const UI = {
   /** Tarjeta de una tanda que se puede seleccionar. */
   tandaCard(tanda, local, { selected, compatible, action }) {
     const full = tandaClosed(tanda);
-    const tag = full ? UI.chip(tanda.printed ? "Impresa" : "Completa", { tone: "warning" }) : compatible ? UI.chip("Compatible", { tone: "success" }) : "";
+    const hasCompatibility = compatible === true || compatible === false;
+    const mismatch = hasCompatibility && !compatible;
+    const tag = full ? UI.chip(tanda.printed ? "Impresa" : "Completa", { tone: "warning" }) : hasCompatibility && compatible ? UI.chip("Compatible", { tone: "success" }) : "";
     const details = `${modeShort(tanda.mode)} · ${PAPER_LABELS[tanda.paper]} · ${tanda.grammage} g/m²`;
     const message = full
       ? `<p class="t-small fw-semibold c-warning">${tanda.printed ? "El local ya imprimió esta tanda." : "Esta tanda ya completó su cupo."}</p>`
-      : compatible
-        ? '<p class="t-small fw-semibold c-success">Tu archivo coincide con esta tanda.</p>'
-        : `<p class="t-small c-muted">${modeShort(tanda.mode)} · ${PAPER_LABELS[tanda.paper]} · ${tanda.size} · no compatible</p>`;
+      : hasCompatibility
+        ? compatible
+          ? '<p class="t-small fw-semibold c-success">Tu archivo coincide con esta tanda.</p>'
+          : `<p class="t-small c-muted">${modeShort(tanda.mode)} · ${PAPER_LABELS[tanda.paper]} · ${tanda.size} · no compatible</p>`
+        : "";
     return `
-      <div class="${cx("card card-button tanda-card", selected && "is-selected-ink", !compatible && !selected && "is-dimmed")}" role="button" tabindex="0" aria-pressed="${Boolean(selected)}" ${on(action, { id: tanda.id })}>
+      <div class="${cx("card card-button tanda-card", selected && "is-selected-ink", mismatch && !selected && "is-dimmed")}" role="button" tabindex="0" aria-pressed="${Boolean(selected)}" ${on(action, { id: tanda.id })}>
         <span class="row is-top between gap-2">
           <span class="t-h3">${tanda.userTitle}</span>
           ${tag}

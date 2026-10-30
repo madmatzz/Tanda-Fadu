@@ -31,21 +31,19 @@ function printingCard(order) {
   const downloading = view.downloading === order.id;
   return `
     <div class="shop-printing">
-      <a class="shop-printing-detail" href="pedido.html?id=${order.id}">
-        <div class="row between gap-2">
-          <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Próximo pedido</span>
-          <span class="t-caption">Pedido de ${esc(order.owner)}</span>
+      <div class="row between gap-2">
+        <span class="row gap-2 t-label">${icon("printer", "icon-sm")}Próximo pedido</span>
+        <span class="t-caption">Pedido de ${esc(order.owner)}</span>
+      </div>
+      <div class="row is-bottom gap-4">
+        <span class="shop-printing-ticket">#${order.ticket}</span>
+        <div class="stack gap-05 grow">
+          <span class="t-strong truncate">${esc(order.file.name)}</span>
+          <span class="t-small">${plural(specs.pages, "página", "páginas")} · ${plural(specs.copies, "copia", "copias")}</span>
+          <span class="t-small">${specs.size} · ${modeLabel(specs.mode)} · ${paperDisplay(specs)}</span>
         </div>
-        <div class="row is-bottom gap-4">
-          <span class="shop-printing-ticket">#${order.ticket}</span>
-          <div class="stack gap-05 grow">
-            <span class="t-strong truncate">${esc(order.file.name)}</span>
-            <span class="t-small">${plural(specs.pages, "página", "páginas")} · ${plural(specs.copies, "copia", "copias")}</span>
-            <span class="t-small">${specs.size} · ${modeLabel(specs.mode)} · ${paperDisplay(specs)}</span>
-          </div>
-        </div>
-        ${specs.notes ? `<p class="t-small shop-printing-note"><span class="fw-semibold">Observaciones:</span> ${esc(specs.notes)}</p>` : ""}
-      </a>
+      </div>
+      ${specs.notes ? `<p class="t-small shop-printing-note"><span class="fw-semibold">Observaciones:</span> ${esc(specs.notes)}</p>` : ""}
       ${UI.button({
         label: downloading ? "Cargando…" : downloaded ? "Listo para retirar" : "Descargar archivo",
         icon: downloaded ? "check" : "download",

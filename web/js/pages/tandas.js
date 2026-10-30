@@ -19,7 +19,7 @@ App.start({
       trailing: "Tandas",
       footer: UI.button({
         label: full ? "Tanda cerrada" : `Sumarme a ${selected.label}`,
-        variant: "accent",
+        variant: "tanda",
         icon: "layers",
         block: true,
         disabled: full,
@@ -46,7 +46,7 @@ App.start({
           <div class="stack gap-3">
             ${state.tandas.map((tanda) => UI.tandaCard(tanda, localById(state, tanda.localId), {
               selected: tanda.id === view.selectedId,
-              compatible: tandaCompatible(tanda, state.draft.specs),
+              compatible: state.draft.file ? tandaCompatible(tanda, state.draft.specs) : null,
               action: "selectTanda",
             })).join("")}
           </div>

@@ -16,8 +16,10 @@ App.start({
     const flow = isTandaFlow() ? "tanda" : "print";
     actions.setFlow(flow);
     if (flow === "tanda") {
-      const tanda = tandaById(Store.state, App.params.get("tanda")) || Store.state.tandas[0];
+      const requested = App.params.get("tanda");
+      const tanda = tandaById(Store.state, requested) || Store.state.tandas[0];
       actions.selectTanda(tanda.id);
+      actions.setTandaPreselected(Boolean(requested && tandaById(Store.state, requested)));
     }
     const local = App.params.get("local") && localById(Store.state, App.params.get("local"));
     if (local) actions.selectLocal(local.id);

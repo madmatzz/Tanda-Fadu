@@ -36,7 +36,7 @@ const DEFAULT_SPECS = {
 
 /** Borrador vacío: un pedido nuevo sin archivo ni local elegido. */
 function emptyDraft() {
-  return { flow: "print", file: null, specs: { ...DEFAULT_SPECS }, localId: null, tandaId: null, payment: null };
+  return { flow: "print", file: null, specs: { ...DEFAULT_SPECS }, localId: null, tandaId: null, tandaPreselected: false, payment: null };
 }
 
 // ---------- Opciones de impresión ----------
