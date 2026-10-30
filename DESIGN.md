@@ -4,6 +4,8 @@ Sistema de diseño de **Fadu Print**, relevado de los mockups en `/pov usuario` 
 
 La app tiene **dos roles**: **usuario** (estudiante que imprime) e **imprenta** (local que recibe pedidos). La v2 no cambia flujos ni funcionalidad: cambia la piel. Los PNG originales siguen siendo la referencia de producto y se muestran en la página del design system.
 
+> **Nota de estado:** la app oficial es la versión sin frameworks de `web/`. Este documento es la referencia del sistema visual.
+
 ---
 
 ## 1. Principios visuales
@@ -385,7 +387,7 @@ Los mockups son parte del sistema, no un descarte. Viven en:
 - `/pov usuario` — 24 PNG del flujo del estudiante.
 - `/pov imprenta` — 4 PNG del panel del local.
 
-La página `/design-system` importa una selección de esos PNG en la sección **“Los PNG siguen mandando”**. Cada tarjeta abre el archivo a tamaño completo en una pestaña nueva. Los PNG se usan para:
+Los PNG se usan para:
 
 1. comparar jerarquía y contenido de cada pantalla;
 2. validar que la v2 no perdió estados ni acciones;

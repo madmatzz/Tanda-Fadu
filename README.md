@@ -1,106 +1,111 @@
 # Tanda / Fadu Print
 
-Prototipo navegable de impresión por tandas para la FADU.
+Prototipo navegable de impresión por tandas para la FADU, hecho **sin frameworks**: HTML, CSS y JavaScript común. La app oficial vive en [`web/`](web/) y no necesita instalación ni build.
 
-## Stack
+Tiene dos vistas que comparten los mismos datos: **estudiante** (quien imprime) e **imprenta** (el local que recibe los pedidos). Lo que hace una lo ve la otra.
 
-- React 19 + Vite 8 + TypeScript
-- Tailwind CSS 4
-- React Router 8
-- Datos demo persistidos en `localStorage`
-- Deploy estático en Vercel y GitHub Pages
+## Cómo abrirla
 
-## Correr el proyecto
+No hace falta instalar nada:
 
-Requiere Node 22.12 o superior.
+- Estudiante: abrir [`web/index.html`](web/index.html) en el navegador.
+- Imprenta: abrir [`web/imprenta/index.html`](web/imprenta/index.html).
 
-```bash
-npm install
-npm run dev
-```
-
-La app abre en `http://localhost:5173/`. El design system está en `http://localhost:5173/design-system`.
-
-Scripts útiles:
+Para servirla como en producción (recomendado si el navegador bloquea algo al abrir archivos locales):
 
 ```bash
-npm run gen:theme    # genera src/theme/theme.generated.css desde tokens.ts
-npm run typecheck
-npm run lint
-npm run build
+npx serve web
+# o
+python -m http.server 8000 --directory web
 ```
 
-`predev` y `prebuild` generan el tema automáticamente.
+Después entrar a `http://localhost:3000/` o `http://localhost:8000/`.
 
-## Entradas principales
+## Pantallas del estudiante
 
-| Ruta | Pantalla |
-| --- | --- |
-| `/` | Home del estudiante |
-| `/imprenta` | Panel de la imprenta |
-| `/design-system` | Referencia visual de tokens y componentes |
+| Archivo | Pantalla |
+|---|---|
+| `web/index.html` | Inicio |
+| `web/imprimir.html` | Nueva impresión (subir archivo) |
+| `web/especificaciones.html` | Especificaciones y pedidos especiales |
+| `web/validacion.html` | Validación, ajuste y resumen del archivo |
+| `web/comparar.html` | ¿Dónde imprimir? (comparar locales) |
+| `web/pago.html` | Selección de pago |
+| `web/confirmado.html` | Pedido confirmado (ticket digital) |
+| `web/pedido.html` | Tu pedido (seguimiento y colas) |
+| `web/pedidos.html` | Mis pedidos |
+| `web/detalle-pedido.html` | Detalle de un pedido entregado |
+| `web/locales.html` | ¿Dónde imprimir? (mapa por pisos y lista de locales) |
+| `web/local.html` | Perfil de un local |
+| `web/tandas.html` | Tandas disponibles |
+| `web/tanda.html` | Tu tanda coincide |
+| `web/avisos.html` | Avisos de los locales |
+| `web/perfil.html` | Mi perfil |
 
-## Rutas de apoyo
+## Pantallas de la imprenta
 
-| Ruta | Pantalla |
-| --- | --- |
-| `/alertas` | Alertas del estudiante |
-| `/pedidos` | Historial de pedidos |
-| `/perfil` | Perfil del estudiante |
-| `/locales` | Mapa y listado de locales |
-| `/locales/:slug` | Perfil de un local |
-| `/comparar` | Comparación de locales |
-| `/tandas` | Tandas disponibles |
-| `/pedido/:id` | Detalle y comprobante |
-| `/pedido/:id/cola` | Seguimiento de cola |
-| `/imprenta/tandas` | Tandas de la imprenta |
-| `/imprenta/tandas/:id` | Cola de una tanda |
-| `/imprenta/stock` | Stock de papel |
-| `/imprenta/resenas` | Reseñas y respuestas |
-| `/imprenta/perfil` | Perfil público de la imprenta |
+Están en `web/imprenta/`, con su script en `web/js/pages/imprenta/`. Administran El Poli:
 
-## Flujos para mostrar
+| Archivo | Pantalla |
+|---|---|
+| `web/imprenta/index.html` | Panel: resumen del día, cola presencial, stock, reseñas y avisos |
+| `web/imprenta/cola.html` | Cola virtual: el pedido que se imprime, los que esperan y los que hay que entregar |
+| `web/imprenta/tandas.html` | Tandas del local |
+| `web/imprenta/tanda.html` | Detalle de una tanda, con la impresora y el botón para imprimirla |
+| `web/imprenta/local.html` | Mi local: vista previa del perfil y datos editables |
+| `web/imprenta/stock.html` | Stock de papel |
+| `web/imprenta/resenas.html` | Reseñas y respuestas |
 
-1. **Imprimir suelto:** Home → Imprimir → subir archivo demo → validación → especificaciones → carrito → comparar locales → pago → confirmación → cola.
-2. **Tanda:** Tandas disponibles → sumarse a una tanda → archivo y especificaciones → coincidencia → pago → confirmación → cola.
-3. **Buscar local:** Home → Buscar locales → mapa/lista → perfil del local → reportar cola o imprimir ahí.
-4. **Imprenta:** desde el switch externo **Vista imprenta** → panel de El Poli → tanda, stock, reseñas y perfil público.
+La imprenta se ve en **modo oscuro**, como el "detrás de escena" de la app. Cada HTML lleva `<html class="theme-imprenta">` y `web/css/tokens.css` redefine los colores para esa vista. Además, cada HTML de `imprenta/` lleva `<base href="../">`, así todas sus rutas se escriben desde `web/`.
 
-## Comportamiento demo
+## Estructura
+
+```
+web/
+  index.html, *.html       pantallas del estudiante
+  imprenta/                pantallas de la imprenta
+  css/
+    tokens.css             colores, tipografía, radios, espacios y sombras
+    base.css               reset, marco del teléfono y utilidades
+    components.css         botones, tarjetas, campos, chips, paneles…
+    screens.css            estilos propios de cada pantalla
+  js/
+    icons.js               íconos de Lucide como SVG
+    logic.js               precios, validación de archivos, tiempos y búsquedas
+    data.js                datos ficticios: locales, tandas, pedidos, avisos y reseñas
+    store.js               estado de la demo y acciones que lo cambian
+    ui.js                  componentes: cada función devuelve el HTML de un componente
+    app.js                 dibuja la pantalla y conecta clics y campos con las acciones
+    sheets.js              paneles compartidos: menú demo e informar cola
+    imprenta.js            piezas de la vista de imprenta
+    floors.js              planos de los pisos de la FADU
+    pages/                 una pantalla por archivo
+  img/, fonts/             imágenes, logos, planos y la fuente Inter
+```
+
+Cada pantalla llama a `App.start({ render, actions })`: `render()` devuelve el HTML y se vuelve a dibujar cuando cambia el estado; `actions` responde a `data-action`, `data-input` y `data-change`. El detalle completo está en [`web/README.md`](web/README.md).
+
+## Datos de la demo
 
 - No hay autenticación, pagos, subida real de archivos, procesamiento de PDFs, geolocalización ni mapas reales.
 - El reloj está fijo en **miércoles 11:20**. Los estados, esperas y movimientos de cola son ficticios.
 - La demo arranca sin pedido en curso: el acceso flotante **Mi pedido** aparece recién cuando confirmás una impresión.
-- Los cambios se guardan en `localStorage` con la clave `tanda-demo-v2`.
+- Los cambios se guardan en `localStorage` con la clave `tanda-demo-web` y los comparten las dos vistas.
 - **Menú demo** (Home o perfil) permite cargar estados de validación, abrir rutas de apoyo y reiniciar la demo.
 - **Vista estudiante / Vista imprenta** es un control de demo externo al dispositivo en desktop. En mobile se accede desde el **Menú demo**.
 - El pago es simulado y no se envían datos de tarjeta.
 
-## Diseño
+## Deploy
 
-`src/theme/tokens.ts` es la fuente única de verdad para color, tipografía, espaciado, radios, sombras y medidas del dispositivo. Cualquier token nuevo se refleja en `src/theme/tokenClasses.ts` y se valida con `npm run gen:theme`.
+### Vercel
 
-La regla ESLint `tokens/no-raw-design-values` bloquea colores, píxeles, fuentes y valores arbitrarios de Tailwind fuera del sistema. La documentación completa está en `DESIGN.md` y la referencia navegable en `/design-system`.
+El repo incluye `vercel.json` con `outputDirectory: "web"` y sin build. Al importar el proyecto en Vercel alcanza con dejar el preset **Other** y desplegar; cada push publica la app.
 
-## Deploy en GitHub Pages
+### GitHub Pages
 
-El workflow `.github/workflows/deploy-pages.yml` compila con `GITHUB_PAGES=true`, genera `dist/404.html` y publica el resultado en la rama `gh-pages`. El `404.html` es necesario para que los deep links del SPA funcionen al recargar.
+El workflow `.github/workflows/deploy-pages.yml` copia `web/` a la rama `gh-pages` en cada push a `main`. En GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch**, elegir branch **gh-pages** y carpeta **/ (root)**.
 
-1. Hacer push a `main`.
-2. Esperar a que termine **Deploy GitHub Pages** en la pestaña Actions.
-3. En GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch**.
-4. Elegir branch **gh-pages** y carpeta **/ (root)**. Guardar.
-5. La demo queda publicada en `https://madmatzz.github.io/Tanda-Fadu/`.
+## Documentación
 
-Cada push a `main` actualiza la rama `gh-pages` automáticamente. El build local normal sigue usando `/`; el workflow es el que aplica el base `/Tanda-Fadu/` para Pages.
-
-## Deploy en Vercel
-
-El repo ya incluye `vercel.json` con el rewrite SPA para que funcionen los deep links como `/locales/el-poli` o `/imprenta/tandas/tanda-1`.
-
-1. Subir el proyecto a GitHub (repo `Tanda-Fadu`).
-2. En Vercel: **Add New Project** → importar el repositorio.
-3. Framework: **Vite**; build: `npm run build`; output: `dist`.
-4. Deploy. Cada push a `main` publica y cada branch genera una preview.
-
-Verificación post-deploy: `/`, `/imprenta`, `/design-system`, `/locales/el-poli`, `/alertas`, `/pedidos`, `/perfil`, `/comparar`, `/imprenta/stock` y `/imprenta/resenas` deben abrir también al recargar.
+- [`web/README.md`](web/README.md) — estructura interna, pantallas y cómo funciona una pantalla.
+- [`DESIGN.md`](DESIGN.md) — sistema visual: colores, tipografía, espaciado y componentes.

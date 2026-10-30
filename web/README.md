@@ -1,7 +1,7 @@
-# Tanda · versión sin frameworks
+# Tanda · app sin frameworks
 
-App hecha con HTML, CSS y JavaScript común, con dos vistas: la del estudiante y la de la
-imprenta. No hay que instalar nada: se abre `index.html` (estudiante) o `imprenta/index.html`
+App oficial hecha con HTML, CSS y JavaScript común, con dos vistas: la del estudiante y la de
+la imprenta. No hay que instalar nada: se abre `index.html` (estudiante) o `imprenta/index.html`
 (imprenta) en el navegador. Los datos de la demo se guardan en el navegador (localStorage) y
 los comparten las dos vistas: lo que hace la imprenta (imprimir, cargar un aviso, cambiar el
 stock) lo ve el estudiante, y al revés. Desde el "Menú demo" se pasa de una vista a la otra.

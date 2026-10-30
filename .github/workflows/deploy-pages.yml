@@ -18,19 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - run: npm install --no-audit --no-fund
-
-      - name: Build para GitHub Pages
-        run: npm run build
-        env:
-          GITHUB_PAGES: "true"
-
-      - run: node scripts/create-pages-fallback.mjs
+      - name: Preparar sitio estático
+        run: |
+          mkdir -p dist
+          cp -r web/. dist/
 
       - name: Publicar rama gh-pages
         env:
