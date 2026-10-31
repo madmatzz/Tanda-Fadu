@@ -1,0 +1,1712 @@
+/*
+  Estilos propios de cada pantalla, ordenados según el flujo.
+*/
+
+/* ---------- Detalles compartidos ---------- */
+
+.header-left {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.is-faded { opacity: 0.75; }
+.icon-offset { display: flex; margin-top: 2px; }
+.is-flipped { transform: rotate(180deg); }
+
+.star-on { color: var(--color-accent); fill: var(--color-accent); }
+.star-off { color: var(--color-border); }
+.heart-on { color: var(--color-accent); fill: var(--color-accent); }
+
+/* Ícono con número o punto encima (campana, filtros) */
+.badge-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.badge-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-bg);
+}
+
+.badge-count {
+  position: absolute;
+  top: calc(-1 * var(--space-1));
+  right: calc(-1 * var(--space-1));
+  display: flex;
+  min-width: var(--size-icon);
+  height: var(--size-icon);
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.local-logo.is-sm {
+  width: var(--size-control-sm);
+  height: var(--size-control-sm);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+
+.local-logo.is-lg {
+  width: var(--size-thumb);
+  height: var(--size-thumb);
+  border-radius: var(--radius-lg);
+  font-size: 23px;
+}
+
+/* El tacho de la tarjeta de archivo llega hasta el borde de la tarjeta */
+.file-card-remove {
+  margin: calc(-1 * var(--space-3)) calc(-1 * var(--card-padding)) calc(-1 * var(--space-3)) 0;
+}
+
+.soft-box.is-accent {
+  border-color: var(--color-accent-border);
+  background: var(--color-accent-soft);
+}
+
+.round-icon.is-on-ink {
+  border: 0;
+  background: rgb(255 252 247 / 0.1);
+  color: var(--color-surface);
+}
+
+.round-icon.is-glassy { background: rgb(255 252 247 / 0.6); }
+
+/* ---------- Inicio ---------- */
+
+.order-row {
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+
+/* Marca: isotipo en el encabezado */
+.brand-mark {
+  display: block;
+  height: 26px;
+}
+
+/* "Tandas ya!": bloque violeta a todo el ancho, pegado al final de la pantalla */
+.tandas-promo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0 calc(var(--gutter) * -1) calc(var(--space-8) * -1);
+  padding: var(--space-5) var(--gutter) var(--space-8);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--gradient-tanda);
+  color: var(--color-surface);
+}
+
+.tandas-promo-link {
+  color: var(--color-surface);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Carrusel horizontal: cada tarjeta deja asomar la siguiente */
+.tandas-track {
+  display: flex;
+  gap: var(--space-3);
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 0 var(--gutter);
+  overflow-x: auto;
+  scroll-padding: 0 var(--gutter);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.tandas-track::-webkit-scrollbar { display: none; }
+
+/* Mientras se arrastra con el mouse no se pega a las tarjetas: el snap vuelve al soltar. */
+.tandas-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.tanda-promo-card {
+  display: flex;
+  flex: 0 0 82%;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid rgb(255 255 255 / 0.28);
+  border-radius: var(--radius-lg);
+  background: rgb(255 255 255 / 0.16);
+  color: var(--color-surface);
+  scroll-snap-align: start;
+  transition: background var(--transition);
+  animation: tanda-promo-twinkle 4.8s ease-in-out infinite;
+}
+
+.tanda-promo-card:nth-child(2) { animation-delay: -1.6s; }
+.tanda-promo-card:nth-child(3) { animation-delay: -3.2s; }
+
+.tanda-promo-card:hover { background: rgb(255 255 255 / 0.22); }
+
+@keyframes tanda-promo-twinkle {
+  0%, 100% {
+    border-color: rgb(255 255 255 / 0.26);
+    box-shadow: 0 0 0 rgb(255 255 255 / 0);
+    opacity: 0.94;
+  }
+  50% {
+    border-color: rgb(255 255 255 / 0.42);
+    box-shadow: 0 0 18px rgb(255 255 255 / 0.16);
+    opacity: 1;
+  }
+}
+
+.tanda-promo-bar {
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.24);
+}
+
+.tanda-promo-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-surface);
+}
+
+.tandas-promo-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.tandas-promo-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.4);
+  transition: width var(--transition), background var(--transition);
+}
+
+.tandas-promo-dots span.is-active {
+  width: 18px;
+  background: var(--color-surface);
+}
+
+.tandas-promo-footer {
+  padding-top: var(--space-4);
+  border-top: 1px solid rgb(255 255 255 / 0.2);
+  opacity: 0.8;
+}
+
+.tandas-promo-footer .link { color: var(--color-surface); }
+
+/* Pedido en curso: queda pegado abajo mientras se scrollea */
+.floating-order {
+  position: sticky;
+  bottom: var(--space-3);
+  z-index: 20;
+}
+
+.floating-order-body { padding: var(--space-3); }
+
+/* ---------- Subir archivo ---------- */
+
+.example-file {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-soft);
+  text-align: left;
+  transition: border-color var(--transition), background-color var(--transition);
+}
+
+.example-file:hover {
+  border-color: var(--color-accent-border);
+  background: var(--color-accent-soft);
+}
+
+/* ---------- Especificaciones ---------- */
+
+.specials {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-accent-soft);
+}
+
+.specials-extra {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-accent-border);
+}
+
+/* ---------- Validación ---------- */
+
+.file-summary { position: relative; }
+.file-summary-card { cursor: pointer; }
+
+.file-summary-pencil {
+  margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) 0;
+  color: var(--color-accent-ink);
+}
+
+.file-summary-pencil:hover { background: var(--color-accent-soft); }
+
+/* Capa con las opciones del archivo, encima de la tarjeta */
+.file-summary-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--card-padding);
+  border-radius: var(--radius-lg);
+  background: rgb(143 48 11 / 0.85);
+  color: var(--color-surface);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fade-in 150ms ease-out;
+}
+
+.file-summary-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  color: var(--color-surface);
+}
+
+.file-summary-close:hover,
+.file-summary-option:hover {
+  background: rgb(255 252 247 / 0.15);
+}
+
+.file-summary-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color var(--transition);
+}
+
+.check-offset { margin-top: 2px; }
+
+/* Paso en curso y pasos pendientes de la conversión */
+.running-dot,
+.pending-dot {
+  display: flex;
+  width: var(--size-icon);
+  height: var(--size-icon);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+}
+
+.running-dot {
+  border: 1px solid var(--color-accent-border);
+  background: var(--color-accent-soft);
+}
+
+.running-dot span {
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.pending-dot {
+  border: 1px dashed var(--color-border);
+  font-size: 12px;
+}
+
+/* ---------- Comparar locales ---------- */
+
+.compare-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.compare-card:not(.is-selected):hover {
+  border-color: var(--color-accent-border);
+  box-shadow: var(--shadow-float);
+}
+
+/* Local con una tanda compatible: fondo violeta suave y, al elegirlo, borde violeta */
+.compare-card.is-tanda {
+  border-color: var(--color-tanda-border);
+  background: var(--color-tanda-soft);
+}
+
+.compare-card.is-tanda:not(.is-selected):hover { border-color: var(--color-tanda); }
+
+/* Dentro de la tarjeta con tanda, el botón y la etiqueta también pasan a violeta */
+.compare-card.is-tanda .btn-soft {
+  border-color: var(--color-tanda-border);
+  background: var(--color-tanda-muted);
+  color: var(--color-tanda);
+}
+
+.compare-card.is-tanda .btn-soft:hover { background: var(--color-tanda-border); }
+
+.compare-card.is-tanda .chip-tanda {
+  border-color: var(--color-tanda);
+  background: var(--color-tanda);
+  color: var(--color-surface);
+}
+
+.compare-card.is-tanda.is-selected {
+  border-color: var(--color-tanda);
+  background: var(--color-tanda-soft);
+  box-shadow: 0 0 0 2px var(--color-tanda), var(--shadow-soft);
+}
+
+.compare-card.is-unavailable {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------- Pago ---------- */
+
+.payment-icon {
+  width: var(--size-thumb);
+  height: var(--size-thumb);
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+/* ---------- Pedido confirmado ---------- */
+
+.tanda-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--card-padding);
+  border: 1px solid var(--color-tanda);
+  border-radius: var(--radius-lg);
+  background: var(--color-tanda);
+  color: var(--color-surface);
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Comprobante con perforaciones arriba */
+.receipt {
+  position: relative;
+  margin-top: var(--space-3);
+  padding: var(--card-padding);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-soft);
+}
+
+.receipt-holes {
+  position: absolute;
+  top: -6px;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--space-2);
+}
+
+.receipt-holes span {
+  width: var(--space-3);
+  height: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+}
+
+.receipt-rows {
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-border);
+}
+
+/* Código de barras centrado, con el código escrito debajo */
+.receipt-barcode { padding-top: var(--space-4); }
+
+.barcode {
+  width: 80%;
+  height: var(--space-12);
+  fill: var(--color-ink);
+}
+
+/* ---------- Tu pedido (ticket) ---------- */
+
+/* Borde troquelado: sangra hasta los costados de la pantalla */
+.ticket-edge {
+  display: flex;
+  flex-direction: column;
+  margin: 0 calc(-1 * var(--gutter));
+}
+
+.ticket-edge.is-top { margin-top: calc(-1 * var(--space-6)); }
+
+.ticket-edge.is-bottom {
+  flex-direction: column-reverse;
+  margin-top: var(--space-6);
+  margin-bottom: calc(-1 * var(--space-8));
+}
+
+.ticket-edge-band {
+  height: var(--space-4);
+  background: var(--color-surface);
+}
+
+.ticket-edge-notches { display: flex; }
+.ticket-edge.is-bottom .ticket-edge-notches { transform: scaleY(-1); }
+
+.ticket-edge-notches svg {
+  height: var(--space-5);
+  flex: 1;
+}
+
+.ticket-edge-outside { fill: var(--color-surface); }
+
+.ticket-edge-line {
+  fill: none;
+  stroke: var(--color-disabled);
+  stroke-width: 1;
+}
+
+.ticket-body { padding-top: var(--space-8); }
+.ticket-number { grid-column: span 2; }
+.ticket-info { min-width: 0; }
+
+/* Cola virtual: figuras en fila unidas por una línea */
+.virtual-queue {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-1);
+}
+
+.virtual-queue-line {
+  position: absolute;
+  top: var(--space-10);
+  right: var(--space-6);
+  left: var(--space-6);
+  height: 1px;
+  background: var(--color-border);
+}
+
+.queue-slot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.queue-slot-label { color: var(--color-text-secondary); }
+.queue-slot.is-self .queue-slot-number { color: var(--color-accent); }
+.queue-slot.is-self .queue-slot-label { color: var(--color-ink); font-weight: 600; }
+.queue-slot.is-muted .queue-slot-number,
+.queue-slot.is-muted .queue-slot-label { color: var(--color-text-muted); }
+
+/* Color de las figuras de la cola */
+.is-muted { --figure: var(--color-fill-deep); }
+.is-ink { --figure: var(--color-ink); }
+.is-accent { --figure: var(--color-accent); }
+
+.person {
+  display: flex;
+  height: var(--space-16);
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-1);
+}
+
+.person-head,
+.person-body,
+.standing-head,
+.standing-torso,
+.standing-legs {
+  background: var(--figure);
+}
+
+.person-head {
+  width: var(--space-5);
+  height: var(--space-5);
+  border-radius: var(--radius-pill);
+}
+
+.person-body {
+  width: 36px;
+  height: var(--space-6);
+  border-radius: var(--radius-pill) var(--radius-pill) var(--radius-md) var(--radius-md);
+}
+
+.person.is-large .person-head { width: 28px; height: 28px; }
+.person.is-large .person-body { width: var(--space-12); height: 36px; }
+
+.queue-printer {
+  display: flex;
+  height: var(--space-16);
+  align-items: flex-end;
+}
+
+.queue-printer span {
+  display: flex;
+  width: var(--size-control);
+  height: var(--size-control);
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+/* Cola presencial: personas de cuerpo entero */
+.standing-queue {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.standing {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.standing-head {
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-pill);
+}
+
+.standing-torso {
+  width: var(--space-8);
+  height: 88px;
+  border-radius: var(--radius-pill);
+}
+
+.standing-legs {
+  width: var(--space-6);
+  height: 76px;
+  margin-top: -28px;
+  border-radius: 0 0 var(--radius-pill) var(--radius-pill);
+}
+
+/* En el perfil del local: la gente que hay, del mismo tamaño que en la fila de 7 */
+.standing-queue.is-start { justify-content: flex-start; }
+
+.standing-queue.is-start > * { flex: 0 0 calc((100% - 6 * var(--space-2)) / 7); }
+
+.standing-more {
+  align-self: center;
+  text-align: center;
+}
+
+.standing-queue.is-empty {
+  min-height: 96px;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* Lista de pedidos de la cola */
+.queue-list {
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.queue-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+}
+
+.queue-row + .queue-row { border-top: 1px solid var(--color-border-soft); }
+.queue-row.is-self { background: var(--color-accent-soft); }
+.queue-row-number { width: var(--space-10); }
+.queue-row.is-self .queue-row-number { color: var(--color-accent-ink); }
+
+/* ---------- Detalle del pedido ---------- */
+
+.order-steps {
+  display: flex;
+  align-items: center;
+}
+
+.order-steps-item {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.order-steps-item:last-child { flex: none; }
+
+.order-steps-marker {
+  display: flex;
+  width: var(--size-control);
+  height: var(--size-control);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+}
+
+.order-steps-marker.is-done {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.order-steps-line {
+  height: 1px;
+  flex: 1;
+  background: var(--color-border);
+}
+
+.order-steps-line.is-done { background: var(--color-ink); }
+
+.stepper-dot {
+  width: var(--space-2);
+  height: var(--space-2);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-pill);
+}
+
+.stepper-dot.is-current {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+}
+
+/* ---------- Tandas ---------- */
+
+.tanda-card {
+  flex-direction: column;
+  gap: var(--space-3);
+  border-color: var(--color-tanda);
+  background: var(--color-tanda);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-glow-tanda);
+  cursor: pointer;
+}
+
+.tanda-card:hover {
+  border-color: var(--color-tanda-light);
+  background: var(--color-tanda-deep);
+}
+
+.tanda-card.is-selected-ink {
+  border-color: var(--color-tanda-light);
+  background: var(--color-tanda-deep);
+  box-shadow: 0 0 0 2px var(--color-tanda-light), var(--shadow-float);
+}
+
+.tanda-card .c-secondary,
+.tanda-card .c-muted { color: var(--color-surface); opacity: 0.78; }
+.tanda-card .c-success,
+.tanda-card .c-warning { color: var(--color-surface); }
+.tanda-card .kv-row > :last-child { color: var(--color-surface); }
+.tanda-card .progress { background: rgb(255 255 255 / 0.24); box-shadow: none; }
+.tanda-card .progress-fill { background: var(--color-surface); }
+
+.tanda-card.is-dimmed { opacity: 0.8; }
+
+/* Aviso de archivo compatible con la tanda ya elegida */
+.tanda-match-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-tanda);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-glow-tanda);
+}
+
+.tanda-match-banner .round-icon {
+  width: var(--size-control);
+  height: var(--size-control);
+  flex: 0 0 auto;
+  border-color: rgb(255 255 255 / 0.3);
+  background: rgb(255 255 255 / 0.18);
+  color: var(--color-surface);
+}
+
+/* ---------- ¿Dónde imprimir? (mapa por pisos + panel de locales) ---------- */
+
+/* La pantalla no scrollea: el mapa ocupa el fondo y el panel se desliza encima. */
+.places {
+  display: flex;
+  height: calc(100% - var(--size-status-bar));
+  flex-direction: column;
+}
+
+.places-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-1) var(--gutter) var(--space-4);
+  background: var(--color-surface);
+  box-shadow: 0 10px 24px -20px rgb(40 28 18 / 0.4);
+}
+
+.places-top .t-h1 { margin-left: calc(var(--space-1) * -1); }
+
+.places-body {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: var(--color-map-bg);
+  /* Alto de mapa que queda libre arriba del panel: el piso actual se centra ahí */
+  --map-inset: var(--sheet-peek);
+}
+
+.places-body[data-sheet="min"] { --map-inset: var(--sheet-min); }
+
+/* Mapa: carrusel vertical de pisos */
+.floor-stage {
+  position: absolute;
+  z-index: 1; /* todo el mapa (flechas incluidas) queda debajo del panel de la lista */
+  inset: 0 0 var(--map-inset);
+  touch-action: none;
+  cursor: grab;
+  transition: bottom 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.is-dragging .floor-stage { cursor: grabbing; }
+
+.floor-heading {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--gutter);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.floor-track {
+  position: absolute;
+  inset: 0;
+  isolation: isolate; /* el orden de los pisos queda adentro: no tapa título ni etiquetas */
+}
+
+.floor-layer,
+.floor-guides {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Las esquinas izquierda y derecha del plano (x 8 y 894 de 902) caen justo en los márgenes */
+  width: calc((100% - 2 * var(--gutter)) * 902 / 886);
+  aspect-ratio: 902 / 576;
+  /* --offset: 0 es el piso actual, 1 el de arriba, -1 el de abajo (lo escribe locales.js).
+     La separación es un porcentaje del alto del plano, así se mantiene en cualquier ancho. */
+  transform: translate(-50%, calc(-50% - var(--offset) * var(--floor-spacing)));
+  transition: transform 460ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 460ms ease;
+  pointer-events: none;
+}
+
+.floor-layer { opacity: var(--fade); }
+
+/* Entrada de la pantalla: cada piso sube y aparece, del subsuelo hacia arriba (--intro-delay) */
+.floor-track.is-intro .floor-plan {
+  animation: floor-intro 520ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--intro-delay) both;
+}
+
+/* Los puntos ya usan transform para centrarse: solo aparecen, junto con su piso */
+.floor-track.is-intro .map-pin {
+  animation: floor-guides-intro 360ms ease calc(var(--intro-delay) + 160ms) both;
+}
+
+.floor-track.is-intro .floor-guides { animation: floor-guides-intro 600ms ease 200ms both; }
+
+@keyframes floor-intro {
+  from { opacity: 0; transform: translateY(28px); }
+}
+
+@keyframes floor-guides-intro {
+  from { opacity: 0; }
+}
+.floor-layer.is-current { pointer-events: auto; }
+
+/* Líneas punteadas en las esquinas: del piso de más arriba al de más abajo, por detrás de las losas */
+.floor-guides { z-index: 0; }
+
+.floor-guides span {
+  position: absolute;
+  border-left: 1px dashed var(--color-ink-soft);
+  opacity: 0.22;
+}
+.floor-stage.is-dragging :is(.floor-layer, .floor-guides) { transition: none; }
+
+.floor-plan {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  /* Sombra corta debajo de cada losa: los pisos se ven flotando uno sobre otro */
+  filter: drop-shadow(0 12px 14px rgb(40 28 18 / 0.14));
+}
+
+/* La losa, del color del fondo, tapa las líneas de los pisos que quedan atrás */
+.floor-slab { fill: var(--color-map-bg); }
+
+.floor-walls { fill: var(--color-ink-soft); }
+/* Los patios son huecos: la misma línea de la planta, más suave */
+.floor-patios { fill: var(--color-ink-soft); opacity: 0.32; }
+
+/*
+  Locales sobre el plano: un círculo de color, centrado en su ubicación.
+  En el piso elegido (is-open) el círculo se estira hasta mostrar el nombre entero.
+  Al cerrarse vuelve enseguida; al abrirse espera un poco, a que el piso llegue a su lugar.
+*/
+.map-pin {
+  position: absolute;
+  display: flex;
+  min-width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  background: var(--pin);
+  color: var(--color-surface);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition:
+    height 300ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    padding 300ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow var(--transition);
+}
+
+.map-pin-label {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 300ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 160ms ease;
+}
+
+.map-pin.is-open {
+  height: 30px;
+  padding: 0 var(--space-3);
+  box-shadow: 0 6px 14px -8px rgb(40 28 18 / 0.6);
+  transition-delay: 180ms;
+}
+
+.map-pin.is-open .map-pin-label {
+  max-width: 180px;
+  opacity: 1;
+  transition:
+    max-width 420ms cubic-bezier(0.2, 0.8, 0.2, 1) 180ms,
+    opacity 260ms ease 260ms;
+}
+
+.map-pin.is-open:hover { box-shadow: 0 8px 18px -8px rgb(40 28 18 / 0.7); }
+.map-pin.is-open.is-focused { box-shadow: 0 0 0 3px var(--color-map-bg), 0 0 0 5px var(--pin); }
+
+/* Aviso de piso sin locales, en el medio de la planta */
+.floor-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 6px var(--space-3);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-glass-strong);
+  box-shadow: var(--shadow-soft);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.85);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.floor-empty.is-open {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  transition: opacity 300ms ease 200ms, transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1) 200ms;
+}
+
+/* Flechas indicadoras: se mueven apenas hacia su dirección, invitando a cambiar de piso */
+.floor-arrow {
+  position: absolute;
+  /* Centrada sobre la línea punteada derecha, que cae en el margen */
+  right: calc(var(--gutter) - var(--size-control) / 2);
+  z-index: 12;
+  display: grid;
+  width: var(--size-control);
+  height: var(--size-control);
+  place-items: center;
+  color: var(--color-ink);
+  transition: opacity var(--transition);
+}
+
+.floor-arrow.is-up { top: var(--space-3); --nudge: -4px; }
+.floor-arrow.is-down { bottom: var(--space-2); --nudge: 4px; }
+.floor-arrow:not(:disabled) { animation: arrow-nudge 2.2s ease-in-out infinite; }
+.floor-arrow:disabled { opacity: 0.18; cursor: default; }
+
+@keyframes arrow-nudge {
+  0%, 100% { opacity: 0.45; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(var(--nudge)); }
+}
+
+.floor-name {
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* Al cambiar de piso, el nombre del piso entra con un fundido */
+.floor-name.is-entering { animation: floor-enter 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+@keyframes floor-enter {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+/* Color de cada local: su punto en el plano y la marca en su tarjeta */
+.pin-red { --pin: var(--color-pin-red); }
+.pin-blue { --pin: var(--color-pin-blue); }
+.pin-green { --pin: var(--color-pin-green); }
+.pin-pink { --pin: var(--color-pin-pink); }
+.pin-amber { --pin: var(--color-pin-amber); }
+
+.pin-dot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: var(--radius-pill);
+  background: var(--pin);
+}
+
+/* Panel de la lista: se arrastra entre tres alturas (min, peek y full) */
+.places-sheet {
+  position: absolute;
+  inset: var(--space-2) 0 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--color-surface);
+  box-shadow: 0 -14px 36px -22px rgb(40 28 18 / 0.45);
+  transform: translateY(calc(100% - var(--sheet-peek)));
+  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.places-body[data-sheet="min"] .places-sheet { transform: translateY(calc(100% - var(--sheet-min))); }
+.places-body[data-sheet="full"] .places-sheet { transform: none; }
+.places-sheet.is-dragging { transition: none; }
+.places-sheet[data-gesture] { touch-action: none; }
+
+.places-sheet-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--gutter) var(--space-4);
+  touch-action: none;
+  cursor: grab;
+}
+
+.places-sheet-grip {
+  width: 40px;
+  height: 5px;
+  align-self: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-fill-deep);
+}
+
+.places-list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 var(--gutter) var(--space-10);
+  scrollbar-width: none;
+}
+
+.places-list::-webkit-scrollbar { display: none; }
+.places-body[data-sheet="full"] .places-list { overflow-y: auto; overscroll-behavior: contain; }
+
+.place-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.place-card:hover { border-color: var(--color-accent-border); }
+
+.place-card.is-focused {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent), var(--shadow-soft);
+}
+
+.place-card-info { min-width: 0; }
+
+/* La etiqueta se corta con "…" si no entra al lado del botón */
+.place-card-tag {
+  display: flex;
+  min-width: 0;
+}
+
+.place-card-tag .chip {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* En un celular de verdad no se dibuja la barra de estado */
+@media (max-width: 39.99rem) {
+  .places { height: 100%; }
+}
+
+/* ---------- Perfil del local ---------- */
+
+/* Con foto: la foto y la caja ocupan todo el ancho de la pantalla, pegadas al encabezado */
+.local-hero.has-photo {
+  margin: calc(var(--space-6) * -1) calc(var(--gutter) * -1) 0;
+}
+
+.local-photo {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  background: var(--color-fill);
+}
+
+.local-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.local-photo-status {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--gutter);
+}
+
+.local-photo-status .chip { box-shadow: var(--shadow-soft); }
+
+/* Caja con nombre y valoración. Con foto, sube un poco y la tapa con sus esquinas redondeadas */
+.local-hero-card {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-4) var(--card-padding);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-lg);
+  background: var(--gradient-sunrise);
+  box-shadow: var(--shadow-float);
+}
+
+.has-photo .local-hero-card {
+  margin-top: calc(var(--radius-xl) * -1);
+  padding: var(--space-5) var(--gutter);
+  border: 0;
+  border-radius: var(--radius-xl);
+}
+
+.local-hero-card.is-sunset {
+  border-color: var(--color-accent);
+  background: var(--gradient-sunset);
+}
+
+.local-hero-card.is-ink {
+  border-color: var(--color-ink);
+  background: var(--gradient-ink-fade);
+  color: var(--color-surface);
+}
+
+/* La estrella toma el color del texto, para que se lea sobre cualquier fondo */
+.local-hero-meta svg { fill: currentColor; }
+
+.local-hero-orb {
+  position: absolute;
+  top: -56px;
+  right: -48px;
+  width: 320px;
+  height: 320px;
+  border-radius: var(--radius-pill);
+  background: rgb(255 252 247 / 0.2);
+  filter: blur(var(--blur-orb));
+}
+
+.local-hero-content { position: relative; }
+
+.local-hero-logo {
+  display: flex;
+  width: var(--size-control);
+  height: var(--size-control);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: var(--space-1);
+  border: 1px solid rgb(255 252 247 / 0.4);
+  border-radius: var(--radius-sm);
+  background: rgb(255 252 247 / 0.15);
+}
+
+.local-hero-logo.has-image {
+  border-color: var(--color-glass-border);
+  background: var(--color-surface);
+}
+
+.local-hero-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+.rating-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.rating-summary.is-compact {
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-soft);
+  box-shadow: none;
+}
+
+/* Concurrencia de hoy: tenue lo que ya pasó, verde lo más tranquilo, naranja lo más lleno */
+.bar { fill: var(--color-fill-deep); }
+.bar.is-past { fill: var(--color-fill); }
+.bar.is-closed { fill: var(--color-border); }
+.bar.is-best { fill: var(--color-success); }
+.bar.is-peak { fill: var(--color-accent); }
+
+.bar-label {
+  fill: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.bar-label.is-now { fill: var(--color-ink); font-weight: 700; }
+
+.bar-now {
+  fill: var(--color-ink);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+}
+
+.legend-dot.is-best { background: var(--color-success); }
+.legend-dot.is-peak { background: var(--color-accent); }
+
+/* Informar cola: número exacto de personas, con botones para sumar o restar */
+.count-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.count-input .stepper-btn {
+  width: var(--size-cta);
+  height: var(--size-cta);
+  border: 1px solid var(--color-border);
+}
+
+.count-input-field {
+  width: 112px;
+  height: 72px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font: inherit;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.count-input-field::-webkit-inner-spin-button,
+.count-input-field::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.count-input-field:focus {
+  border-color: var(--color-ink);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-fill);
+}
+
+.star-button {
+  padding: var(--space-1);
+  border-radius: var(--radius-pill);
+  transition: background-color var(--transition);
+}
+
+.star-button:hover { background: var(--color-accent-soft); }
+.rating-value { margin-left: var(--space-2); }
+
+/* ---------- Avisos ---------- */
+
+.alert-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--card-padding);
+  border: 1px solid;
+  border-radius: var(--radius-lg);
+}
+
+.alert-card-icon {
+  display: flex;
+  width: var(--size-control-sm);
+  height: var(--size-control-sm);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  color: var(--color-surface);
+}
+
+.alert-card.is-warning { border-color: var(--color-warning-border); background: var(--color-warning-bg); }
+.alert-card.is-danger { border-color: var(--color-danger-border); background: var(--color-danger-soft); }
+.alert-card.is-accent { border-color: var(--color-accent-border); background: var(--color-accent-soft); }
+.alert-card.is-info { border-color: var(--color-info-border); background: var(--color-info-soft); }
+
+.alert-card.is-warning .alert-card-icon { background: var(--color-warning); }
+.alert-card.is-danger .alert-card-icon { background: var(--color-danger); }
+.alert-card.is-accent .alert-card-icon { background: var(--color-accent); color: var(--color-ink); }
+.alert-card.is-info .alert-card-icon { background: var(--color-info); }
+
+.alert-card-actions {
+  display: flex;
+  gap: var(--space-4);
+  padding-left: var(--space-12);
+}
+
+.mark-read {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent-ink);
+  transition: background-color var(--transition);
+}
+
+.mark-read:hover { background: var(--color-accent-soft); }
+
+/* ---------- Mi perfil ---------- */
+
+.avatar {
+  display: flex;
+  width: var(--size-thumb);
+  height: var(--size-thumb);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-ink);
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.saved-local {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+}
+
+.ghost-btn.is-heart {
+  width: var(--size-control);
+  height: var(--size-control);
+  color: var(--color-accent);
+}
+
+.ghost-btn.is-heart:hover { background: var(--color-accent-soft); }
+
+/* ==========================================================================
+   Vista de imprenta (modo oscuro: los colores salen de .theme-imprenta en tokens.css)
+   ========================================================================== */
+
+/* Barra de navegación de abajo */
+.footer:has(.shop-nav) { padding: var(--space-2) var(--space-3) max(var(--space-5), env(safe-area-inset-bottom)); }
+
+.shop-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.shop-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  transition: color var(--transition);
+}
+
+.shop-nav-item .icon {
+  width: 44px;
+  height: 28px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  box-sizing: border-box;
+  transition: background var(--transition);
+}
+
+.shop-nav-item:hover { color: var(--color-ink-soft); }
+.shop-nav-item.is-active { color: var(--color-ink); }
+.shop-nav-item.is-active .icon { background: var(--color-fill-deep); }
+
+/* Aviso flotante al entrar a la vista imprenta */
+.shop-toast-root {
+  position: absolute;
+  right: var(--space-4);
+  bottom: calc(var(--size-cta) + var(--space-6) + env(safe-area-inset-bottom));
+  left: var(--space-4);
+  z-index: 45;
+  pointer-events: none;
+}
+
+.shop-new-tanda {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  background: var(--gradient-ink-fade);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-float);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.shop-new-tanda.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.shop-new-tanda-icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-new-tanda-icon .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.shop-new-tanda-text {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.shop-new-tanda .shop-new-tanda-action {
+  flex: 0 0 auto;
+  background: var(--color-tanda-deep);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-glow-tanda);
+}
+
+.shop-new-tanda .shop-new-tanda-action:hover {
+  background: var(--color-tanda-deep);
+  color: var(--color-ink);
+  filter: brightness(1.06);
+}
+
+/* Números grandes de los indicadores */
+.shop-metric {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* Cola virtual en el panel: la tarjeta "invertida" (clara sobre el fondo oscuro) */
+.shop-hero-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--card-padding);
+  border-radius: var(--radius-lg);
+  background: var(--gradient-ink-fade);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-float);
+  transition: transform var(--transition);
+}
+
+.shop-hero-card:active,
+.shop-tile:active { transform: translateY(1px); }
+
+.shop-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.shop-tile:hover { border-color: var(--color-fill-deep); }
+
+.shop-tile.is-tanda {
+  border-color: var(--color-tanda-border);
+  background: var(--color-tanda-soft);
+  color: var(--color-tanda);
+}
+
+.shop-tile.is-tanda:hover { border-color: var(--color-tanda); }
+
+.shop-link-row {
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+
+.shop-link-row .round-icon {
+  width: var(--size-control);
+  height: var(--size-control);
+  background: var(--color-fill);
+}
+
+/* Fila de un pedido */
+.shop-order {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+
+.shop-order-ticket {
+  min-width: 44px;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.shop-order-info { min-width: 0; }
+
+/* Tanda mezclada entre los pedidos individuales de la cola */
+.shop-tanda-row,
+.shop-printing.is-tanda {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--color-tanda-border);
+  background: linear-gradient(
+    120deg,
+    var(--color-tanda-soft) 0%,
+    var(--color-tanda-muted) 35%,
+    var(--color-tanda-border) 55%,
+    var(--color-tanda-muted) 75%,
+    var(--color-tanda-soft) 100%
+  );
+  background-size: 200% 200%;
+  animation: shop-tanda-shift 7s linear infinite;
+}
+
+.shop-tanda-row > *,
+.shop-printing.is-tanda > * {
+  position: relative;
+  z-index: 1;
+}
+
+.shop-tanda-row::after,
+.shop-printing.is-tanda::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 60%;
+  background: linear-gradient(105deg, transparent, var(--color-tanda), transparent);
+  opacity: 0.16;
+  pointer-events: none;
+  content: "";
+  animation: shop-tanda-sheen 5.5s linear infinite;
+}
+
+.shop-tanda-row:hover { border-color: var(--color-tanda); }
+.shop-printing.is-tanda { box-shadow: var(--shadow-glow-tanda); }
+
+@keyframes shop-tanda-shift {
+  from { background-position: 200% 50%; }
+  to { background-position: 0% 50%; }
+}
+
+@keyframes shop-tanda-sheen {
+  from { transform: translateX(0); }
+  to { transform: translateX(280%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-tanda-row,
+  .shop-tanda-row::after,
+  .shop-printing.is-tanda,
+  .shop-printing.is-tanda::after { animation: none; }
+}
+
+/* Pedido en la impresora */
+.shop-printing {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--card-padding);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-lg);
+  background: var(--gradient-sunrise);
+  box-shadow: var(--shadow-float);
+}
+
+.shop-printing-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  color: inherit;
+}
+
+.shop-printing-ticket {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.shop-printing-note {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: rgb(0 0 0 / 0.18);
+}
+
+/* En oscuro, la opción elegida de un segmentado necesita más contraste */
+.theme-imprenta .segmented-option.is-checked { background: var(--color-fill-deep); }
+
+/* Impresora del detalle de una tanda */
+.shop-printer {
+  width: 100%;
+  max-width: 280px;
+  align-self: center;
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+
+.shop-printer-paper,
+.shop-printer-slot { fill: var(--color-surface-soft); }
+.shop-printer-body { fill: var(--color-surface); }
+.shop-printer-tray { fill: var(--color-fill); }
+
+.shop-printer-count {
+  fill: var(--color-ink);
+  stroke: none;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.shop-printer-led { fill: var(--color-fill-deep); stroke: none; }
+.shop-printer-led.is-on { fill: var(--color-success); }
+
+/* Vista previa del perfil en "Mi local" */
+.shop-preview {
+  overflow: hidden;
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.shop-preview-photo {
+  display: block;
+  width: 100%;
+  height: 132px;
+  object-fit: cover;
+}
+
+.shop-preview-body { padding: var(--space-4); }
