@@ -94,8 +94,12 @@ ul {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* Si el teléfono no entra en el alto de la ventana (por ejemplo, dentro del iframe),
+     "safe center" lo alinea arriba en vez de recortarlo, y la página scrollea. */
+  justify-content: safe center;
   gap: var(--space-3);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background: var(--stage-bg);
 }
 
@@ -147,9 +151,12 @@ ul {
 .device {
   position: relative;
   z-index: 1;
+  /* Tamaño fijo del iPhone: el alto sale del ancho con el ratio 402 × 874,
+     así el teléfono nunca se deforma ni se achica cuando la ventana es baja. */
+  flex: 0 0 auto;
   width: min(var(--device-width), calc(100vw - var(--space-12)));
-  /* Deja lugar arriba para el selector de vista */
-  height: min(var(--device-height), calc(100dvh - var(--space-12) - var(--size-control) - var(--space-3)));
+  aspect-ratio: 402 / 874;
+  height: auto;
   padding: var(--space-1);
   border: var(--space-1) solid var(--color-device);
   border-radius: var(--radius-device);
