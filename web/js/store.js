@@ -5,6 +5,11 @@
 // entre pantallas conserva el estado para poder recorrer los flujos completos.
 
 const STORAGE_KEY = "tanda-demo-web";
+// El onboarding se guarda aparte: a diferencia de los datos de la demo, no vuelve con cada F5.
+const ONBOARDING_KEY = "tanda-onboarding-visto";
+// La pantalla de carga se ve una vez por sesión: al abrir la app, no al volver al inicio.
+// js/entrada.js lee estas dos marcas antes de que cargue este archivo.
+const SPLASH_KEY = "tanda-carga-vista";
 
 const Store = {
   state: loadState(),
@@ -56,6 +61,22 @@ function saveState(state) {
   }
 }
 
+function markOnboardingSeen() {
+  try {
+    localStorage.setItem(ONBOARDING_KEY, "1");
+  } catch (error) {
+    // Sin guardado, el onboarding igual termina y lleva al inicio.
+  }
+}
+
+function markSplashSeen() {
+  try {
+    sessionStorage.setItem(SPLASH_KEY, "1");
+  } catch (error) {
+    // Sin guardado, la pantalla de carga igual termina y sigue.
+  }
+}
+
 const actions = {
   /** Empieza una impresión nueva desde cero (descarta el archivo y las opciones anteriores). */
   resetDraft() {
@@ -70,6 +91,16 @@ const actions = {
       draft.tandaId = null;
       draft.tandaPreselected = false;
     }
+    Store.commit();
+  },
+
+  /** Deja la tanda elegida: el pedido sigue como una impresión normal y el local se elige de nuevo. */
+  leaveTanda() {
+    const draft = Store.state.draft;
+    draft.flow = "print";
+    draft.tandaId = null;
+    draft.tandaPreselected = false;
+    draft.localId = null;
     Store.commit();
   },
 
@@ -206,8 +237,21 @@ const actions = {
     Store.commit();
   },
 
+  /** Guarda la cuenta nueva, sin la contraseña: alcanza para cargar el usuario en el inicio de sesión. */
+  registerAccount(account) {
+    Store.state.account = account;
+    Store.commit();
+  },
+
+  /** Vuelve a dejar la app como recién instalada, onboarding incluido. */
   resetDemo() {
     Store.state = createInitialState();
+    try {
+      localStorage.removeItem(ONBOARDING_KEY);
+      sessionStorage.removeItem(SPLASH_KEY);
+    } catch (error) {
+      // Si no se puede borrar, solo se saltean la pantalla de carga y el onboarding.
+    }
     Store.commit();
   },
 

@@ -99,6 +99,15 @@ ul {
   background: var(--stage-bg);
 }
 
+/* Lugar reservado para el selector de vista: si se pinta la página antes de que lo agregue el JS,
+   el teléfono ya queda en su posición definitiva y no salta. */
+@media (min-width: 40rem) {
+  .stage:not(:has(.view-switch))::before {
+    content: "";
+    height: var(--size-control);
+  }
+}
+
 /* Selector de vista arriba del teléfono (lo agrega App.mountViewSwitch).
    Lleva .segmented.view-switch para ganarle a los estilos del segmentado (components.css). */
 .segmented.view-switch {

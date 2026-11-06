@@ -35,6 +35,8 @@ const DemoMenu = {
           <div class="divider"></div>
           <div class="stack gap-2">
             ${UI.sectionLabel("Vistas")}
+            ${row("loader-2", "Pantalla de carga", "Animación del logo al abrir la app", "demoGo", { href: "index.html?carga=1" })}
+            ${row("sparkles", "Onboarding", "Presentación de la app para quien la abre por primera vez", "demoGo", { href: "onboarding.html" })}
             ${row("user-round", "Estudiante", "Inicio de la app", "demoGo", { href: "index.html" })}
             ${row("store", "Imprenta", "Panel de El Poli (modo oscuro)", "demoGo", { href: "imprenta/index.html?nueva-tanda=1" })}
           </div>

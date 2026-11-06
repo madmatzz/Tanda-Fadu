@@ -18,8 +18,15 @@ App.start({
     if (flow === "tanda") {
       const requested = App.params.get("tanda");
       const tanda = tandaById(Store.state, requested) || Store.state.tandas[0];
+      const preselected = Boolean(requested && tandaById(Store.state, requested));
+      // Al sumarse a una tanda, las especificaciones arrancan con las de la tanda.
+      // Si ya estaba elegida (se vuelve atrás desde otra pantalla), se respeta lo que cambió el usuario.
+      const isNewChoice = Store.state.draft.tandaId !== tanda.id;
       actions.selectTanda(tanda.id);
-      actions.setTandaPreselected(Boolean(requested && tandaById(Store.state, requested)));
+      actions.setTandaPreselected(preselected);
+      if (preselected && isNewChoice) {
+        actions.setSpecs({ size: tanda.size, mode: tanda.mode, paper: tanda.paper, grammage: tanda.grammage });
+      }
     }
     const local = App.params.get("local") && localById(Store.state, App.params.get("local"));
     if (local) actions.selectLocal(local.id);

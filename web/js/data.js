@@ -261,6 +261,7 @@ function createInitialState() {
     tandas,
     savedLocalIds: [],
     savedCard: null,
+    account: null,
     nextTicket: tandaTicket,
   };
 }

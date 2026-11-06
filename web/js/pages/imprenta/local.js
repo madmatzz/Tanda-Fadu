@@ -62,6 +62,8 @@ App.start({
             ${linkRow("message-square", "Reseñas", unanswered ? `${plural(unanswered, "sin responder", "sin responder")}` : "Todas respondidas", "imprenta/resenas.html")}
           </section>
 
+          ${UI.button({ label: "Cerrar sesión", icon: "log-out", variant: "outline", block: true, href: "imprenta/login.html" })}
+
           <div class="row between gap-2 divided t-caption c-muted">
             <span>Demo · ${local.floorLabel} · FADU</span>
             <button type="button" class="link fw-semibold c-secondary" ${on("openDemoMenu")}>Menú demo</button>

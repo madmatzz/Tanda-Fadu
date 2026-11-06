@@ -1,5 +1,5 @@
 // Imprenta · Detalle de una tanda: sus pedidos y la impresora con lo que falta y lo impreso.
-// "Imprimir tanda" la cierra e imprime todos los pedidos juntos.
+// Se imprime fuera de la app: el local descarga los archivos y, cuando la tanda está impresa, la marca "Listo para retirar".
 
 const PREVIEW = 4;
 const view = { showAll: false, downloading: false };
@@ -50,13 +50,13 @@ App.start({
 
     let footer;
     if (tanda.printed) {
-      footer = UI.button({ label: "Tanda impresa", icon: "check", variant: "soft", block: true, disabled: true });
+      footer = UI.button({ label: "Listo para retirar", icon: "check", variant: "soft", block: true, disabled: true });
     } else if (view.downloading) {
       footer = UI.button({ label: "Cargando…", icon: "download", block: true, loading: true, disabled: true });
     } else if (!tanda.filesDownloaded) {
       footer = UI.button({ label: "Descargar archivos", icon: "download", block: true, disabled: !pending.length, action: "downloadFiles" });
     } else {
-      footer = UI.button({ label: `Imprimir tanda · ${plural(pending.length, "pedido", "pedidos")}`, icon: "printer", block: true, disabled: !pending.length, action: "askPrint" });
+      footer = UI.button({ label: "Listo para retirar", icon: "check", block: true, disabled: !pending.length, action: "printTanda" });
     }
 
     return ShopUI.screen({
@@ -86,7 +86,7 @@ App.start({
             <p class="t-small text-center c-secondary">
               ${tanda.printed
                 ? "Listo: todos los pedidos están impresos y esperan en el mostrador."
-                : `${plural(pending.length, "pedido espera", "pedidos esperan")} a que imprimas la tanda.`}
+                : `${plural(pending.length, "pedido espera", "pedidos esperan")} a que la tanda esté lista para retirar.`}
             </p>
           </div>
 
@@ -108,24 +108,6 @@ App.start({
     });
   },
 
-  sheet(name) {
-    if (name !== "print") return "";
-    const tanda = tandaById(Store.state, App.params.get("id"));
-    const pending = tandaOrders(Store.state, tanda.id).filter((order) => order.status === "en-cola");
-    return UI.sheet({
-      title: `¿Imprimir ${tanda.label.toLowerCase()}?`,
-      description: "La tanda se cierra: ya no se suman pedidos.",
-      content: `
-        <div class="stack gap-3">
-          ${UI.keyValue("Pedidos", pending.length, true)}
-          ${UI.keyValue("Páginas", pending.reduce((sum, order) => sum + order.specs.pages, 0))}
-          ${UI.keyValue("Configuración", `${tanda.size} · ${modeShort(tanda.mode)} · ${PAPER_LABELS[tanda.paper]} ${tanda.grammage}g`)}
-          <div class="soft-box is-compact">Cada estudiante ve su pedido como “Listo” para retirar.</div>
-        </div>`,
-      footer: UI.button({ label: "Imprimir ahora", icon: "printer", block: true, action: "printTanda" }),
-    });
-  },
-
   actions: {
     downloadFiles() {
       const tanda = tandaById(Store.state, App.params.get("id"));
@@ -138,12 +120,8 @@ App.start({
       }, 900);
     },
 
-    askPrint() {
-      App.openSheet("print");
-    },
-
+    /** Marca la tanda como impresa: sus pedidos pasan a Para retirar. */
     printTanda() {
-      App.openSheetName = null;
       actions.printTanda(App.params.get("id"));
     },
 

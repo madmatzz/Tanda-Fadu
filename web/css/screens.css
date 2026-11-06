@@ -1710,3 +1710,445 @@
 }
 
 .shop-preview-body { padding: var(--space-4); }
+
+/* ==========================================================================
+   Onboarding: un color pleno por slide, arriba la ilustración y abajo la frase
+   ========================================================================== */
+
+/* Color de cada slide: lo escribe onboarding.js en #screen, así también pinta la barra de estado.
+   El degradé es una capa fija encima del color, para que el color se siga animando entre slides. */
+.device-screen[data-onb] {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--onb-color);
+  background-image: var(--gradient-onboarding);
+  transition: background-color 420ms ease;
+}
+
+.device-screen[data-onb="1"] { --onb-color: var(--color-accent); --onb-on: var(--color-surface); }
+.device-screen[data-onb="2"] { --onb-color: var(--color-fill-deep); --onb-on: var(--color-ink); }
+.device-screen[data-onb="3"] { --onb-color: var(--color-tanda); --onb-on: var(--color-surface); }
+.device-screen[data-onb="4"] { --onb-color: var(--color-sun-1); --onb-on: var(--color-ink); }
+
+.device-screen[data-onb] .status-bar {
+  position: absolute;
+  inset: 0 0 auto;
+  background: transparent;
+  color: var(--onb-on);
+  transition: color 420ms ease;
+}
+
+.onb {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  --onb-index: 0;
+  --onb-drag: 0px;
+}
+
+.onb.is-dragging { cursor: grabbing; }
+
+.onb-skip {
+  position: absolute;
+  top: calc(var(--size-status-bar) + var(--space-2));
+  right: var(--gutter);
+  z-index: 2;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  color: var(--onb-on);
+  font-size: 15px;
+  font-weight: 600;
+  transition: opacity var(--transition), color 420ms ease;
+}
+
+.onb-skip:hover { opacity: 0.75; }
+.onb-skip.is-hidden { opacity: 0; pointer-events: none; }
+
+.onb-stage {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding-top: calc(var(--size-status-bar) + var(--space-10));
+}
+
+/* El carrusel: la ilustración y la frase se mueven juntas */
+.onb-track {
+  display: flex;
+  height: 100%;
+  transform: translateX(calc(var(--onb-index) * -100% + var(--onb-drag)));
+  transition: transform 460ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.onb.is-dragging .onb-track { transition: none; }
+
+.onb-slide {
+  display: flex;
+  flex: 0 0 100%;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-4);
+}
+
+.onb-art {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.onb-art text { font-family: var(--font-sans); }
+
+.onb-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-8) var(--gutter) max(var(--space-8), env(safe-area-inset-bottom));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--color-surface);
+}
+
+.onb-copy {
+  height: 102px;
+  overflow: hidden;
+}
+
+.onb-title {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* El botón de imprenta se despliega debajo del principal al llegar al último slide */
+.onb-shop {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.onb-shop.is-open { grid-template-rows: 1fr; }
+
+.onb-shop-inner {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.onb-shop.is-open .onb-shop-inner {
+  padding-top: var(--space-3);
+  opacity: 1;
+}
+
+.onb-dots {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.onb-dots span {
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-fill-deep);
+  transition: width var(--transition), background var(--transition);
+}
+
+.onb-dots span.is-active {
+  width: var(--space-6);
+  background: var(--color-ink);
+}
+
+/* Entrada de las partes de cada ilustración, con la demora que indica --d (en ms) */
+.onb-slide:not(.is-active) .onb-rise,
+.onb-slide:not(.is-active) .onb-pop,
+.onb-slide:not(.is-active) .onb-drop { opacity: 0; }
+
+.onb-slide.is-active .onb-rise { animation: onb-rise 520ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--d, 0) * 1ms) both; }
+.onb-slide.is-active .onb-pop { animation: onb-pop 460ms cubic-bezier(0.3, 1.5, 0.5, 1) calc(var(--d, 0) * 1ms) both; }
+.onb-slide.is-active .onb-drop { animation: onb-drop 480ms cubic-bezier(0.3, 1.4, 0.5, 1) calc(var(--d, 0) * 1ms) both; }
+
+.onb-pop,
+.onb-drop {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes onb-rise {
+  from { opacity: 0; transform: translateY(18px); }
+}
+
+@keyframes onb-pop {
+  from { opacity: 0; transform: scale(0.4); }
+}
+
+@keyframes onb-drop {
+  from { opacity: 0; transform: translateY(-34px) scale(0.7); }
+}
+
+/* ==========================================================================
+   Ingresar: iniciar sesión o registrarse. Clara para estudiantes y oscura para
+   imprentas: el tema sale de la clase theme-imprenta, igual que en el resto de la app
+   ========================================================================== */
+
+/* La pantalla ocupa justo el alto del teléfono: el logo y el texto se ajustan, los botones nunca quedan abajo del borde */
+.screen:has(.access) { height: calc(100% - var(--size-status-bar)); min-height: 0; }
+
+.content:has(.access) {
+  display: flex;
+  min-height: 0;
+  padding-top: 0;
+  padding-bottom: var(--space-6);
+}
+
+.access {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.access-hero {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.access-logo {
+  display: block;
+  width: clamp(56px, 12dvh, 84px);
+  height: auto;
+  margin-bottom: var(--space-2);
+  color: var(--color-ink);
+}
+
+.access-forgot {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.password-field { position: relative; }
+.password-field .input { padding-right: var(--size-field); }
+
+.password-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  width: var(--size-field);
+  height: var(--size-field);
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+
+.password-toggle:hover { color: var(--color-ink); }
+
+
+/* ---------- Pedido en tanda: parámetros violetas, archivo "En tanda" y aviso emergente ---------- */
+
+/* Los parámetros que coinciden con la tanda se ven en violeta, de forma sutil */
+.tanda-param.is-in-tanda .form-label,
+.tanda-param.is-in-tanda .form-hint,
+.tanda-param.is-in-tanda .input,
+.tanda-param.is-in-tanda .segmented-option.is-checked,
+.tanda-param.is-in-tanda .radio-card.is-checked .radio-card-title {
+  color: var(--color-tanda);
+}
+
+.tanda-param.is-in-tanda .input { border-color: var(--color-tanda-border); }
+
+.tanda-param.is-in-tanda .radio-card.is-checked {
+  border-color: var(--color-tanda);
+  box-shadow: 0 0 0 2px var(--color-tanda), var(--shadow-soft);
+}
+
+.tanda-param.is-in-tanda .radio-card.is-checked .radio-dot { border-color: var(--color-tanda); }
+.tanda-param.is-in-tanda .radio-card.is-checked .radio-dot::after { background: var(--color-tanda); }
+
+.tanda-param .form-label,
+.tanda-param .input { transition: color var(--transition), border-color var(--transition); }
+
+/* Archivo dentro de la tanda: la tarjeta toma el violeta suave */
+.card.is-in-tanda {
+  border-color: var(--color-tanda-border);
+  background: var(--color-tanda-soft);
+}
+
+.card.is-in-tanda .tile-icon { color: var(--color-tanda); }
+.file-card-tag { display: flex; }
+
+/* Si el archivo ya no entra en la tanda, el aviso pasa a tono de advertencia */
+.tanda-match-banner.is-out {
+  border: 1px solid var(--color-warning-border);
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  box-shadow: none;
+}
+
+.tanda-match-banner.is-out .round-icon {
+  border-color: var(--color-warning-border);
+  background: var(--color-surface);
+  color: var(--color-warning);
+}
+
+/* Aviso emergente abajo del teléfono (App.toast) */
+.toast {
+  position: absolute;
+  right: var(--space-4);
+  left: var(--space-4);
+  z-index: 46;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  background: var(--gradient-ink-fade);
+  color: var(--color-surface);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: var(--shadow-float);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.toast .icon { flex: 0 0 auto; color: var(--color-tanda-light); }
+.toast.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ==========================================================================
+   Imprenta: "noche violeta". Fondo ciruela oscuro y bloques de color pleno,
+   para que el panel tenga la paleta de la app sin parecerse a la vista clara del estudiante
+   ========================================================================== */
+
+/* Luz de color arriba de cada pantalla: violeta a la izquierda, naranja a la derecha */
+.theme-imprenta .screen {
+  background:
+    radial-gradient(70% 220px at 100% 0%, rgb(240 100 36 / 0.2), transparent 70%),
+    radial-gradient(80% 260px at 0% 0%, rgb(122 63 196 / 0.34), transparent 72%),
+    var(--color-bg);
+  background-repeat: no-repeat;
+}
+
+/* Cola virtual: papel naranja con texto oscuro */
+.theme-imprenta .shop-hero-card {
+  background: var(--gradient-shop-orange);
+  color: var(--color-on-paper);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Para retirar: papel verde */
+.theme-imprenta .shop-tile.is-green {
+  border-color: transparent;
+  background: var(--gradient-shop-green);
+  color: var(--color-on-paper);
+}
+
+.theme-imprenta .shop-tile.is-green .t-caption { opacity: 0.8; }
+
+/* Cola presencial: violeta de tanda, suave */
+.theme-imprenta .shop-presencial {
+  border-color: var(--color-tanda-border);
+  background: linear-gradient(160deg, var(--color-tanda-soft) 0%, var(--color-tanda-muted) 100%);
+}
+
+/* Fila de reseñas: el ícono lleva el naranja */
+.theme-imprenta .shop-link-row.is-reviews .round-icon {
+  border-color: var(--color-accent-border);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-ink);
+}
+
+/* Navegación: la pestaña activa se pinta de naranja */
+.theme-imprenta .shop-nav-item.is-active { color: var(--color-accent-ink); }
+.theme-imprenta .shop-nav-item.is-active .icon { background: var(--color-accent-soft); }
+
+/* ==========================================================================
+   Pantalla de carga: una capa encima de la pantalla que sigue, del mismo tamaño
+   ========================================================================== */
+
+/* Antes de que splash.js dibuje la capa, el mismo fondo tapa la pantalla desde el primer pintado */
+.splash-active:not(.splash-mounted) .device::after,
+.splash-layer {
+  position: absolute;
+  inset: var(--space-1);
+  z-index: 50;
+  border-radius: calc(var(--radius-device) - var(--space-1));
+  background: var(--gradient-splash);
+}
+
+.splash-active:not(.splash-mounted) .device::after { content: ""; }
+
+.splash-layer {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash-layer .status-bar {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  background: transparent;
+  color: var(--color-surface);
+}
+
+/* Negro del comienzo: splash.js lo va apagando hasta dejar ver el fondo definitivo */
+.splash-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--color-splash-deep);
+}
+
+.splash-art {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  transition: opacity 450ms ease;
+}
+
+/* El negro del video desaparece y deja ver el fondo de la capa */
+video.splash-art { mix-blend-mode: screen; }
+
+.splash-layer.is-leaving .splash-art { opacity: 0; }
+
+.splash-layer.is-revealing {
+  animation: splash-reveal 1100ms ease-in-out forwards;
+  pointer-events: none;
+}
+
+@keyframes splash-reveal {
+  to { opacity: 0; }
+}
+
+/* Lo de abajo espera a que termine la pantalla de carga: si no, sus animaciones se verían gastadas */
+.splash-active .onb-rise,
+.splash-active .onb-pop,
+.splash-active .onb-drop {
+  animation-play-state: paused !important;
+}
+
+@media (max-width: 39.99rem) {
+  .splash-active:not(.splash-mounted) .device::after,
+  .splash-layer {
+    inset: 0;
+    border-radius: 0;
+  }
+}

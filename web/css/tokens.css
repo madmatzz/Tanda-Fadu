@@ -58,6 +58,14 @@
   --color-pin-amber: #C98510;
   --color-map-bg: #EFE7DC;
 
+  /* Pantalla de carga */
+  --gradient-splash: linear-gradient(180deg, #0C0911 0%, #120C1A 50%, #170E22 100%);
+  --color-splash-deep: #000000;
+
+  /* Ilustraciones del onboarding */
+  --color-art-skin: #E39A6C;
+  --gradient-onboarding: linear-gradient(170deg, rgb(255 255 255 / 0.18) 0%, rgb(255 255 255 / 0) 38%, rgb(27 22 19 / 0.08) 68%);
+
   /* Estados */
   --color-success: #1F7A52;
   --color-success-soft: #E7F4ED;
@@ -164,35 +172,35 @@
 .theme-imprenta {
   color-scheme: dark;
 
-  --color-bg: #121010;
-  --color-surface: #1C1917;
-  --color-surface-soft: #221E1B;
-  --color-fill: #2A2521;
-  --color-fill-deep: #3A332D;
+  --color-bg: #15101D;
+  --color-surface: #201929;
+  --color-surface-soft: #271F33;
+  --color-fill: #2F2541;
+  --color-fill-deep: #43375C;
 
   --color-ink: #F4EEE6;
-  --color-ink-soft: #D8CEC2;
-  --color-text-secondary: #B4A99C;
-  --color-text-muted: #8F8478;
+  --color-ink-soft: #DDD3E2;
+  --color-text-secondary: #BFB4CE;
+  --color-text-muted: #9689AA;
 
-  --color-border: #38312B;
-  --color-border-soft: #2B2622;
-  --color-glass: rgb(28 25 23 / 0.7);
-  --color-glass-strong: rgb(28 25 23 / 0.88);
+  --color-border: #3E3254;
+  --color-border-soft: #2E2542;
+  --color-glass: rgb(32 25 41 / 0.7);
+  --color-glass-strong: rgb(32 25 41 / 0.88);
   --color-glass-border: rgb(255 255 255 / 0.08);
   --color-overlay: rgb(0 0 0 / 0.6);
 
   --color-accent: #F06424;
   --color-accent-dark: #FF8A50;
   --color-accent-ink: #FFB38A;
-  --color-accent-soft: #3A2118;
-  --color-accent-border: #6A3419;
+  --color-accent-soft: #3D2230;
+  --color-accent-border: #75402F;
   --color-sun-1: #7A3A14;
 
   --color-tanda: #B48AF0;
-  --color-tanda-soft: #261C35;
-  --color-tanda-border: #46335F;
-  --color-tanda-muted: #35264B;
+  --color-tanda-soft: #2D2150;
+  --color-tanda-border: #54398A;
+  --color-tanda-muted: #3B2B66;
 
   --color-success: #4CC38A;
   --color-success-soft: #14271E;
@@ -206,7 +214,7 @@
   --color-danger: #F2845F;
   --color-danger-soft: #32190F;
   --color-danger-border: #5E2D1B;
-  --color-disabled: #5C5249;
+  --color-disabled: #5E5470;
 
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.7);
   --shadow-float: 0 2px 6px rgb(0 0 0 / 0.3), 0 28px 64px -28px rgb(0 0 0 / 0.8);
@@ -214,7 +222,12 @@
   --shadow-rim: inset 0 1px 0 rgb(255 255 255 / 0.06);
   --shadow-device: 0 40px 120px -36px rgb(0 0 0 / 0.8), 0 8px 24px -12px rgb(0 0 0 / 0.5);
 
-  --gradient-sunrise: linear-gradient(155deg, #2A1C15 0%, #3A2117 52%, #4A2718 100%);
+  --gradient-sunrise: linear-gradient(155deg, #33202E 0%, #4A2433 52%, #5C2B2D 100%);
+  /* Bloques de color pleno del panel: llevan texto oscuro, como si fueran papel de color */
+  --gradient-shop-orange: linear-gradient(150deg, #FFA36B 0%, #F57A3B 52%, #F06424 100%);
+  --gradient-shop-green: linear-gradient(150deg, #7BE0AE 0%, #4CC38A 100%);
+  --gradient-shop-violet: linear-gradient(150deg, #C9A8F7 0%, #A672E8 100%);
+  --color-on-paper: #1B1330;
   /* "Tinta" invertida: las tarjetas que eran negras quedan claras */
   --gradient-ink-fade: linear-gradient(165deg, #FBF6EF 0%, #ECE3D7 100%);
 

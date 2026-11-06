@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="4070" height="2690" viewBox="0 0 4070 2690">
+<rect x="0" y="0" width="4070" height="2690" fill="#F4EEE6">
+</rect>
+<g transform="translate(70 62) scale(1.36)">
+<path d="M46.9732 0V11.825H30.8712V43H16.1021V11.825H0V0H46.9732Z" fill="url(#paint0_linear_666_1161)">
+</path>
+<path d="M78.1693 43L76.1966 37.3179H57.002L55.0293 43H39.7803L56.2556 0H76.943L93.4183 43H78.1693ZM60.6277 26.8238H72.5709L67.8789 13.3095H65.3197L60.6277 26.8238Z" fill="url(#paint1_linear_666_1161)">
+</path>
+<path d="M95.5519 43V0H112.507L127.383 23.2405H128.716V0H143.112V43H126.53L111.281 19.7595H109.948V43H95.5519Z" fill="url(#paint2_linear_666_1161)">
+</path>
+<path d="M169.35 0C187.585 0 193.983 9.1119 193.983 21.5C193.983 33.8369 187.585 43 169.35 43H146.85V0H169.35ZM169.35 31.1238C175.108 31.1238 179.16 28.3595 179.16 21.5C179.16 14.5893 175.108 11.8762 169.35 11.8762H161.672V31.1238H169.35Z" fill="url(#paint3_linear_666_1161)">
+</path>
+<path d="M229.751 43L227.778 37.3179H208.584L206.611 43H191.362L207.837 0H228.525L245 43H229.751ZM212.209 26.8238H224.153L219.461 13.3095H216.901L212.209 26.8238Z" fill="url(#paint4_linear_666_1161)">
+</path>
+<defs>
+<linearGradient id="paint0_linear_666_1161" x1="145" y1="125.5" x2="112" y2="-21" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7A3FC4">
+</stop>
+<stop offset="1" stop-color="#A672E8">
+</stop>
+</linearGradient>
+<linearGradient id="paint1_linear_666_1161" x1="145" y1="125.5" x2="112" y2="-21" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7A3FC4">
+</stop>
+<stop offset="1" stop-color="#A672E8">
+</stop>
+</linearGradient>
+<linearGradient id="paint2_linear_666_1161" x1="145" y1="125.5" x2="112" y2="-21" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7A3FC4">
+</stop>
+<stop offset="1" stop-color="#A672E8">
+</stop>
+</linearGradient>
+<linearGradient id="paint3_linear_666_1161" x1="145" y1="125.5" x2="112" y2="-21" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7A3FC4">
+</stop>
+<stop offset="1" stop-color="#A672E8">
+</stop>
+</linearGradient>
+<linearGradient id="paint4_linear_666_1161" x1="145" y1="125.5" x2="112" y2="-21" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7A3FC4">
+</stop>
+<stop offset="1" stop-color="#A672E8">
+</stop>
+</linearGradient>
+</defs>
+
+</g>
+<text x="432" y="118" font-family="Inter" font-size="72" font-weight="800" fill="#1B1613" letter-spacing="-2.16">Mapa de flujo</text>
+<text x="72" y="170" font-family="Inter" font-size="25" font-weight="500" fill="#5F544A">Del archivo a la entrega · Recorrido del estudiante y operación de la imprenta</text>
+<g transform="translate(72 0)">
+<rect x="0" y="218" width="44" height="28" rx="9" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="56" y="238" font-family="Inter" font-size="18" font-weight="500" fill="#4D443C">Pantalla</text>
+</g>
+<g transform="translate(242.25 0)">
+<rect x="0" y="218" width="44" height="28" rx="9" fill="#F1E8FC" stroke="#D7C2F2" stroke-width="1.75">
+</rect>
+<text x="56" y="238" font-family="Inter" font-size="18" font-weight="500" fill="#4D443C">Pantalla de tanda</text>
+</g>
+<g transform="translate(492.421875 0)">
+<rect x="0" y="218" width="44" height="28" rx="9" fill="#E9F1FA" stroke="#C6DAEE" stroke-width="1.75">
+</rect>
+<text x="56" y="238" font-family="Inter" font-size="18" font-weight="500" fill="#4D443C">Estado</text>
+</g>
+<g transform="translate(653.533203125 0)">
+<rect x="0" y="218" width="44" height="28" rx="9" fill="#FAE7DE" stroke="#EEBFA9" stroke-width="1.75">
+</rect>
+<text x="56" y="238" font-family="Inter" font-size="18" font-weight="500" fill="#4D443C">Error</text>
+</g>
+<g transform="translate(798.0659790039062 0)">
+<rect x="0" y="218" width="44" height="28" rx="9" fill="#FDE8DC" stroke="#F6C4A9" stroke-width="1.75" stroke-dasharray="6 4">
+</rect>
+<text x="56" y="238" font-family="Inter" font-size="18" font-weight="500" fill="#4D443C">Panel que sube</text>
+</g>
+<g transform="translate(1032.4708862304688 0)">
+<rect x="0" y="218" width="44" height="28" rx="14" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.75">
+</rect>
+<text x="56" y="238" font-family="Inter" font-size="18" font-weight="500" fill="#4D443C">Enlace a otra sección</text>
+</g>
+<g transform="translate(1317.8771362304688 0)">
+<polygon points="22,216 44,232 22,248 0,232" fill="#FDF0D8" stroke="#EBCB92" stroke-width="1.75" stroke-linejoin="round">
+</polygon>
+<text x="56" y="238" font-family="Inter" font-size="18" font-weight="500" fill="#4D443C">Condición automática</text>
+</g>
+<g transform="translate(1607.3927612304688 0)">
+<path d="M0 232 L44 232" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="44,232 33,238.5 33,225.5" fill="#4D443C">
+</polygon>
+<text x="56" y="238" font-family="Inter" font-size="18" font-weight="500" fill="#4D443C">Recorrido</text>
+</g>
+<g transform="translate(1793.6007232666016 0)">
+<path d="M0 232 L44 232" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="44,232 33,238.5 33,225.5" fill="#74685C">
+</polygon>
+<text x="56" y="238" font-family="Inter" font-size="18" font-weight="500" fill="#4D443C">Vuelta o alternativa</text>
+</g>
+<rect x="60" y="280" width="2520" height="2340" rx="36" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="2">
+</rect>
+<text x="110" y="348" font-family="Inter" font-size="40" font-weight="700" fill="#1B1613" letter-spacing="-0.80">Estudiante</text>
+<rect x="170" y="370" width="2370" height="250" rx="26" fill="#FBF6EF" stroke="#EFE6DB" stroke-width="1.5">
+</rect>
+<text x="202" y="416" font-family="Inter" font-size="16" font-weight="700" fill="#F06424">00</text>
+<text x="242" y="416" font-family="Inter" font-size="22" font-weight="700" fill="#1B1613" letter-spacing="0.44">ACCESO</text>
+<rect x="240" y="432" width="210" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="266.0" y="476" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Pantalla de carga</text>
+<rect x="520" y="432" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="560.9" y="476" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Onboarding</text>
+<rect x="960" y="432" width="170" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="1007.0" y="476" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Ingresar</text>
+<rect x="1220" y="522" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="1277.0" y="566" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Registro</text>
+<rect x="1490" y="432" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="1524.3" y="476" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Iniciar sesión</text>
+<rect x="525" y="538" width="260" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="587.1" y="565.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">Imprenta · Acceso</text>
+<rect x="1590" y="538" width="240" height="44" rx="22" fill="#FDE8DC" stroke="#F6C4A9" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="1627.1" y="565.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#8F300B">Recuperar contraseña</text>
+<path d="M450 470 L520 470" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="520,470 509,476.5 509,463.5" fill="#4D443C">
+</polygon>
+<path d="M710 470 L960 470" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="960,470 949,476.5 949,463.5" fill="#4D443C">
+</polygon>
+<rect x="737" y="456" width="196" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="746.7" y="475" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Ingresar como estudiante</text>
+<path d="M615 508 L615 538" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="615,538 608.5,527 621.5,527" fill="#4D443C">
+</polygon>
+<path d="M1130 470 L1490 470" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1490,470 1479,476.5 1479,463.5" fill="#4D443C">
+</polygon>
+<path d="M1045 508 L1045 548 Q1045 560 1057 560 L1220 560" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1220,560 1209,566.5 1209,553.5" fill="#4D443C">
+</polygon>
+<path d="M1410 560 L1518 560 Q1530 560 1530 548 L1530 508" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1530,508 1536.5,519 1523.5,519" fill="#4D443C">
+</polygon>
+<path d="M1640 508 L1640 538" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1640,538 1633.5,527 1646.5,527" fill="#74685C">
+</polygon>
+<rect x="170" y="650" width="2370" height="170" rx="26" fill="#FBF6EF" stroke="#EFE6DB" stroke-width="1.5">
+</rect>
+<text x="202" y="696" font-family="Inter" font-size="16" font-weight="700" fill="#F06424">01</text>
+<text x="242" y="696" font-family="Inter" font-size="22" font-weight="700" fill="#1B1613" letter-spacing="0.44">INICIO</text>
+<rect x="240" y="717" width="280" height="76" rx="18" fill="#1B1613" stroke="#1B1613" stroke-width="1.75">
+</rect>
+<text x="355.3" y="761" font-family="Inter" font-size="19" font-weight="600" fill="#FFFCF7">Inicio</text>
+<path d="M1680 470 L1868 470 Q1880 470 1880 482 L1880 623 Q1880 635 1868 635 L392 635 Q380 635 380 647 L380 717" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="380,717 373.5,706 386.5,706" fill="#4D443C">
+</polygon>
+<path d="M240 755 L130 755 Q118 755 118 767 L118 2500" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<rect x="170" y="840" width="2370" height="520" rx="26" fill="#FBF6EF" stroke="#EFE6DB" stroke-width="1.5">
+</rect>
+<text x="202" y="886" font-family="Inter" font-size="16" font-weight="700" fill="#F06424">02</text>
+<text x="242" y="886" font-family="Inter" font-size="22" font-weight="700" fill="#1B1613" letter-spacing="0.44">NUEVA IMPRESIÓN</text>
+<path d="M118 1090 L240 1090" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="240,1090 229,1096.5 229,1083.5" fill="#4D443C">
+</polygon>
+<rect x="142.5" y="1076" width="75" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="151.3" y="1095" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Imprimir</text>
+<rect x="240" y="1052" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="257.7" y="1096" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Nueva impresión</text>
+<rect x="520" y="1052" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="536.7" y="1096" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Especificaciones</text>
+<polygon points="905,1025 1000,1090 905,1155 810,1090" fill="#FDF0D8" stroke="#EBCB92" stroke-width="1.75" stroke-linejoin="round">
+</polygon>
+<text x="863.5" y="1096" font-family="Inter" font-size="16.5" font-weight="600" fill="#8A4D06">Validación</text>
+<rect x="1090" y="1052" width="190" height="76" rx="18" fill="#E9F1FA" stroke="#C6DAEE" stroke-width="1.75">
+</rect>
+<text x="1115.2" y="1096" font-family="Inter" font-size="19" font-weight="600" fill="#2F6BA8">Archivo óptimo</text>
+<polygon points="1640,1025 1740,1090 1640,1155 1540,1090" fill="#FDF0D8" stroke="#EBCB92" stroke-width="1.75" stroke-linejoin="round">
+</polygon>
+<text x="1598.9" y="1085.5" font-family="Inter" font-size="16.5" font-weight="600" fill="#8A4D06">¿Hay local</text>
+<text x="1606.1" y="1106.5" font-family="Inter" font-size="16.5" font-weight="600" fill="#8A4D06">elegido?</text>
+<rect x="1830" y="1052" width="130" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="1871.8" y="1096" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Pago</text>
+<rect x="2030" y="1049" width="180" height="82" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="2088.2" y="1084" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Pedido</text>
+<text x="2067.0" y="1108" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">confirmado</text>
+<rect x="2290" y="1052" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="2339.5" y="1096" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Tu pedido</text>
+<rect x="810" y="897" width="190" height="76" rx="18" fill="#FAE7DE" stroke="#EEBFA9" stroke-width="1.75">
+</rect>
+<text x="818.6" y="941" font-family="Inter" font-size="19" font-weight="600" fill="#B2401E">Archivo rechazado</text>
+<rect x="810" y="1187" width="190" height="76" rx="18" fill="#E9F1FA" stroke="#C6DAEE" stroke-width="1.75">
+</rect>
+<text x="829.0" y="1231" font-family="Inter" font-size="19" font-weight="600" fill="#2F6BA8">Necesita ajustes</text>
+<rect x="1070" y="1187" width="190" height="76" rx="18" fill="#E9F1FA" stroke="#C6DAEE" stroke-width="1.75">
+</rect>
+<text x="1081.8" y="1231" font-family="Inter" font-size="19" font-weight="600" fill="#2F6BA8">Ajustando archivo</text>
+<rect x="1330" y="1187" width="180" height="76" rx="18" fill="#E9F1FA" stroke="#C6DAEE" stroke-width="1.75">
+</rect>
+<text x="1362.9" y="1231" font-family="Inter" font-size="19" font-weight="600" fill="#2F6BA8">Archivo listo</text>
+<rect x="1540" y="1187" width="200" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="1559.2" y="1231" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Comparar locales</text>
+<rect x="2005" y="1184" width="230" height="82" rx="18" fill="#F1E8FC" stroke="#D7C2F2" stroke-width="1.75">
+</rect>
+<text x="2049.3" y="1219" font-family="Inter" font-size="19" font-weight="600" fill="#7A3FC4">Entra a la tanda</text>
+<text x="2045.4" y="1243" font-family="Inter" font-size="19" font-weight="600" fill="#7A3FC4">si es compatible</text>
+<rect x="2290" y="1203" width="190" height="44" rx="22" fill="#FDE8DC" stroke="#F6C4A9" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="2335.2" y="1230.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#8F300B">Informar cola</text>
+<rect x="1520" y="1293" width="240" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="1570.6" y="1320.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">03 · Perfil del local</text>
+<rect x="2290" y="1278" width="190" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="2315.6" y="1305.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">03 · Perfil del local</text>
+<path d="M430 1090 L520 1090" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="520,1090 509,1096.5 509,1083.5" fill="#4D443C">
+</polygon>
+<path d="M710 1090 L810 1090" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="810,1090 799,1096.5 799,1083.5" fill="#4D443C">
+</polygon>
+<path d="M1000 1090 L1090 1090" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1090,1090 1079,1096.5 1079,1083.5" fill="#4D443C">
+</polygon>
+<rect x="1009" y="1050" width="62" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="1016.0" y="1069" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">óptimo</text>
+<path d="M905 1025 L905 973" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="905,973 911.5,984 898.5,984" fill="#4D443C">
+</polygon>
+<rect x="862" y="988" width="86" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="868.4" y="1007" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">rechazado</text>
+<path d="M905 1155 L905 1187" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="905,1187 898.5,1176 911.5,1176" fill="#4D443C">
+</polygon>
+<rect x="864" y="1156" width="82" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="873.6" y="1175" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">ajustable</text>
+<path d="M1280 1090 L1540 1090" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1540,1090 1529,1096.5 1529,1083.5" fill="#4D443C">
+</polygon>
+<path d="M1000 1225 L1070 1225" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1070,1225 1059,1231.5 1059,1218.5" fill="#4D443C">
+</polygon>
+<path d="M1260 1225 L1330 1225" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1330,1225 1319,1231.5 1319,1218.5" fill="#4D443C">
+</polygon>
+<path d="M1420 1187 L1420 1090" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<circle cx="1420" cy="1090" r="6" fill="#4D443C">
+</circle>
+<path d="M1740 1090 L1830 1090" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1830,1090 1819,1096.5 1819,1083.5" fill="#4D443C">
+</polygon>
+<rect x="1770" y="1054" width="30" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="1779.3" y="1073" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">sí</text>
+<path d="M1640 1155 L1640 1187" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1640,1187 1633.5,1176 1646.5,1176" fill="#4D443C">
+</polygon>
+<rect x="1624" y="1156" width="32" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="1631.3" y="1175" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">no</text>
+<path d="M1740 1205 L1883 1205 Q1895 1205 1895 1193 L1895 1128" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1895,1128 1901.5,1139 1888.5,1139" fill="#4D443C">
+</polygon>
+<path d="M1935 1128 L1935 1233 Q1935 1245 1923 1245 L1740 1245" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1740,1245 1751,1238.5 1751,1251.5" fill="#74685C">
+</polygon>
+<rect x="1784" y="1231" width="112" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="1792.6" y="1250" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Cambiar local</text>
+<path d="M1960 1090 L2030 1090" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2030,1090 2019,1096.5 2019,1083.5" fill="#4D443C">
+</polygon>
+<path d="M2210 1090 L2290 1090" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2290,1090 2279,1096.5 2279,1083.5" fill="#4D443C">
+</polygon>
+<path d="M2120 1131 L2120 1184" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2120,1184 2113.5,1173 2126.5,1173" fill="#74685C">
+</polygon>
+<path d="M810 935 L347 935 Q335 935 335 947 L335 1052" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="335,1052 328.5,1041 341.5,1041" fill="#74685C">
+</polygon>
+<rect x="495" y="921" width="150" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="508.5" y="940" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Subir otro archivo</text>
+<path d="M810 1225 L627 1225 Q615 1225 615 1213 L615 1128" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="615,1128 621.5,1139 608.5,1139" fill="#74685C">
+</polygon>
+<rect x="619" y="1211" width="186" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="622.2" y="1230" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Cambiar especificaciones</text>
+<path d="M1640 1263 L1640 1293" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1640,1293 1633.5,1282 1646.5,1282" fill="#74685C">
+</polygon>
+<path d="M2385 1128 L2385 1203" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2385,1203 2378.5,1192 2391.5,1192" fill="#74685C">
+</polygon>
+<path d="M2480 1090 L2500 1090 Q2512 1090 2512 1102 L2512 1288 Q2512 1300 2500 1300 L2480 1300" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2480,1300 2491,1293.5 2491,1306.5" fill="#74685C">
+</polygon>
+<rect x="170" y="1390" width="2370" height="310" rx="26" fill="#FBF6EF" stroke="#EFE6DB" stroke-width="1.5">
+</rect>
+<text x="202" y="1436" font-family="Inter" font-size="16" font-weight="700" fill="#F06424">03</text>
+<text x="242" y="1436" font-family="Inter" font-size="22" font-weight="700" fill="#1B1613" letter-spacing="0.44">LOCALES</text>
+<path d="M118 1565 L240 1565" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="240,1565 229,1571.5 229,1558.5" fill="#4D443C">
+</polygon>
+<rect x="150" y="1551" width="60" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="155.8" y="1570" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Buscar</text>
+<rect x="240" y="1527" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="299.4" y="1571" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Locales</text>
+<rect x="560" y="1527" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="590.0" y="1571" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Perfil del local</text>
+<rect x="240" y="1628" width="190" height="44" rx="22" fill="#FDE8DC" stroke="#F6C4A9" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="311.6" y="1655.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#8F300B">Filtros</text>
+<path d="M430 1565 L560 1565" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="560,1565 549,1571.5 549,1558.5" fill="#4D443C">
+</polygon>
+<rect x="454" y="1551" width="82" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="464.9" y="1570" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Ver local</text>
+<path d="M335 1603 L335 1628" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="335,1628 328.5,1617 341.5,1617" fill="#74685C">
+</polygon>
+<path d="M655 1527 L655 1477 Q655 1465 667 1465 L2325 1465" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<rect x="860" y="1543" width="230" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="895.6" y="1570.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">02 · Nueva impresión</text>
+<path d="M975 1465 L975 1543" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="975,1543 968.5,1532 981.5,1532" fill="#4D443C">
+</polygon>
+<rect x="907" y="1486" width="136" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="931.9" y="1505" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Imprimir acá</text>
+<rect x="1130" y="1543" width="230" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="1209.7" y="1570.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">02 · Pago</text>
+<path d="M1245 1465 L1245 1543" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1245,1543 1238.5,1532 1251.5,1532" fill="#4D443C">
+</polygon>
+<rect x="1177" y="1486" width="136" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="1190.3" y="1505" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Elegir este local</text>
+<rect x="1400" y="1543" width="230" height="44" rx="22" fill="#FDE8DC" stroke="#F6C4A9" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="1483.2" y="1570.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#8F300B">Reseñas</text>
+<path d="M1515 1465 L1515 1543" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1515,1543 1508.5,1532 1521.5,1532" fill="#4D443C">
+</polygon>
+<rect x="1670" y="1543" width="230" height="44" rx="22" fill="#FDE8DC" stroke="#F6C4A9" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="1735.2" y="1570.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#8F300B">Informar cola</text>
+<path d="M1785 1465 L1785 1543" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1785,1543 1778.5,1532 1791.5,1532" fill="#4D443C">
+</polygon>
+<rect x="1940" y="1543" width="230" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="2007.7" y="1570.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">06 · Mi perfil</text>
+<path d="M2055 1465 L2055 1543" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2055,1543 2048.5,1532 2061.5,1532" fill="#4D443C">
+</polygon>
+<rect x="1987" y="1486" width="136" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="2008.7" y="1505" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Guardar local</text>
+<rect x="2210" y="1543" width="230" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="2296.0" y="1570.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">Locales</text>
+<path d="M2325 1465 L2325 1543" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2325,1543 2318.5,1532 2331.5,1532" fill="#4D443C">
+</polygon>
+<rect x="2257" y="1486" width="136" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="2273.5" y="1505" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Ver en el mapa</text>
+<rect x="1400" y="1628" width="230" height="44" rx="22" fill="#FDE8DC" stroke="#F6C4A9" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="1459.0" y="1655.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#8F300B">Escribir reseña</text>
+<path d="M1515 1587 L1515 1628" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1515,1628 1508.5,1617 1521.5,1617" fill="#4D443C">
+</polygon>
+<rect x="170" y="1730" width="2370" height="310" rx="26" fill="#FBF6EF" stroke="#EFE6DB" stroke-width="1.5">
+</rect>
+<text x="202" y="1776" font-family="Inter" font-size="16" font-weight="700" fill="#F06424">04</text>
+<text x="242" y="1776" font-family="Inter" font-size="22" font-weight="700" fill="#1B1613" letter-spacing="0.44">TANDAS</text>
+<path d="M118 1840 L240 1840" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="240,1840 229,1846.5 229,1833.5" fill="#4D443C">
+</polygon>
+<rect x="150" y="1826" width="60" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="154.8" y="1845" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Tandas</text>
+<rect x="240" y="1802" width="210" height="76" rx="18" fill="#F1E8FC" stroke="#D7C2F2" stroke-width="1.75">
+</rect>
+<text x="256.3" y="1846" font-family="Inter" font-size="19" font-weight="600" fill="#7A3FC4">Tandas disponibles</text>
+<rect x="560" y="1802" width="190" height="76" rx="18" fill="#F1E8FC" stroke="#D7C2F2" stroke-width="1.75">
+</rect>
+<text x="577.7" y="1846" font-family="Inter" font-size="19" font-weight="600" fill="#7A3FC4">Nueva impresión</text>
+<rect x="830" y="1802" width="190" height="76" rx="18" fill="#F1E8FC" stroke="#D7C2F2" stroke-width="1.75">
+</rect>
+<text x="846.7" y="1846" font-family="Inter" font-size="19" font-weight="600" fill="#7A3FC4">Especificaciones</text>
+<rect x="1100" y="1802" width="170" height="76" rx="18" fill="#F1E8FC" stroke="#D7C2F2" stroke-width="1.75">
+</rect>
+<text x="1137.2" y="1846" font-family="Inter" font-size="19" font-weight="600" fill="#7A3FC4">Validación</text>
+<polygon points="1470,1775 1575,1840 1470,1905 1365,1840" fill="#FDF0D8" stroke="#EBCB92" stroke-width="1.75" stroke-linejoin="round">
+</polygon>
+<text x="1413.3" y="1835.5" font-family="Inter" font-size="16.5" font-weight="600" fill="#8A4D06">¿Coincide con</text>
+<text x="1433.9" y="1856.5" font-family="Inter" font-size="16.5" font-weight="600" fill="#8A4D06">la tanda?</text>
+<rect x="1690" y="1818" width="170" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="1739.7" y="1845.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">02 · Pago</text>
+<rect x="1375" y="1940" width="190" height="70" rx="18" fill="#FAE7DE" stroke="#EEBFA9" stroke-width="1.75">
+</rect>
+<text x="1403.4" y="1981" font-family="Inter" font-size="19" font-weight="600" fill="#B2401E">No compatible</text>
+<rect x="1730" y="1953" width="250" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="1772.8" y="1980.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">02 · Comparar locales</text>
+<rect x="510" y="1953" width="310" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="551.4" y="1980.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">Aviso al cambiar un parámetro</text>
+<path d="M450 1840 L560 1840" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="560,1840 549,1846.5 549,1833.5" fill="#4D443C">
+</polygon>
+<rect x="465" y="1826" width="80" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="471.8" y="1845" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Sumarme</text>
+<path d="M750 1840 L830 1840" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="830,1840 819,1846.5 819,1833.5" fill="#4D443C">
+</polygon>
+<path d="M1020 1840 L1100 1840" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1100,1840 1089,1846.5 1089,1833.5" fill="#4D443C">
+</polygon>
+<path d="M1270 1840 L1365 1840" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1365,1840 1354,1846.5 1354,1833.5" fill="#4D443C">
+</polygon>
+<path d="M1575 1840 L1690 1840" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1690,1840 1679,1846.5 1679,1833.5" fill="#4D443C">
+</polygon>
+<rect x="1615" y="1804" width="30" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="1624.3" y="1823" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">sí</text>
+<path d="M1470 1905 L1470 1940" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1470,1940 1463.5,1929 1476.5,1929" fill="#4D443C">
+</polygon>
+<rect x="1492" y="1911" width="32" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="1499.3" y="1930" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">no</text>
+<path d="M1565 1975 L1730 1975" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="1730,1975 1719,1981.5 1719,1968.5" fill="#4D443C">
+</polygon>
+<rect x="1578" y="1961" width="140" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="1592.7" y="1980" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Salir de la tanda</text>
+<path d="M1375 1975 L972 1975 Q960 1975 960 1963 L960 1878" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="960,1878 966.5,1889 953.5,1889" fill="#74685C">
+</polygon>
+<rect x="1111" y="1961" width="118" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="1122.4" y="1980" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Editar archivo</text>
+<path d="M880 1878 L880 1963 Q880 1975 868 1975 L820 1975" fill="none" stroke="#74685C" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="820,1975 831,1968.5 831,1981.5" fill="#74685C">
+</polygon>
+<rect x="170" y="2070" width="2370" height="220" rx="26" fill="#FBF6EF" stroke="#EFE6DB" stroke-width="1.5">
+</rect>
+<text x="202" y="2116" font-family="Inter" font-size="16" font-weight="700" fill="#F06424">05</text>
+<text x="242" y="2116" font-family="Inter" font-size="22" font-weight="700" fill="#1B1613" letter-spacing="0.44">MIS PEDIDOS</text>
+<path d="M118 2180 L240 2180" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="240,2180 229,2186.5 229,2173.5" fill="#4D443C">
+</polygon>
+<rect x="146.5" y="2166" width="67" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="152.1" y="2185" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Pedidos</text>
+<rect x="240" y="2142" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="279.2" y="2186" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Mis pedidos</text>
+<rect x="560" y="2113" width="200" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="606.6" y="2140.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">02 · Tu pedido</text>
+<rect x="560" y="2198" width="200" height="64" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="577.6" y="2236" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Detalle del pedido</text>
+<rect x="960" y="2208" width="240" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="1000.6" y="2235.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">02 · Nueva impresión</text>
+<path d="M430 2180 L483 2180 Q495 2180 495 2168 L495 2147 Q495 2135 507 2135 L560 2135" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="560,2135 549,2141.5 549,2128.5" fill="#4D443C">
+</polygon>
+<path d="M495 2180 L495 2218 Q495 2230 507 2230 L560 2230" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="560,2230 549,2236.5 549,2223.5" fill="#4D443C">
+</polygon>
+<path d="M760 2230 L960 2230" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="960,2230 949,2236.5 949,2223.5" fill="#4D443C">
+</polygon>
+<rect x="801" y="2216" width="118" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="812.1" y="2235" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Volver a pedir</text>
+<rect x="170" y="2320" width="2370" height="260" rx="26" fill="#FBF6EF" stroke="#EFE6DB" stroke-width="1.5">
+</rect>
+<text x="202" y="2366" font-family="Inter" font-size="16" font-weight="700" fill="#F06424">06</text>
+<text x="242" y="2366" font-family="Inter" font-size="22" font-weight="700" fill="#1B1613" letter-spacing="0.44">PERFIL Y AVISOS</text>
+<path d="M118 2410 L240 2410" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="240,2410 229,2416.5 229,2403.5" fill="#4D443C">
+</polygon>
+<rect x="150" y="2396" width="60" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="161.8" y="2415" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Perfil</text>
+<path d="M118 2500 L240 2500" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="240,2500 229,2506.5 229,2493.5" fill="#4D443C">
+</polygon>
+<rect x="150" y="2486" width="60" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="157.2" y="2505" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Avisos</text>
+<rect x="240" y="2372" width="190" height="76" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="297.1" y="2416" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Mi perfil</text>
+<rect x="240" y="2468" width="190" height="64" rx="18" fill="#FFFCF7" stroke="#E4D9CC" stroke-width="1.75">
+</rect>
+<text x="304.4" y="2506" font-family="Inter" font-size="19" font-weight="600" fill="#1B1613">Avisos</text>
+<rect x="700" y="2358" width="240" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="750.6" y="2385.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">03 · Perfil del local</text>
+<rect x="700" y="2418" width="240" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="753.9" y="2445.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">00 · Iniciar sesión</text>
+<rect x="700" y="2478" width="240" height="44" rx="22" fill="#F1E9DE" stroke="#E6DACB" stroke-width="1.5">
+</rect>
+<text x="750.6" y="2505.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#4D443C">03 · Perfil del local</text>
+<path d="M430 2410 L488 2410 Q500 2410 500 2398 L500 2392 Q500 2380 512 2380 L700 2380" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="700,2380 689,2386.5 689,2373.5" fill="#4D443C">
+</polygon>
+<rect x="525" y="2366" width="150" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="534.2" y="2385" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Locales guardados</text>
+<path d="M500 2410 L500 2428 Q500 2440 512 2440 L700 2440" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="700,2440 689,2446.5 689,2433.5" fill="#4D443C">
+</polygon>
+<rect x="544" y="2426" width="112" height="28" rx="8" fill="#FBF6EF" stroke="none" stroke-width="1.5">
+</rect>
+<text x="553.3" y="2445" font-family="Inter" font-size="14.5" font-weight="500" fill="#5F544A">Cerrar sesión</text>
+<path d="M430 2500 L700 2500" fill="none" stroke="#4D443C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="700,2500 689,2506.5 689,2493.5" fill="#4D443C">
+</polygon>
+<rect x="2620" y="280" width="1390" height="1650" rx="36" fill="#15101D" stroke="#3E3254" stroke-width="2">
+</rect>
+<text x="2670" y="348" font-family="Inter" font-size="40" font-weight="700" fill="#F4EEE6" letter-spacing="-0.80">Imprenta</text>
+<rect x="2740" y="370" width="1230" height="250" rx="26" fill="#201929" stroke="#3E3254" stroke-width="1.5">
+</rect>
+<text x="2772" y="416" font-family="Inter" font-size="16" font-weight="700" fill="#FFB38A">00</text>
+<text x="2812" y="416" font-family="Inter" font-size="22" font-weight="700" fill="#F4EEE6" letter-spacing="0.44">ACCESO</text>
+<rect x="2800" y="448" width="180" height="44" rx="22" fill="#2F2541" stroke="#43375C" stroke-width="1.5">
+</rect>
+<text x="2845.9" y="475.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#F4EEE6">Onboarding</text>
+<rect x="3080" y="432" width="170" height="76" rx="18" fill="#2F2541" stroke="#43375C" stroke-width="1.75">
+</rect>
+<text x="3127.0" y="476" font-family="Inter" font-size="19" font-weight="600" fill="#F4EEE6">Ingresar</text>
+<rect x="3290" y="522" width="200" height="76" rx="18" fill="#2F2541" stroke="#43375C" stroke-width="1.75">
+</rect>
+<text x="3324.2" y="566" font-family="Inter" font-size="19" font-weight="600" fill="#F4EEE6">Registrar local</text>
+<rect x="3560" y="432" width="190" height="76" rx="18" fill="#2F2541" stroke="#43375C" stroke-width="1.75">
+</rect>
+<text x="3594.3" y="476" font-family="Inter" font-size="19" font-weight="600" fill="#F4EEE6">Iniciar sesión</text>
+<rect x="3640" y="538" width="240" height="44" rx="22" fill="#3D2230" stroke="#75402F" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="3677.1" y="565.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#FFB38A">Recuperar contraseña</text>
+<path d="M2980 470 L3080 470" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3080,470 3069,476.5 3069,463.5" fill="#BFB4CE">
+</polygon>
+<path d="M3250 470 L3560 470" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3560,470 3549,476.5 3549,463.5" fill="#BFB4CE">
+</polygon>
+<path d="M3165 508 L3165 548 Q3165 560 3177 560 L3290 560" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3290,560 3279,566.5 3279,553.5" fill="#BFB4CE">
+</polygon>
+<path d="M3490 560 L3578 560 Q3590 560 3590 548 L3590 508" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3590,508 3596.5,519 3583.5,519" fill="#BFB4CE">
+</polygon>
+<path d="M3700 508 L3700 538" fill="none" stroke="#9689AA" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3700,538 3693.5,527 3706.5,527" fill="#9689AA">
+</polygon>
+<rect x="2740" y="650" width="1230" height="300" rx="26" fill="#201929" stroke="#3E3254" stroke-width="1.5">
+</rect>
+<text x="2772" y="696" font-family="Inter" font-size="16" font-weight="700" fill="#FFB38A">01</text>
+<text x="2812" y="696" font-family="Inter" font-size="22" font-weight="700" fill="#F4EEE6" letter-spacing="0.44">PANEL</text>
+<rect x="2800" y="762" width="200" height="76" rx="18" fill="#F4EEE6" stroke="#F4EEE6" stroke-width="1.75">
+</rect>
+<text x="2874.6" y="806" font-family="Inter" font-size="19" font-weight="600" fill="#201929">Panel</text>
+<rect x="3130" y="708" width="230" height="44" rx="22" fill="#3D2230" stroke="#75402F" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="3197.7" y="735.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#FFB38A">Cargar aviso</text>
+<rect x="3130" y="778" width="230" height="44" rx="22" fill="#3D2230" stroke="#75402F" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="3187.2" y="805.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#FFB38A">Cola presencial</text>
+<rect x="3130" y="848" width="230" height="44" rx="22" fill="#2F2541" stroke="#43375C" stroke-width="1.5">
+</rect>
+<text x="3164.9" y="875.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#F4EEE6">Aviso de nueva tanda</text>
+<rect x="3470" y="848" width="240" height="44" rx="22" fill="#2F2541" stroke="#43375C" stroke-width="1.5">
+</rect>
+<text x="3513.1" y="875.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#F4EEE6">02 · Detalle de tanda</text>
+<path d="M3750 470 L3908 470 Q3920 470 3920 482 L3920 623 Q3920 635 3908 635 L2962 635 Q2950 635 2950 647 L2950 762" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2950,762 2943.5,751 2956.5,751" fill="#BFB4CE">
+</polygon>
+<path d="M3000 800 L3048 800 Q3060 800 3060 788 L3060 742 Q3060 730 3072 730 L3130 730" fill="none" stroke="#9689AA" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3130,730 3119,736.5 3119,723.5" fill="#9689AA">
+</polygon>
+<path d="M3060 800 L3130 800" fill="none" stroke="#9689AA" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3130,800 3119,806.5 3119,793.5" fill="#9689AA">
+</polygon>
+<path d="M3060 800 L3060 858 Q3060 870 3072 870 L3130 870" fill="none" stroke="#9689AA" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3130,870 3119,876.5 3119,863.5" fill="#9689AA">
+</polygon>
+<path d="M3360 870 L3470 870" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3470,870 3459,876.5 3459,863.5" fill="#BFB4CE">
+</polygon>
+<path d="M2800 800 L2692 800 Q2680 800 2680 812 L2680 1640" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<rect x="2740" y="980" width="1230" height="450" rx="26" fill="#201929" stroke="#3E3254" stroke-width="1.5">
+</rect>
+<text x="2772" y="1026" font-family="Inter" font-size="16" font-weight="700" fill="#FFB38A">02</text>
+<text x="2812" y="1026" font-family="Inter" font-size="22" font-weight="700" fill="#F4EEE6" letter-spacing="0.44">COLA VIRTUAL</text>
+<path d="M2680 1190 L2800 1190" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2800,1190 2789,1196.5 2789,1183.5" fill="#BFB4CE">
+</polygon>
+<rect x="2707" y="1176" width="78" height="28" rx="8" fill="#201929" stroke="none" stroke-width="1.5">
+</rect>
+<text x="2730.4" y="1195" font-family="Inter" font-size="14.5" font-weight="500" fill="#BFB4CE">Cola</text>
+<rect x="2800" y="1152" width="190" height="76" rx="18" fill="#2F2541" stroke="#43375C" stroke-width="1.75">
+</rect>
+<text x="2842.8" y="1196" font-family="Inter" font-size="19" font-weight="600" fill="#F4EEE6">Cola virtual</text>
+<rect x="3200" y="1052" width="220" height="76" rx="18" fill="#15212E" stroke="#284159" stroke-width="1.75">
+</rect>
+<text x="3217.6" y="1096" font-family="Inter" font-size="19" font-weight="600" fill="#74AAE8">Archivo descargado</text>
+<rect x="3600" y="1052" width="190" height="76" rx="18" fill="#15212E" stroke="#284159" stroke-width="1.75">
+</rect>
+<text x="3644.0" y="1096" font-family="Inter" font-size="19" font-weight="600" fill="#74AAE8">Para retirar</text>
+<rect x="3100" y="1252" width="170" height="76" rx="18" fill="#2D2150" stroke="#54398A" stroke-width="1.75">
+</rect>
+<text x="3110.7" y="1296" font-family="Inter" font-size="19" font-weight="600" fill="#C9A8F7">Detalle de tanda</text>
+<rect x="3400" y="1252" width="230" height="76" rx="18" fill="#15212E" stroke="#284159" stroke-width="1.75">
+</rect>
+<text x="3412.1" y="1296" font-family="Inter" font-size="19" font-weight="600" fill="#74AAE8">Archivos descargados</text>
+<path d="M2990 1190 L3008 1190 Q3020 1190 3020 1178 L3020 1102 Q3020 1090 3032 1090 L3200 1090" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3200,1090 3189,1096.5 3189,1083.5" fill="#BFB4CE">
+</polygon>
+<rect x="3039" y="1076" width="142" height="28" rx="8" fill="#201929" stroke="none" stroke-width="1.5">
+</rect>
+<text x="3046.7" y="1095" font-family="Inter" font-size="14.5" font-weight="500" fill="#BFB4CE">Descargar archivo</text>
+<path d="M3020 1190 L3020 1278 Q3020 1290 3032 1290 L3100 1290" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3100,1290 3089,1296.5 3089,1283.5" fill="#BFB4CE">
+</polygon>
+<path d="M3420 1090 L3600 1090" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3600,1090 3589,1096.5 3589,1083.5" fill="#BFB4CE">
+</polygon>
+<rect x="3439" y="1076" width="142" height="28" rx="8" fill="#201929" stroke="none" stroke-width="1.5">
+</rect>
+<text x="3453.1" y="1095" font-family="Inter" font-size="14.5" font-weight="500" fill="#BFB4CE">Listo para retirar</text>
+<path d="M3270 1290 L3400 1290" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3400,1290 3389,1296.5 3389,1283.5" fill="#BFB4CE">
+</polygon>
+<rect x="3293" y="1276" width="84" height="28" rx="8" fill="#201929" stroke="none" stroke-width="1.5">
+</rect>
+<text x="3299.1" y="1295" font-family="Inter" font-size="14.5" font-weight="500" fill="#BFB4CE">Descargar</text>
+<path d="M3630 1290 L3683 1290 Q3695 1290 3695 1278 L3695 1128" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3695,1128 3701.5,1139 3688.5,1139" fill="#BFB4CE">
+</polygon>
+<rect x="3624" y="1186" width="142" height="28" rx="8" fill="#201929" stroke="none" stroke-width="1.5">
+</rect>
+<text x="3638.1" y="1205" font-family="Inter" font-size="14.5" font-weight="500" fill="#BFB4CE">Listo para retirar</text>
+<path d="M3760 1128 L3760 1363 Q3760 1375 3748 1375 L2907 1375 Q2895 1375 2895 1363 L2895 1228" fill="none" stroke="#9689AA" stroke-width="2" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2895,1228 2901.5,1239 2888.5,1239" fill="#9689AA">
+</polygon>
+<rect x="3263" y="1361" width="74" height="28" rx="8" fill="#201929" stroke="none" stroke-width="1.5">
+</rect>
+<text x="3271.4" y="1380" font-family="Inter" font-size="14.5" font-weight="500" fill="#BFB4CE">Rehacer</text>
+<rect x="2740" y="1460" width="1230" height="420" rx="26" fill="#201929" stroke="#3E3254" stroke-width="1.5">
+</rect>
+<text x="2772" y="1506" font-family="Inter" font-size="16" font-weight="700" fill="#FFB38A">03</text>
+<text x="2812" y="1506" font-family="Inter" font-size="22" font-weight="700" fill="#F4EEE6" letter-spacing="0.44">MI LOCAL</text>
+<path d="M2680 1640 L2800 1640" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="2800,1640 2789,1646.5 2789,1633.5" fill="#BFB4CE">
+</polygon>
+<rect x="2707" y="1626" width="78" height="28" rx="8" fill="#201929" stroke="none" stroke-width="1.5">
+</rect>
+<text x="2719.2" y="1645" font-family="Inter" font-size="14.5" font-weight="500" fill="#BFB4CE">Mi local</text>
+<rect x="2800" y="1602" width="190" height="76" rx="18" fill="#2F2541" stroke="#43375C" stroke-width="1.75">
+</rect>
+<text x="2859.5" y="1646" font-family="Inter" font-size="19" font-weight="600" fill="#F4EEE6">Mi local</text>
+<rect x="3130" y="1522" width="190" height="76" rx="18" fill="#2F2541" stroke="#43375C" stroke-width="1.75">
+</rect>
+<text x="3157.0" y="1566" font-family="Inter" font-size="19" font-weight="600" fill="#F4EEE6">Stock de papel</text>
+<rect x="3130" y="1612" width="190" height="76" rx="18" fill="#2F2541" stroke="#43375C" stroke-width="1.75">
+</rect>
+<text x="3186.0" y="1656" font-family="Inter" font-size="19" font-weight="600" fill="#F4EEE6">Reseñas</text>
+<rect x="3440" y="1628" width="230" height="44" rx="22" fill="#3D2230" stroke="#75402F" stroke-width="1.5" stroke-dasharray="6 4">
+</rect>
+<text x="3486.9" y="1655.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#FFB38A">Responder reseña</text>
+<rect x="3240" y="1718" width="270" height="44" rx="22" fill="#2F2541" stroke="#43375C" stroke-width="1.5">
+</rect>
+<text x="3275.9" y="1745.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#F4EEE6">Estudiante · Perfil del local</text>
+<rect x="3240" y="1788" width="270" height="44" rx="22" fill="#2F2541" stroke="#43375C" stroke-width="1.5">
+</rect>
+<text x="3308.9" y="1815.5" font-family="Inter" font-size="15.5" font-weight="600" fill="#F4EEE6">00 · Iniciar sesión</text>
+<path d="M2990 1640 L3048 1640 Q3060 1640 3060 1628 L3060 1572 Q3060 1560 3072 1560 L3130 1560" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3130,1560 3119,1566.5 3119,1553.5" fill="#BFB4CE">
+</polygon>
+<path d="M3060 1640 L3060 1645 Q3060 1650 3065 1650 L3130 1650" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3130,1650 3119,1656.5 3119,1643.5" fill="#BFB4CE">
+</polygon>
+<path d="M3320 1650 L3440 1650" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3440,1650 3429,1656.5 3429,1643.5" fill="#BFB4CE">
+</polygon>
+<path d="M3060 1650 L3060 1728 Q3060 1740 3072 1740 L3240 1740" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3240,1740 3229,1746.5 3229,1733.5" fill="#BFB4CE">
+</polygon>
+<rect x="3128" y="1726" width="44" height="28" rx="8" fill="#201929" stroke="none" stroke-width="1.5">
+</rect>
+<text x="3138.2" y="1745" font-family="Inter" font-size="14.5" font-weight="500" fill="#BFB4CE">Ver</text>
+<path d="M3060 1740 L3060 1798 Q3060 1810 3072 1810 L3240 1810" fill="none" stroke="#BFB4CE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<polygon points="3240,1810 3229,1816.5 3229,1803.5" fill="#BFB4CE">
+</polygon>
+<rect x="3094" y="1796" width="112" height="28" rx="8" fill="#201929" stroke="none" stroke-width="1.5">
+</rect>
+<text x="3103.3" y="1815" font-family="Inter" font-size="14.5" font-weight="500" fill="#BFB4CE">Cerrar sesión</text>
+</svg>

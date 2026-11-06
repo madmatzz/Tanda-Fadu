@@ -376,15 +376,28 @@ function busyHours(local, clock) {
   return { now, best, peak };
 }
 
+/** Nombre de cada parámetro que define una tanda, para avisar cuál ya no coincide. */
+const TANDA_PARAM_LABELS = {
+  size: "tamaño de papel",
+  mode: "tipo de impresión",
+  paper: "tipo de papel",
+  grammage: "gramaje",
+  pages: "cantidad de páginas",
+};
+
+/** Parámetros del pedido que no coinciden con la tanda (vacío si entra en ella). */
+function tandaMismatches(tanda, specs) {
+  const mismatches = [];
+  if (tanda.size !== specs.size) mismatches.push("size");
+  if (tanda.mode !== specs.mode) mismatches.push("mode");
+  if (tanda.paper !== specs.paper) mismatches.push("paper");
+  if (tanda.grammage !== specs.grammage) mismatches.push("grammage");
+  if (specs.pages < tanda.minPages || specs.pages > tanda.maxPages) mismatches.push("pages");
+  return mismatches;
+}
+
 function tandaCompatible(tanda, specs) {
-  return (
-    tanda.size === specs.size &&
-    tanda.mode === specs.mode &&
-    tanda.paper === specs.paper &&
-    tanda.minPages <= specs.pages &&
-    tanda.maxPages >= specs.pages &&
-    !tandaClosed(tanda)
-  );
+  return tandaMismatches(tanda, specs).length === 0 && !tandaClosed(tanda);
 }
 
 function findCompatibleTanda(state, specs, localId) {

@@ -211,16 +211,23 @@ const UI = {
   // ---------- Archivos ----------
 
   /** Tarjeta de archivo. removeAction: acción del tacho (opcional). */
-  fileCard({ name, meta, removeAction }) {
+  fileCard({ name, meta, removeAction, tanda }) {
+    // tanda: "en" (el pedido entra en la tanda elegida, violeta) o "fuera" (ya no entra).
+    const tag = tanda === "en"
+      ? UI.chip("En tanda", { tone: "tanda", icon: "layers" })
+      : tanda === "fuera"
+        ? UI.chip("Fuera de tanda", { tone: "warning", icon: "layers" })
+        : "";
     return UI.card(`
       <div class="row is-top gap-3">
         <span class="tile-icon">${icon("file-text", "icon-lg")}</span>
         <div class="stack gap-1 grow">
           <span class="t-h3 truncate">${esc(name)}</span>
           ${meta ? `<span class="t-small c-secondary">${esc(meta)}</span>` : ""}
+          ${tag ? `<span class="file-card-tag">${tag}</span>` : ""}
         </div>
         ${removeAction ? `<button type="button" class="ghost-btn file-card-remove" aria-label="Quitar archivo" ${on(removeAction)}>${icon("trash-2", "icon-lg")}</button>` : ""}
-      </div>`);
+      </div>`, { className: tanda === "en" ? "is-in-tanda" : "" });
   },
 
   dropzone({ label, hint, change, accept = ".pdf,.doc,.docx,.jpg,.jpeg,.png" }) {
@@ -249,6 +256,16 @@ const UI = {
 
   textField({ id, label, value = "", placeholder = "", hint, error, input, inputmode, autocomplete, maxlength }) {
     const control = `<input id="${id}" class="${cx("input", error && "is-invalid")}" type="text" value="${esc(value)}" placeholder="${esc(placeholder)}"${inputmode ? ` inputmode="${inputmode}"` : ""}${autocomplete ? ` autocomplete="${autocomplete}"` : ""}${maxlength ? ` maxlength="${maxlength}"` : ""}${error ? ' aria-invalid="true"' : ""} data-input="${input}">`;
+    return UI.field(label, control, { id, hint, error });
+  },
+
+  /** Contraseña con un botón para verla. shown: si se ve; toggle: acción del botón. */
+  passwordField({ id, label, value = "", hint, error, shown = false, autocomplete, input, toggle }) {
+    const control = `
+      <div class="password-field">
+        <input id="${id}" class="${cx("input", error && "is-invalid")}" type="${shown ? "text" : "password"}" value="${esc(value)}"${autocomplete ? ` autocomplete="${autocomplete}"` : ""}${error ? ' aria-invalid="true"' : ""} data-input="${input}">
+        <button type="button" class="password-toggle" aria-label="${shown ? "Ocultar contraseña" : "Mostrar contraseña"}" ${on(toggle)}>${icon(shown ? "eye-off" : "eye")}</button>
+      </div>`;
     return UI.field(label, control, { id, hint, error });
   },
 

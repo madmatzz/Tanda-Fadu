@@ -1,4 +1,28 @@
 // Especificaciones: páginas, copias, papel, color y pedidos especiales.
+// Si el pedido viene de sumarse a una tanda, sus parámetros arrancan con los de la tanda y se
+// marcan en violeta. Si el usuario cambia uno, el pedido sale de la tanda y se le avisa.
+
+/** Tanda a la que se sumó el estudiante antes de cargar el archivo, o null si imprime suelto. */
+function joinedTanda(state) {
+  const draft = state.draft;
+  return isTandaFlow() && draft.tandaPreselected && draft.tandaId ? tandaById(state, draft.tandaId) : null;
+}
+
+/** "en" si el pedido entra en la tanda, "fuera" si ya no entra, y undefined si no hay tanda. */
+function tandaStatus(state) {
+  const tanda = joinedTanda(state);
+  if (!tanda) return undefined;
+  return tandaMismatches(tanda, state.draft.specs).length ? "fuera" : "en";
+}
+
+/** Cambia las especificaciones y, si con eso el pedido sale de la tanda, lo avisa. */
+function changeSpecs(patch) {
+  const before = tandaStatus(Store.state);
+  actions.setSpecs(patch);
+  if (before === "en" && tandaStatus(Store.state) === "fuera") {
+    App.toast("Al cambiar este parámetro estás saliendo de la tanda");
+  }
+}
 
 App.start({
   render() {
@@ -6,6 +30,10 @@ App.start({
     const file = state.draft.file;
     const specs = state.draft.specs;
     const title = isTandaFlow() ? "Tandas" : "Imprimir FADU";
+    const tanda = joinedTanda(state);
+    const mismatches = tanda ? tandaMismatches(tanda, specs) : [];
+    // Clase de cada parámetro: violeta mientras siga coincidiendo con la tanda.
+    const tp = (key) => cx("tanda-param", tanda && !mismatches.includes(key) && "is-in-tanda");
 
     if (!file) {
       return UI.screen({
@@ -91,20 +119,26 @@ App.start({
       footer,
       content: `
         <div class="stack gap-5">
-          ${UI.fileCard({ name: file.name, meta: fileMeta(file), removeAction: "removeFile" })}
+          ${UI.fileCard({ name: file.name, meta: fileMeta(file), removeAction: "removeFile", tanda: tandaStatus(state) })}
 
           ${UI.pageTitle("Especificaciones", "Elegí cómo imprimirlo. Después validamos que el archivo sirva para eso.")}
 
           <div class="grid-2 gap-3">
-            ${UI.textField({
-              id: "pages",
-              label: "Páginas",
-              value: range,
-              inputmode: "numeric",
-              input: "changeRange",
-              error: rangeValid ? "" : `Usá un rango entre 1 y ${file.pages}`,
-              hint: rangeValid ? `De ${file.pages} en total` : "",
-            })}
+            <div class="${tp("pages")}">
+              ${UI.textField({
+                id: "pages",
+                label: "Páginas",
+                value: range,
+                inputmode: "numeric",
+                input: "changeRange",
+                error: rangeValid ? "" : `Usá un rango entre 1 y ${file.pages}`,
+                hint: rangeValid
+                  ? tanda && !mismatches.includes("pages")
+                    ? `Tanda de ${tanda.minPages} a ${tanda.maxPages} · ${file.pages} en total`
+                    : `De ${file.pages} en total`
+                  : "",
+              })}
+            </div>
             <div class="form-field">
               <span class="form-label">Copias</span>
               ${UI.stepper({ id: "copies", label: "Cantidad de copias", value: specs.copies, min: 1, max: 20, action: "changeCopies" })}
@@ -112,23 +146,27 @@ App.start({
           </div>
 
           <div class="grid-2 gap-3">
-            ${UI.selectField({
-              id: "size",
-              label: "Tamaño de papel",
-              value: specs.size,
-              change: "changeSize",
-              options: [{ value: "A4", label: "A4" }, { value: "A3", label: "A3" }],
-            })}
-            ${UI.selectField({
-              id: "grammage",
-              label: "Gramaje",
-              value: specs.grammage,
-              change: "changeGrammage",
-              options: GRAMMAGE_OPTIONS[specs.paper].map((grammage) => ({ value: grammage, label: `${grammage} g/m²` })),
-            })}
+            <div class="${tp("size")}">
+              ${UI.selectField({
+                id: "size",
+                label: "Tamaño de papel",
+                value: specs.size,
+                change: "changeSize",
+                options: [{ value: "A4", label: "A4" }, { value: "A3", label: "A3" }],
+              })}
+            </div>
+            <div class="${tp("grammage")}">
+              ${UI.selectField({
+                id: "grammage",
+                label: "Gramaje",
+                value: specs.grammage,
+                change: "changeGrammage",
+                options: GRAMMAGE_OPTIONS[specs.paper].map((grammage) => ({ value: grammage, label: `${grammage} g/m²` })),
+              })}
+            </div>
           </div>
 
-          <div class="form-field">
+          <div class="form-field ${tp("mode")}">
             <span class="form-label">Tipo de impresión</span>
             ${UI.segmented({
               name: "mode",
@@ -139,7 +177,7 @@ App.start({
             })}
           </div>
 
-          <div class="form-field">
+          <div class="form-field ${tp("paper")}">
             <span class="form-label">Tipo de papel</span>
             <div class="grid-3 gap-2">
               ${PAPER_OPTIONS.map((paper) => UI.radioCard({
@@ -196,27 +234,27 @@ App.start({
 
     changeRange(input) {
       const pages = countPages(input.value, Store.state.draft.file.pages);
-      actions.setSpecs(pages === null ? { range: input.value } : { range: input.value, pages });
+      changeSpecs(pages === null ? { range: input.value } : { range: input.value, pages });
     },
 
     changeCopies(button) {
-      actions.setSpecs({ copies: Store.state.draft.specs.copies + Number(button.dataset.step) });
+      changeSpecs({ copies: Store.state.draft.specs.copies + Number(button.dataset.step) });
     },
 
     changeSize(select) {
-      actions.setSpecs({ size: select.value });
+      changeSpecs({ size: select.value });
     },
 
     changeGrammage(select) {
-      actions.setSpecs({ grammage: select.value });
+      changeSpecs({ grammage: select.value });
     },
 
     changeMode(input) {
-      actions.setSpecs({ mode: input.value });
+      changeSpecs({ mode: input.value });
     },
 
     choosePaper(input) {
-      actions.setSpecs({ paper: input.value, grammage: GRAMMAGE_OPTIONS[input.value][0] });
+      changeSpecs({ paper: input.value, grammage: GRAMMAGE_OPTIONS[input.value][0] });
     },
 
     toggleSpecial(input) {
@@ -226,24 +264,24 @@ App.start({
       const patch = { specials: input.checked ? [...current, id] : current.filter((item) => item !== id) };
       if (id === "montaje" && input.checked && !specs.mountMaterial) patch.mountMaterial = "carton";
       if (id === "rotulado" && !input.checked) patch.labelFile = null;
-      actions.setSpecs(patch);
+      changeSpecs(patch);
     },
 
     chooseMount(input) {
-      actions.setSpecs({ mountMaterial: input.value });
+      changeSpecs({ mountMaterial: input.value });
     },
 
     uploadLabel(input) {
       const selected = input.files[0];
-      if (selected) actions.setSpecs({ labelFile: selected.name });
+      if (selected) changeSpecs({ labelFile: selected.name });
     },
 
     removeLabel() {
-      actions.setSpecs({ labelFile: null });
+      changeSpecs({ labelFile: null });
     },
 
     changeNotes(textarea) {
-      actions.setSpecs({ notes: textarea.value });
+      changeSpecs({ notes: textarea.value });
     },
 
     validate() {

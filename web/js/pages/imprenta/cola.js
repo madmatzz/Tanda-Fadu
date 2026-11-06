@@ -146,7 +146,7 @@ App.start({
             ? ShopUI.tandaRow(entry.tanda, entry.orders)
             : ShopUI.orderRow(entry.order, index === 0 && !current
               ? ""
-              : index === 0 ? UI.chip("Siguiente", { tone: "info" }) : `<span class="t-caption c-muted nowrap">en ${minutesUntil(index)} min</span>`)).join("")}
+              : index === 0 ? UI.chip("Siguiente", { tone: "accent" }) : `<span class="t-caption c-muted nowrap">en ${minutesUntil(index)} min</span>`)).join("")}
         </div>
         ${toggleButton("waiting", entries.length, QUEUE_PREVIEW, "Ver toda la cola")}`
       : '<div class="soft-box is-compact">No hay pedidos esperando.</div>';

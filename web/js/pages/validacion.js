@@ -101,6 +101,9 @@ App.start({
     const selectedTanda = state.draft.tandaId ? tandaById(state, state.draft.tandaId) : null;
     const tandaLocal = selectedTanda ? localById(state, selectedTanda.localId) : null;
     const tandaMatch = ready && isTandaFlow() && state.draft.tandaPreselected && selectedTanda;
+    // Si el pedido venía de una tanda pero los cambios hicieron que ya no entre, no se puede seguir en ella.
+    const tandaMismatch = tandaMatch ? tandaMismatches(selectedTanda, specs) : [];
+    const tandaOut = tandaMismatch.length > 0;
     const total = fixedLocal ? estimateTotal(specs, fixedLocal) : averageTotal(specs, state.locals);
     const next = isTandaFlow()
       ? state.draft.tandaPreselected
@@ -126,7 +129,10 @@ App.start({
             perPage: fixedLocal ? pricePerPage(specs, fixedLocal) : averagePricePerPage(specs, state.locals),
             specs,
           })}
-          ${UI.button({ label: next.label, block: true, href: next.href })}
+          ${tandaOut
+            ? `${UI.button({ label: "Editar archivo", icon: "pencil", block: true, href: specsHref })}
+               ${UI.button({ label: "Salir de la tanda", variant: "outline", block: true, action: "leaveTanda" })}`
+            : UI.button({ label: next.label, block: true, href: next.href })}
         </div>`;
     }
 
@@ -134,11 +140,13 @@ App.start({
     if (ready) {
       body = `
         ${tandaMatch ? `
-          <div class="tanda-match-banner" role="status">
-            <span class="round-icon">${icon("layers", "icon-lg")}</span>
+          <div class="${cx("tanda-match-banner", tandaOut && "is-out")}" role="status">
+            <span class="round-icon">${icon(tandaOut ? "alert-triangle" : "layers", "icon-lg")}</span>
             <span class="stack gap-1 grow">
-              <span class="t-strong">Tu archivo es compatible con la tanda que elegiste</span>
-              <span class="t-small">${esc(selectedTanda.label)} · ${esc(selectedTanda.userTitle)}${tandaLocal ? ` · ${esc(tandaLocal.name)}` : ""}</span>
+              <span class="t-strong">${tandaOut ? "Tu archivo no es compatible con la tanda que elegiste" : "Tu archivo es compatible con la tanda que elegiste"}</span>
+              <span class="t-small">${tandaOut
+                ? `No coincide en ${tandaMismatch.map((key) => TANDA_PARAM_LABELS[key]).join(", ")}. ${esc(selectedTanda.label)} es ${esc(selectedTanda.userTitle)}.`
+                : `${esc(selectedTanda.label)} · ${esc(selectedTanda.userTitle)}${tandaLocal ? ` · ${esc(tandaLocal.name)}` : ""}`}</span>
             </span>
           </div>` : ""}
         ${fileSummary(file, specs, total)}
@@ -233,6 +241,12 @@ App.start({
     uploadAnother() {
       App.go(`imprimir.html${flowSuffix()}`);
       actions.setFile(null);
+    },
+
+    /** El pedido deja la tanda y sigue como una impresión normal: se elige un local. */
+    leaveTanda() {
+      App.go("comparar.html?desde=validacion");
+      actions.leaveTanda();
     },
 
     openSummary() {

@@ -89,6 +89,8 @@ App.start({
               ${UI.button({ label: "Reiniciar demo", variant: "soft", size: "md", icon: "rotate-ccw", block: true, action: "demoReset" })}
             </div>
           </section>
+
+          ${UI.button({ label: "Cerrar sesión", icon: "log-out", variant: "outline", block: true, href: "login.html" })}
         </div>`,
     });
   },

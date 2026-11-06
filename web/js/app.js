@@ -27,6 +27,9 @@ const App = {
     Store.subscribe(() => this.render());
     if (page.init) page.init();
     this.render();
+    // js/entrada.js ya decidió si corresponde la pantalla de carga: va encima de lo recién dibujado.
+    const root = document.documentElement;
+    if (root.classList.contains("splash-active") && !root.classList.contains("is-redirecting")) Splash.start();
   },
 
   /** Vuelve a dibujar la pantalla manteniendo el foco y el scroll. */
@@ -121,8 +124,29 @@ const App = {
       </nav>`);
   },
 
-  /** Ignora el clic que llega al soltar un arrastre, para que no active botones ni links. */
-  suppressClick() {
+  /** Aviso corto abajo del teléfono, justo encima del pie de la pantalla. Se va solo a los pocos segundos. */
+  toast(message) {
+    const device = this.screenEl.parentElement;
+    clearTimeout(this.toastTimer);
+    device.querySelector(".toast")?.remove();
+
+    const footer = this.screenEl.querySelector(".footer");
+    const bottom = footer ? device.getBoundingClientRect().bottom - footer.getBoundingClientRect().top + 4 : 96;
+    const element = document.createElement("div");
+    element.className = "toast";
+    element.setAttribute("role", "status");
+    element.style.bottom = `${bottom}px`;
+    element.innerHTML = `${icon("layers", "icon-lg")}<span>${esc(message)}</span>`;
+    device.appendChild(element);
+    requestAnimationFrame(() => element.classList.add("is-visible"));
+
+    this.toastTimer = setTimeout(() => {
+      element.classList.remove("is-visible");
+      setTimeout(() => element.remove(), 260);
+    }, 3600);
+  },
+
+  /** Ignora el clic que llega al soltar un arrastre, para que no active botones ni links. */  suppressClick() {
     this.clickSuppressed = true;
     setTimeout(() => {
       this.clickSuppressed = false;

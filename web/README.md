@@ -23,6 +23,10 @@ Cada pantalla es un archivo HTML con su script en `js/pages/`:
 
 | Archivo | Pantalla |
 |---|---|
+| `onboarding.html` | Presentación de la app (se ve la primera vez que se abre) |
+| `ingresar.html` | Elegir entre iniciar sesión o registrarse |
+| `registro.html` | Crear una cuenta |
+| `login.html` | Iniciar sesión |
 | `index.html` | Inicio |
 | `imprimir.html` | Nueva impresión (subir archivo) |
 | `especificaciones.html` | Especificaciones y pedidos especiales |
@@ -46,6 +50,9 @@ Están en `imprenta/`, con su script en `js/pages/imprenta/`. Administran El Pol
 
 | Archivo | Pantalla |
 |---|---|
+| `imprenta/ingresar.html` | Elegir entre iniciar sesión o registrar un local |
+| `imprenta/registro.html` | Registrar un local |
+| `imprenta/login.html` | Iniciar sesión |
 | `imprenta/index.html` | Panel: resumen del día, cola presencial, stock, reseñas y avisos |
 | `imprenta/cola.html` | Cola virtual: pedidos individuales y tandas, impresión y retiro |
 | `imprenta/tanda.html` | Detalle de una tanda, con la impresora y el botón para imprimirla |
@@ -79,6 +86,9 @@ js/
   store.js         estado de la demo y las acciones que lo cambian
   ui.js            componentes: cada función devuelve el HTML de un componente
   app.js           dibuja la pantalla y conecta los clics y campos con las acciones
+  acceso.js        piezas del ingreso, compartidas por estudiante e imprenta
+  entrada.js       va en el head: decide si se muestra la pantalla de carga antes del primer pintado
+  splash.js        pantalla de carga: video del logo (video/logo-carga.mp4), encima de Inicio u Onboarding
   sheets.js        paneles compartidos: menú demo e informar cola
   imprenta.js      piezas de la vista de imprenta: navegación, filas de pedidos y paneles
   floors.js        planos de los pisos de la FADU (trazos copiados de img/mapas)

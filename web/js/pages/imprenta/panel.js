@@ -72,7 +72,7 @@ App.start({
                 </span>
               </span>
             </a>
-            <a class="shop-tile" href="imprenta/cola.html#retirar">
+            <a class="shop-tile is-green" href="imprenta/cola.html#retirar">
               <span class="row gap-2 t-small fw-semibold">${icon("package")}Para retirar</span>
               ${ShopUI.metric(ready.length, ready.length === 1 ? "pedido listo" : "pedidos listos")}
               <span class="t-caption">Esperan en el mostrador</span>
@@ -90,7 +90,7 @@ App.start({
               </div>
               ${UI.inPersonQueue({ count: local.queue.inPerson })}
               ${UI.button({ label: "Actualizar cola presencial", variant: "outline", size: "md", block: true, action: "openPeopleSheet" })}
-            </div>`)}
+            </div>`, { className: "shop-presencial" })}
 
           <section class="stack gap-3">
             ${UI.sectionHeader("Stock de papel", "Gestionar", "imprenta/stock.html", "h3")}
@@ -100,7 +100,7 @@ App.start({
             <p class="t-caption c-muted">${lowStock.length ? `${plural(lowStock.length, "papel necesita", "papeles necesitan")} reposición.` : "Todo el papel está disponible."} Los estudiantes ven el stock al instante.</p>
           </section>
 
-          <a class="card card-button shop-link-row" href="imprenta/resenas.html">
+          <a class="card card-button shop-link-row is-reviews" href="imprenta/resenas.html">
             <span class="round-icon">${icon("message-square")}</span>
             <span class="stack gap-05 grow">
               <span class="t-strong">Reseñas · ${ratingLabel(local.rating)} ${icon("star", "icon-sm star-on")}</span>
